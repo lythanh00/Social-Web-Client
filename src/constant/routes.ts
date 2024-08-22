@@ -1,0 +1,15 @@
+const CLIENT: string = '';
+
+export const CLIENT_ROUTE_NAME = {
+  SIGNIN: 'signin',
+  REGISTER: 'register',
+  DASHBOARD: '',
+  NOT_FOUND_ERR: 'not-found'
+};
+
+export const CLIENT_ROUTE_PATH = {
+  SIGNIN: `${CLIENT}/${CLIENT_ROUTE_NAME.SIGNIN}`,
+  REGISTER: `${CLIENT}/${CLIENT_ROUTE_NAME.REGISTER}`,
+  DASHBOARD: `${CLIENT}/${CLIENT_ROUTE_NAME.DASHBOARD}`,
+  NOT_FOUND_ERR: `${CLIENT}/${CLIENT_ROUTE_NAME.NOT_FOUND_ERR}`
+};
