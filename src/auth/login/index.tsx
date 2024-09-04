@@ -89,7 +89,8 @@ const SignIn: React.FC = () => {
   const signInMutate = useMutation({
     mutationFn: (payload: ILoginDto) => api.post(`${process.env.REACT_APP_API_URL}/auth/login`, payload),
     onSuccess: (data) => {
-      localStorage.setItem('token', data?.data?.token);
+      console.log('token', data?.data);
+      localStorage.setItem('token', data?.data?.access_token);
       navigate(CLIENT_ROUTE_PATH.DASHBOARD);
       setInputError(''); // Xóa lỗi khi thành công
       message.success('Đăng nhập thành công'); // Hiển thị thông báo thành công
