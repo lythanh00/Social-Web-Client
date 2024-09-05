@@ -135,7 +135,7 @@ const SignIn: React.FC = () => {
         <Header />
         <div className="h-screen w-full flex  justify-center items-center">
           <Form name="basic" className="bg-zinc-200/20 p-5 rounded-md shadow-2xl m-10">
-            <div className="text-center text-white m-2 font-bold text-xl">ĐĂNG NHẬP</div>
+            <div className="text-center text-white m-2 font-bold text-xl">LOGIN</div>
             <div className="h-px w-48 mx-auto bg-white mb-4"></div>
             <Form.Item
               label="Email"
@@ -203,11 +203,11 @@ const SignIn: React.FC = () => {
                     className: 'text-black',
                     onClick: handleClick,
                   }}
-                  textButton="Đăng nhập"
+                  textButton="Login"
                 />
               </ConfigProvider>
               <Link to="/register">
-                <ButtonLink buttonProps={{ size: 'middle', className: 'text-black' }} textButton="Tạo tài khoản mới?" />
+                <ButtonLink buttonProps={{ size: 'middle', className: 'text-black' }} textButton="Create new account" />
               </Link>
             </Form.Item>
           </Form>

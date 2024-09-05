@@ -38,16 +38,18 @@ const AppHeader: React.FC = () => {
       <div className="bg-zinc-200/20 flex items-center justify-end w-11/12 absolute my-5 rounded-lg">
         <ConfigProvider
           button={{
-            className: linearGradientButton
+            className: linearGradientButton,
           }}
         >
-          {!isSignIn ? <Link to="/">
-            <Button buttonProps={{ size: 'middle', className: 'text-white mx-2 my-2' }} textButton="Đăng Nhập" />
-          </Link> : <Link to="/register">
-            <Button buttonProps={{ size: 'middle', className: 'text-white mx-2 my-2' }} textButton="Đăng ký" />
-          </Link>}
-
-
+          {!isSignIn ? (
+            <Link to="/">
+              <Button buttonProps={{ size: 'middle', className: 'text-white mx-2 my-2' }} textButton="Login" />
+            </Link>
+          ) : (
+            <Link to="/register">
+              <Button buttonProps={{ size: 'middle', className: 'text-white mx-2 my-2' }} textButton="Register" />
+            </Link>
+          )}
         </ConfigProvider>
         <Outlet />
       </div>

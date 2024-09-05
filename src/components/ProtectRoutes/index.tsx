@@ -1,13 +1,11 @@
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
+import { LOCAL_STORAGE, SESSION_STORAGE } from '../../constant/storage';
 
 const ProtectRoute = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
-
+  const isLoggedIn = Boolean(
+    localStorage.getItem(LOCAL_STORAGE.TOKEN) || sessionStorage.getItem(SESSION_STORAGE.TOKEN),
+  );
   return isLoggedIn ? <Outlet /> : <Navigate to={CLIENT_ROUTE_PATH.SIGNIN} />;
 };
 
