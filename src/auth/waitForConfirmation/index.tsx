@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { api } from '../../apis';
-import { Form, ConfigProvider } from 'antd';
+import { Form, ConfigProvider, message } from 'antd';
 import { css } from '@emotion/css';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
@@ -52,7 +52,9 @@ const WaitForConfirmation: React.FC = () => {
         throw error;
       }
     },
-    onSuccess: (data) => {},
+    onSuccess: (data) => {
+      message.success('Verify success!');
+    },
     onError: (error) => {
       console.error('onError:', error);
     },
