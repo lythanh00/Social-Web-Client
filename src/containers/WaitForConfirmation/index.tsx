@@ -34,12 +34,9 @@ const WaitForConfirmation: React.FC = () => {
       }
     }
   `;
-  console.log('=========');
 
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
-  console.log(token);
-
   const verifytoken = useMutation({
     mutationFn: async (data: { token: any }) => {
       try {

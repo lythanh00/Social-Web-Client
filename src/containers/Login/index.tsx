@@ -102,8 +102,6 @@ const SignIn: React.FC = () => {
 
   // Hàm thông báo lỗi và chứa nhiều sự kiện onClick
   const handleClick = () => {
-    console.log('email', email);
-
     if (!password || !email) {
       return messageApi.open({
         type: 'error',
@@ -122,8 +120,6 @@ const SignIn: React.FC = () => {
         content: 'Password must be at least 6 characters',
       });
     } else {
-      console.log('email', email);
-
       signInMutate.mutate({ email, password });
     }
   };

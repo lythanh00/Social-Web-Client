@@ -1,0 +1,43 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: #ffffff;
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-search {
+  width: 300px;
+  margin-left: 10px;
+  border-radius: 20px;
+  height: 40px;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.navbar-logo-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

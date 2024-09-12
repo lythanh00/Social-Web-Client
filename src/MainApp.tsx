@@ -5,21 +5,12 @@ import { api } from './apis';
 
 const { Content } = Layout;
 
-interface IMainAppProp {
-}
+interface IMainAppProp {}
 
 const MainApp = (props: IMainAppProp) => {
-
   return (
     <Layout style={{ minHeight: '100vh' }} hasSider={true}>
-      <Content
-        style={{
-          padding: 24,
-          margin: 0,
-          height: '1vh',
-          overflow: 'auto'
-        }}
-      >
+      <Content>
         <Outlet />
       </Content>
     </Layout>

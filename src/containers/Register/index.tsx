@@ -8,7 +8,6 @@ import { Outlet, Link } from 'react-router-dom';
 import ButtonC from '../../components/Button';
 import ButtonLink from '../../components/ButtonLink';
 import InputEmail from '../../components/InputEmail';
-import InputSR from '../../components/InputSR';
 import InputPassWord from '../../components/InputPassword';
 import Header from '../../components/Header';
 
@@ -99,8 +98,6 @@ const Register: React.FC = () => {
   const register = useMutation({
     mutationFn: (payload: IRegisterDto) => api.post(`${process.env.REACT_APP_API_URL}/auth/register`, payload),
     onSuccess: (data) => {
-      console.log('onSuccess:', data);
-
       message.success('Register success! Verify email');
     },
     onError: (error: any) => {

@@ -4,16 +4,16 @@ import { SuspenseWrapper } from '../../components/loading/SuspenseWrap';
 import ProtectRoute from '../../components/ProtectRoutes';
 import AuthRoute from '../../components/AuthRoutes';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
-import Chat from '../../auth/chat';
+import Home from '../../containers/Home';
 
 // example of lazy loading
 const Client = React.lazy(() => import('./index'));
 // const Chat = React.lazy(() => import('../../auth/chat'));
-const WaitForConfirmation = React.lazy(() => import('../../auth/waitForConfirmation'));
-const Register = React.lazy(() => import('../../auth/register'));
+const WaitForConfirmation = React.lazy(() => import('../../containers/WaitForConfirmation'));
+const Register = React.lazy(() => import('../../containers/Register'));
 // const ForgotPassword = React.lazy(() => import('../../auth/forgotPassword'));
 // const ChangePassword = React.lazy(() => import('../../auth/changePassword'));
-const SignIn = React.lazy(() => import('../../auth/login'));
+const SignIn = React.lazy(() => import('../../containers/Login'));
 const NotFound = React.lazy(() => import('../../components/NotFound'));
 
 export const ClientRoutes = () => {
@@ -60,7 +60,7 @@ export const ClientRoutes = () => {
       {/* using ProtectRoute when the route need user to sign in to access it */}
       <Route element={<ProtectRoute />}>
         <Route path={`/${CLIENT_ROUTE_PATH.DASHBOARD}`} element={<SuspenseWrapper component={<Client />} />}>
-          <Route path={`/${CLIENT_ROUTE_PATH.CHAT}`} element={<SuspenseWrapper component={<Chat />} />} />
+          <Route path={`/${CLIENT_ROUTE_PATH.CHAT}`} element={<SuspenseWrapper component={<Home />} />} />
         </Route>
       </Route>
       {/* Not Found */}
