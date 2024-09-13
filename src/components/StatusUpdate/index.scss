@@ -2,18 +2,22 @@
   align-items: center;
 }
 
-.status-update-avatar {
+.status-update-meta-avatar {
   height: 40px;
   width: 40px;
 }
 
 .question-button {
   height: 40px;
-  width: 80%;
+  width: 100%;
   background-color: #f0f2f5;
   color: #999999;
-  //   border: none;
-  border-radius: 20px; /* Bo góc */
+  border: none;
+  border-radius: 20px;
   font-size: 16px;
-  margin-left: 16px;
+}
+
+.question-button:hover {
+  background-color: #e6e6e6 !important;
+  color: #999999 !important;
 }

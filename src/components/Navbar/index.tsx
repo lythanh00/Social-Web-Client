@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Menu, Input, Avatar } from 'antd';
 import { SearchOutlined, BellOutlined, MessageOutlined } from '@ant-design/icons';
 import './index.scss';
-import logo from '../../assets/logo.jpg'; // Import hình ảnh
+import logo from '../../assets/logo.jpg';
 const { Header } = Layout;
 
 const Navbar: React.FC = () => {

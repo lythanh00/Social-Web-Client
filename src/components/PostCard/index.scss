@@ -1,4 +1,38 @@
-.post-card-avatar {
+.post-card {
+  margin-bottom: 16px;
+}
+
+.post-card-meta {
+  margin-bottom: 5px !important;
+}
+
+.post-card-meta-avatar {
   height: 40px;
   width: 40px;
+}
+
+.post-card-meta-name-time {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card-meta-name {
+  color: #1d2129; /* Màu chữ giống như màu của tên trên Facebook */
+  font-size: 14px; /* Kích thước chữ phù hợp */
+  font-weight: bold; /* Đậm chữ để nổi bật */
+  margin: 0; /* Loại bỏ khoảng cách mặc định */
+  line-height: 1.2; /* Khoảng cách giữa các dòng */
+  word-break: break-word; /* Cắt từ quá dài để tránh tràn ra ngoài */
+  overflow-wrap: break-word; /* Đảm bảo từ dài sẽ tự xuống dòng */
+  white-space: normal; /* Cho phép xuống dòng tự động */
+}
+
+.post-card-meta-time {
+  color: #65676b; /* Màu chữ cho thời gian, giống như trên Facebook */
+  font-size: 12px; /* Kích thước chữ nhỏ hơn cho thời gian */
+  margin-top: 4px; /* Khoảng cách giữa tên và thời gian */
+}
+
+.post-card-image {
+  margin-top: 16px;
 }
