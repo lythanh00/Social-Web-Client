@@ -59,8 +59,8 @@ export const ClientRoutes = () => {
       {/* ProtectRoute */}
       {/* using ProtectRoute when the route need user to sign in to access it */}
       <Route element={<ProtectRoute />}>
-        <Route path={`/${CLIENT_ROUTE_PATH.DASHBOARD}`} element={<SuspenseWrapper component={<Client />} />}>
-          <Route path={`/${CLIENT_ROUTE_PATH.CHAT}`} element={<SuspenseWrapper component={<Home />} />} />
+        <Route path={`/${CLIENT_ROUTE_PATH.HOME}`} element={<SuspenseWrapper component={<Client />} />}>
+          <Route path={`/${CLIENT_ROUTE_PATH.HOME}`} element={<SuspenseWrapper component={<Home />} />} />
         </Route>
       </Route>
       {/* Not Found */}

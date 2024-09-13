@@ -29,7 +29,7 @@ const SignIn: React.FC = () => {
 
     if (token) {
       // Nếu token tồn tại, chuyển hướng đến trang home
-      navigate(CLIENT_ROUTE_PATH.DASHBOARD);
+      navigate(CLIENT_ROUTE_PATH.HOME);
     }
   }, [navigate]);
 
@@ -89,7 +89,7 @@ const SignIn: React.FC = () => {
     onSuccess: (data) => {
       console.log('token', data?.data);
       localStorage.setItem('token', data?.data?.access_token);
-      navigate(CLIENT_ROUTE_PATH.DASHBOARD);
+      navigate(CLIENT_ROUTE_PATH.HOME);
       setInputError(''); // Xóa lỗi khi thành công
       message.success('Login success!'); // Hiển thị thông báo thành công
     },

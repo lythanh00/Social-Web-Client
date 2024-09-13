@@ -22,51 +22,6 @@ const LeftSidebar: React.FC = () => {
       <Menu.Item key="4">
         <Avatar src={more} /> More
       </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
-      <Menu.Item key="4" icon={<DownCircleOutlined />}>
-        More
-      </Menu.Item>
     </Menu>
   );
 };
