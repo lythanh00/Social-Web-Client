@@ -9,11 +9,12 @@ interface IMainAppProp {}
 
 const MainApp = (props: IMainAppProp) => {
   return (
-    <Layout style={{ minHeight: '100vh' }} hasSider={true}>
-      <Content>
-        <Outlet />
-      </Content>
-    </Layout>
+    // <Layout style={{ minHeight: '100vh' }} hasSider={true}>
+    //   <Content>
+    //     <Outlet />
+    //   </Content>
+    // </Layout>
+    <Outlet />
   );
 };
 export default MainApp;

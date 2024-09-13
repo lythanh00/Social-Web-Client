@@ -1,0 +1,17 @@
+.homepage {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.layout-content {
+  display: flex;
+  position: relative;
+  top: 64px;
+}
+
+.content {
+  padding-left: 50px;
+  padding-right: 50px;
+}
