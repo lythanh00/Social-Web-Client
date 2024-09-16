@@ -9959,6 +9959,13 @@ react-is@^18.0.0, react-is@^18.2.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.3.1.tgz"
   integrity sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==
 
+react-jwt@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-jwt/-/react-jwt-1.2.2.tgz#768d5584438a6f7ce4b138f09c3c9f73c4cb1b64"
+  integrity sha512-1I0Ei1F9m7Nzo1jaeeZk7dpUC4srIVC3bUxDqgD9mFltoTyytp5TFPkK3XMWfLE5iYUsQ+C7tNYbf/gd61D4Sw==
+  optionalDependencies:
+    fsevents "^2.3.2"
+
 react-query@^3.39.3:
   version "3.39.3"
   resolved "https://registry.npmjs.org/react-query/-/react-query-3.39.3.tgz"

@@ -8,22 +8,42 @@ import group from '../../assets/group.jpg';
 import more from '../../assets/more.jpg';
 
 const LeftSidebar: React.FC = () => {
-  return (
-    <Menu className="left-sidebar-menu">
-      <Menu.Item key="1">
-        <Avatar src={testImage} /> Lý Tiến thành
-      </Menu.Item>
-      <Menu.Item key="2">
-        <Avatar src={friend} /> Bạn bè
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Avatar src={group} /> Nhóm
-      </Menu.Item>
-      <Menu.Item key="4">
-        <Avatar src={more} /> More
-      </Menu.Item>
-    </Menu>
-  );
+  const menuItems = [
+    {
+      key: '1',
+      label: (
+        <>
+          <Avatar src={testImage} /> Lý Tiến thành
+        </>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <>
+          <Avatar src={friend} /> Bạn bè
+        </>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <>
+          <Avatar src={group} /> Nhóm
+        </>
+      ),
+    },
+    {
+      key: '4',
+      label: (
+        <>
+          <Avatar src={more} /> More
+        </>
+      ),
+    },
+  ];
+
+  return <Menu className="left-sidebar-menu" items={menuItems} />;
 };
 
 export default LeftSidebar;

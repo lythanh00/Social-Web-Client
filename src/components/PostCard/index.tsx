@@ -6,7 +6,12 @@ import testImage from '../../assets/test-image.jpg';
 
 const { Meta } = Card;
 
-const PostCard: React.FC = () => {
+interface Props {
+  post: any;
+}
+
+const PostCard: React.FC<Props> = (props: Props) => {
+  const { post } = props;
   return (
     <Card
       className="post-card"
@@ -25,11 +30,15 @@ const PostCard: React.FC = () => {
           </div>
         }
       />
-      <p>
-        Đang cảm thấy tuyệt vời!Đang cảm thấy tuyệt vời!Đang cảm thấy tuyệt vời!Đang cảm thấy tuyệt vời!Đang cảm thấy
-        tuyệt vời!Đang cảm thấy tuyệt vời!Đang cảm thấy tuyệt vời!Đang cảm thấy tuyệt vời!
-      </p>
-      <Image className="post-card-image" src={testImage} />
+      <p>{post.content}</p>
+      {/* Render danh sách hình ảnh */}
+      {post.images && post.images.length > 0 && (
+        <div className="post-card-images">
+          {post.images.map((image: any) => (
+            <Image key={image.id} className="post-card-image" src={image.url} alt={`Post image ${image.id}`} />
+          ))}
+        </div>
+      )}
     </Card>
   );
 };

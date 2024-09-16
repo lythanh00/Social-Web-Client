@@ -10,6 +10,21 @@ import notification from '../../assets/notification.jpg';
 const { Header } = Layout;
 
 const Navbar: React.FC = () => {
+  const menuItems = [
+    {
+      key: '1',
+      icon: <Avatar src={message} />,
+    },
+    {
+      key: '2',
+      icon: <Avatar src={notification} />,
+    },
+    {
+      key: '3',
+      icon: <Avatar src={testImage} />,
+    },
+  ];
+
   return (
     <Header className="navbar">
       <div className="navbar-logo-search">
@@ -19,17 +34,7 @@ const Navbar: React.FC = () => {
         <Input placeholder="Tìm kiếm trên SideWalk IceTea" prefix={<SearchOutlined />} className="navbar-search" />
       </div>
 
-      <Menu mode="horizontal" className="navbar-menu">
-        <Menu.Item key="1">
-          <Avatar src={message} />
-        </Menu.Item>
-        <Menu.Item key="2">
-          <Avatar src={notification} />
-        </Menu.Item>
-        <Menu.Item key="3">
-          <Avatar src={testImage} />
-        </Menu.Item>
-      </Menu>
+      <Menu mode="horizontal" className="navbar-menu" items={menuItems} />
     </Header>
   );
 };
