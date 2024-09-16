@@ -1,7 +1,7 @@
 import React from 'react';
 import PostCard from '../PostCard';
 import { Divider, List, Typography } from 'antd';
-import { useGetListPostsByOwner } from '../../apis/Post';
+import { useGetListPostsByOwner } from '../../apis/Posts';
 
 const NewsFeed: React.FC = () => {
   const { data, error } = useGetListPostsByOwner();

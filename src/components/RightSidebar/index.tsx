@@ -1,31 +1,22 @@
 import React from 'react';
 import { Card, List, Avatar } from 'antd';
 import './index.scss';
+import { useGetFriends } from '../../apis/User-Friends';
 
 const RightSidebar: React.FC = () => {
-  const onlineFriends = [
-    { name: 'Nguyễn Văn B', avatar: 'https://example.com/avatar1.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-    { name: 'Trần Văn C', avatar: 'https://example.com/avatar2.png' },
-  ];
+  const { data, error } = useGetFriends();
+  console.log('friend', data?.data);
 
   return (
-    <Card className="right-sidebar-card" title="Bạn bè trực tuyến">
+    <Card className="right-sidebar-card" title="Người liên hệ">
       <List
-        dataSource={onlineFriends}
-        renderItem={(item) => (
+        dataSource={data?.data}
+        renderItem={(item: any) => (
           <List.Item>
-            <List.Item.Meta avatar={<Avatar src={item.avatar} />} title={item.name} />
+            <List.Item.Meta
+              avatar={<Avatar src={item.friend.profile.avatar.url} />}
+              title={item.friend.profile.lastName + ' ' + item.friend.profile.firstName}
+            />
           </List.Item>
         )}
       />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout } from 'antd';
 import Logout from '../../components/Logout';
 import Navbar from '../../components/Navbar';
@@ -9,10 +9,21 @@ import StatusUpdate from '../../components/StatusUpdate';
 import NewsFeed from '../../components/NewsFeed';
 import ContentArea from '../../components/ContentArea';
 import './index.scss';
+import { useGetProfile } from '../../apis/Profiles';
+import { useAppDispatch } from '../../store';
+import { setProfile } from '../../store/profileSlice';
 
 const { Header, Content, Sider } = Layout;
 
 const Home: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { data: dataProfile, error } = useGetProfile();
+  useEffect(() => {
+    if (dataProfile && dataProfile.data) {
+      dispatch(setProfile(dataProfile?.data as any));
+    }
+  }, [dataProfile?.data]);
+
   return (
     <Layout className="homepage">
       <Navbar />

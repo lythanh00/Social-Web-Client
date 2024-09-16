@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { api } from '../../apis';
+import { api } from '..';
 
 // get list post by owner
 export const useGetListPostsByOwner = () => {
@@ -8,7 +8,7 @@ export const useGetListPostsByOwner = () => {
     queryFn: async () => api.get(`${process.env.REACT_APP_API_URL}/posts/list-posts-by-owner`),
     staleTime: 5000,
     onSuccess: (data) => {
-      console.log('get list posts', data);
+      // console.log('get list posts', data);
     },
     onError: (error) => {
       console.error('Error fetching posts:', error);

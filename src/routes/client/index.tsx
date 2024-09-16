@@ -2,10 +2,10 @@ import { useSelector } from 'react-redux';
 import MainApp from '../../MainApp';
 import { RootState, useAppDispatch } from '../../store';
 import { useEffect } from 'react';
-import { profiler } from '../../store/authSlice';
+
 import { socketConfig } from '../../socket';
 const Client = () => {
-  const profilerUser = useSelector((state: RootState) => state.auth.profiler);
+  // const profilerUser = useSelector((state: RootState) => state.auth.profiler);
   const dispatch = useAppDispatch();
   // useEffect(() => {
   //   //data user tồn tại thì nhảy vào đây
