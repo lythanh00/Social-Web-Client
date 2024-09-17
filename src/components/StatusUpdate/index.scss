@@ -21,3 +21,36 @@
   background-color: #e6e6e6 !important;
   color: #999999 !important;
 }
+
+.custom-modal-create-post .ant-modal-title {
+  font-size: 24px; /* Kích thước chữ lớn hơn */
+  text-align: center; /* Căn giữa tiêu đề */
+  position: relative; /* Cần cho việc đặt gạch ngang */
+}
+
+.custom-modal-create-post .ant-modal-title::after {
+  content: '';
+  display: block;
+  width: 100%; /* Độ dài của gạch ngang */
+  height: 1px; /* Độ dày của gạch ngang */
+  background: #d9d9d9; /* Màu sắc của gạch ngang */
+  position: absolute;
+  left: 50%;
+  bottom: -10px; /* Khoảng cách giữa gạch ngang và tiêu đề */
+  transform: translateX(-50%);
+}
+
+.custom-modal-create-post .ant-modal-body {
+  padding-top: 20px; /* Khoảng cách giữa gạch ngang và nội dung */
+}
+
+.custom-modal-create-post .ant-modal-footer {
+  display: flex;
+  justify-content: center; /* Căn giữa các nút */
+  padding: 0; /* Loại bỏ padding nếu có */
+}
+
+.custom-modal-create-post .full-width-button {
+  width: 100%; /* Nút chiếm toàn bộ chiều ngang */
+  text-align: center; /* Đảm bảo văn bản căn giữa */
+}

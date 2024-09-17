@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { api } from '..';
 
 // get list post by owner
@@ -14,4 +14,20 @@ export const useGetListPostsByOwner = () => {
       console.error('Error fetching posts:', error);
     },
   });
+};
+
+// create post
+const createPost = async (formData: FormData) => {
+  const response = await api.post(`${process.env.REACT_APP_API_URL}/posts/create-post`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
+  return response.data;
+};
+
+// Custom hook sử dụng useMutation từ React Query
+export const useCreatePost = () => {
+  return useMutation(createPost);
 };

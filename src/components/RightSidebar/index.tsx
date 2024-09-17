@@ -5,7 +5,6 @@ import { useGetFriends } from '../../apis/User-Friends';
 
 const RightSidebar: React.FC = () => {
   const { data, error } = useGetFriends();
-  console.log('friend', data?.data);
 
   return (
     <Card className="right-sidebar-card" title="Người liên hệ">
