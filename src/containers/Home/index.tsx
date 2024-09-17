@@ -25,9 +25,9 @@ const Home: React.FC = () => {
   }, [dataProfile?.data]);
 
   return (
-    <Layout className="homepage">
+    <Layout className="home-page">
       <Navbar />
-      <Layout className="layout-content">
+      <Layout className="home-page-layout-content">
         <Sider width={400}>
           <LeftSidebar />
         </Sider>

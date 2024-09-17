@@ -1,0 +1,19 @@
+.profile-page {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.profile-page-layout-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 64px;
+}
+
+.profile-content-area {
+  margin-left: 20%;
+  margin-right: 20%;
+  display: flex;
+}

@@ -5,6 +5,7 @@ import ProtectRoute from '../../components/ProtectRoutes';
 import AuthRoute from '../../components/AuthRoutes';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import Home from '../../containers/Home';
+import ProfilePage from '../../containers/Profile';
 
 // example of lazy loading
 const Client = React.lazy(() => import('./index'));
@@ -61,6 +62,7 @@ export const ClientRoutes = () => {
       <Route element={<ProtectRoute />}>
         <Route path={`/${CLIENT_ROUTE_PATH.HOME}`} element={<SuspenseWrapper component={<Client />} />}>
           <Route path={`/${CLIENT_ROUTE_PATH.HOME}`} element={<SuspenseWrapper component={<Home />} />} />
+          <Route path={`/${CLIENT_ROUTE_PATH.PROFILE}`} element={<SuspenseWrapper component={<ProfilePage />} />} />
         </Route>
       </Route>
       {/* Not Found */}

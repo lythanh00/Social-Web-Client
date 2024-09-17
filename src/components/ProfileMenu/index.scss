@@ -1,0 +1,11 @@
+.profile-menu {
+  padding-left: 15%;
+  padding-right: 15%;
+  align-items: center;
+  .ant-menu-item {
+    border-radius: 10% !important;
+    &:hover {
+      background-color: #e7e7e7 !important; // Thay đổi màu nền khi hover
+    }
+  }
+}

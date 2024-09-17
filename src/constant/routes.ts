@@ -9,6 +9,7 @@ export const CLIENT_ROUTE_NAME = {
   // DASHBOARD: '',
   NOT_FOUND_ERR: 'not-found',
   HOME: '',
+  PROFILE: 'profile',
 };
 
 export const CLIENT_ROUTE_PATH = {
@@ -20,4 +21,5 @@ export const CLIENT_ROUTE_PATH = {
   // DASHBOARD: `${CLIENT}/${CLIENT_ROUTE_NAME.DASHBOARD}`,
   NOT_FOUND_ERR: `${CLIENT}/${CLIENT_ROUTE_NAME.NOT_FOUND_ERR}`,
   HOME: `${CLIENT}/${CLIENT_ROUTE_NAME.HOME}`,
+  PROFILE: `${CLIENT}/${CLIENT_ROUTE_NAME.PROFILE}`,
 };

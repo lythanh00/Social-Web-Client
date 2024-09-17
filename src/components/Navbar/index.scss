@@ -39,3 +39,14 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.profile-popover-content p {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.profile-popover-content p:hover {
+  background-color: #e6e6e6;
+}
