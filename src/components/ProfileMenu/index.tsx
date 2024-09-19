@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Menu } from 'antd';
 
 import './index.scss';
 
-const ProfileMenu: React.FC = () => {
+interface ProfileMenuProps {
+  onChange: (key: string) => void;
+}
+
+const ProfileMenu: React.FC<ProfileMenuProps> = ({ onChange }) => {
+  const [selectedKey, setSelectedKey] = useState<string>('1');
+
+  const handleMenuClick = (e: { key: string }) => {
+    setSelectedKey(e.key);
+    onChange(e.key);
+  };
   const menuItems = [
     {
       key: '1',
@@ -19,7 +29,15 @@ const ProfileMenu: React.FC = () => {
     },
   ];
 
-  return <Menu mode="horizontal" className="profile-menu" items={menuItems} defaultSelectedKeys={['1']} />;
+  return (
+    <Menu
+      mode="horizontal"
+      className="profile-menu"
+      items={menuItems}
+      selectedKeys={[selectedKey]}
+      onClick={handleMenuClick}
+    />
+  );
 };
 
 export default ProfileMenu;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Layout } from 'antd';
 import Navbar from '../../components/Navbar';
@@ -8,6 +8,8 @@ import { setProfile } from '../../store/profileSlice';
 import ProfileInfo from '../../components/ProfileInfo';
 import ProfileMenu from '../../components/ProfileMenu';
 import ContentArea from '../../components/ContentArea';
+import ProfileIntroduction from '../../components/ProfileIntroduction';
+import ProfileFriends from '../../components/ProfileFriends';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -17,14 +19,20 @@ const ProfilePage: React.FC = () => {
       dispatch(setProfile(dataProfile?.data as any));
     }
   }, [dataProfile?.data]);
+  const [selectedMenu, setSelectedMenu] = useState<string>('1');
+  const handleMenuChange = (key: string) => {
+    setSelectedMenu(key);
+  };
   return (
     <Layout className="profile-page">
       <Navbar />
       <Layout className="profile-page-layout-content">
         <ProfileInfo />
-        <ProfileMenu />
-        <div className="profile-content-area">
-          <ContentArea />
+        <ProfileMenu onChange={handleMenuChange} />
+        <div className="profile-content">
+          {selectedMenu === '1' && <ContentArea />}
+          {selectedMenu === '2' && <ProfileIntroduction />}
+          {selectedMenu === '3' && <ProfileFriends />}
         </div>
       </Layout>
     </Layout>
