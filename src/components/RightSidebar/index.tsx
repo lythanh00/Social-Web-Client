@@ -13,6 +13,7 @@ const RightSidebar: React.FC = () => {
         renderItem={(item: any) => (
           <List.Item>
             <List.Item.Meta
+              className="right-sidebar-card-item"
               avatar={<Avatar src={item.friend.profile.avatar.url} />}
               title={item.friend.profile.lastName + ' ' + item.friend.profile.firstName}
             />

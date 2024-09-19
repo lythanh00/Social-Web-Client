@@ -6,17 +6,20 @@ import group from '../../assets/group.jpg';
 import more from '../../assets/more.jpg';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { useNavigate } from 'react-router-dom';
+import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 
 const LeftSidebar: React.FC = () => {
   const profile = useSelector((state: RootState) => state.profile.profile);
+  const navigate = useNavigate();
 
   const menuItems = [
     {
       key: '1',
       label: (
-        <>
+        <div onClick={() => navigate(CLIENT_ROUTE_PATH.PROFILE)}>
           <Avatar src={profile.avatar.url} /> {profile.lastName + ' ' + profile.firstName}
-        </>
+        </div>
       ),
     },
     {
