@@ -29,28 +29,37 @@
 // }
 
 .navbar-search {
-  width: 300px; /* Đặt chiều rộng của thanh tìm kiếm */
-  margin-left: 10px; /* Khoảng cách từ thanh tìm kiếm đến phần tử khác */
+  width: 300px;
+  margin-left: 10px;
 }
 
 .navbar-search .ant-input-affix-wrapper {
-  background-color: #f5f5f5 !important; /* Màu nền của thanh tìm kiếm */
-  border: 1px solid #ddd; /* Viền mỏng, màu xám nhạt */
+  background-color: #f5f5f5 !important;
+  border: 1px solid #ddd;
 }
 
 .navbar-search .ant-input {
+  height: 40px;
+  border: none;
   border-radius: 40px !important;
-  padding-left: 15px; /* Khoảng cách từ chữ tới viền bên trái */
-  font-size: 16px; /* Kích thước font chữ */
-  color: #333; /* Màu chữ của thanh tìm kiếm */
+  padding-left: 15px;
+  font-size: 16px;
+  color: #333;
   background-color: #f5f5f5 !important;
 }
 
+.navbar-search .ant-input-group-addon {
+  background-color: transparent;
+}
+
 .navbar-search .ant-btn {
+  height: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
   background-color: #f5f5f5; /* Màu nền của nút tìm kiếm, màu xanh lam giống Facebook */
   color: #ddd; /* Màu chữ của nút tìm kiếm */
-  border-radius: 0 40px 40px 0 !important; /* Bo góc bên phải của nút tìm kiếm */
-  border: 1px solid #ddd;
+  border-radius: 40px !important; /* Bo góc bên phải của nút tìm kiếm */
 }
 
 .navbar-search .ant-btn:hover {

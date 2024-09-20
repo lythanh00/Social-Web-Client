@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from 'react-query';
 import { api } from '..';
+import { log } from 'console';
 
 // get profile owner
 export const useGetProfile = () => {
@@ -28,4 +29,17 @@ const updateProfile = async (profileData: {
 
 export const useUpdateProfile = () => {
   return useMutation(updateProfile);
+};
+
+// search profile by name
+
+const searchProfileByName = async (name: string) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/profiles/search-profile-by-name?name=${name}`);
+  return response.data;
+};
+
+export const useSearchProfileByName = (name: string) => {
+  return useQuery(['searchProfile', name], () => searchProfileByName(name), {
+    enabled: false, // Chỉ gọi khi name có giá trị
+  });
 };

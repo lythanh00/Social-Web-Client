@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Popover } from 'antd';
+import { Layout, Menu, Input, Avatar, Popover, List, Dropdown } from 'antd';
 import { SearchOutlined, BellOutlined, MessageOutlined } from '@ant-design/icons';
 import './index.scss';
 import logo from '../../assets/logo.jpg';
@@ -12,6 +12,7 @@ import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { api } from '../../apis';
+import { useSearchProfileByName } from '../../apis/Profiles';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -21,6 +22,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [visible, setVisible] = useState(false);
 
   const profilePopoverContent = (
     <div className="profile-popover-content">
@@ -63,23 +65,37 @@ const Navbar: React.FC = () => {
     },
   ];
 
+  const { data: searchProfileByNameResults, refetch: refetchsearchProfileByName } = useSearchProfileByName(searchValue);
+
   const handleSearch = async (value: string) => {
     setSearchValue(value);
     if (value.trim()) {
-      // setLoading(true);
       try {
-        const response = await api.get(
-          `${process.env.REACT_APP_API_URL}/profiles/search-profile-by-name?name=${value}`,
-        );
-        setSearchResults(response.data); // Cập nhật kết quả tìm kiếm
+        await refetchsearchProfileByName();
+        await setSearchResults(searchProfileByNameResults); // Cập nhật kết quả tìm kiếm
       } catch (error) {
         console.error('Error fetching profiles:', error);
-      } finally {
-        // setLoading(false);
       }
     } else {
       setSearchResults([]); // Xóa kết quả tìm kiếm khi không có đầu vào
     }
+    setVisible(true);
+  };
+
+  // hien thi ket qua search
+  const searchMenuItems = searchResults?.map((item: any) => ({
+    key: item.id,
+    label: (
+      <div onClick={() => navigate(`/profile/${item.id}`)}>
+        <Avatar src={item.avatar.url} className="mr-2" />
+        {`${item.lastName} ${item.firstName}`}
+      </div>
+    ),
+  }));
+
+  // neu mo dropdown thi flag la tru, dong dropdown thi flag la false
+  const handleDropdownVisibility = (flag: boolean) => {
+    setVisible(flag);
   };
 
   return (
@@ -88,15 +104,27 @@ const Navbar: React.FC = () => {
         <div className="navbar-logo" onClick={() => navigate(CLIENT_ROUTE_PATH.HOME)}>
           <img src={logo} alt="Logo" className="logo-img" />
         </div>
-        <Search
-          placeholder="Tìm kiếm trên SideWalk IceTea"
-          enterButton={<SearchOutlined />}
-          className="navbar-search"
-          onSearch={handleSearch}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          size="large"
-        />
+
+        <Dropdown
+          menu={{ items: searchMenuItems }}
+          open={visible && searchResults?.length > 0} // Chỉ hiển thị khi có kết quả
+          onOpenChange={handleDropdownVisibility}
+          trigger={['click']}
+        >
+          <Search
+            placeholder="Tìm kiếm trên SideWalk IceTea"
+            enterButton={<SearchOutlined />}
+            className="navbar-search"
+            onSearch={handleSearch}
+            value={searchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+              setVisible(true);
+            }}
+            size="large"
+            onFocus={() => setVisible(true)} // Mở dropdown khi focus vào ô tìm kiếm
+          />
+        </Dropdown>
       </div>
 
       <Menu mode="horizontal" className="navbar-menu" items={menuItems} />
