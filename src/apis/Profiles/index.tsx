@@ -32,7 +32,6 @@ export const useUpdateProfile = () => {
 };
 
 // search profile by name
-
 const searchProfileByName = async (name: string) => {
   const response = await api.get(`${process.env.REACT_APP_API_URL}/profiles/search-profile-by-name?name=${name}`);
   return response.data;
@@ -41,5 +40,17 @@ const searchProfileByName = async (name: string) => {
 export const useSearchProfileByName = (name: string) => {
   return useQuery(['searchProfile', name], () => searchProfileByName(name), {
     enabled: false, // Chỉ gọi khi name có giá trị
+  });
+};
+
+// get profile by user id
+const getProfileByUserId = async (userId: number) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/profiles/${userId}`);
+  return response.data;
+};
+
+export const useGetProfileByUserId = (userId: number) => {
+  return useQuery(['getOrtherProfile', userId], () => getProfileByUserId(userId), {
+    enabled: !!userId, // Chỉ gọi khi userId có giá trị
   });
 };

@@ -2,19 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { useGetProfileByUserId } from '../../apis/Profiles';
 
-interface OrtherProfileInfoProps {
-  userId: number; // Thêm prop cho ID người dùng
-}
-
-const OrtherProfileInfo: React.FC<OrtherProfileInfoProps> = ({ userId }) => {
-  const profile = useSelector((state: RootState) => state.profile.profile);
+const OrtherProfileInfo: React.FC = () => {
+  const ortherProfile = useSelector((state: RootState) => state.profile.ortherProfile);
+  console.log('OrtherProfileInfo', ortherProfile);
 
   return (
     <div className="profile-info">
       <div className="relative">
         <img
-          src={profile.coverPhoto.url} // Thay bằng ảnh bìa của bạn
+          src={ortherProfile?.coverPhoto.url} // Thay bằng ảnh bìa của bạn
           alt="cover-photo"
           className="profile-info-cover-photo"
         />
@@ -23,13 +21,13 @@ const OrtherProfileInfo: React.FC<OrtherProfileInfoProps> = ({ userId }) => {
       <div className="profile-info-avatar-name">
         <div className="relative">
           <img
-            src={profile.avatar.url} // Thay bằng ảnh đại diện của bạn
+            src={ortherProfile?.avatar.url} // Thay bằng ảnh đại diện của bạn
             alt="avatar"
             className="profile-info-avatar "
           />
         </div>
         <div className="ml-4">
-          <h1 className="text-3xl font-bold">{profile.lastName + ' ' + profile.firstName}</h1>
+          <h1 className="text-3xl font-bold">{ortherProfile?.lastName + ' ' + ortherProfile?.firstName}</h1>
           <p className="text-gray-600">77 người bạn</p>
         </div>
       </div>

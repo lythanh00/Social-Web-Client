@@ -27,7 +27,18 @@ const createPost = async (formData: FormData) => {
   return response.data;
 };
 
-// Custom hook sử dụng useMutation từ React Query
 export const useCreatePost = () => {
   return useMutation(createPost);
 };
+
+// // get list posts by orther
+// const getProfileByProfileId = async (profileId: number) => {
+//   const response = await api.get(`${process.env.REACT_APP_API_URL}/profiles/orther-profile/${profileId}`);
+//   return response.data;
+// };
+
+// export const useGetProfileByProfileId = (profileId: number) => {
+//   return useQuery(['getOrtherProfile', profileId], () => getProfileByProfileId(profileId), {
+//     enabled: !!profileId, // Chỉ gọi khi userId có giá trị
+//   });
+// };

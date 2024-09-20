@@ -65,13 +65,13 @@ const Navbar: React.FC = () => {
     },
   ];
 
-  const { data: searchProfileByNameResults, refetch: refetchsearchProfileByName } = useSearchProfileByName(searchValue);
+  const { data: searchProfileByNameResults, refetch: refetchSearchProfileByName } = useSearchProfileByName(searchValue);
 
   const handleSearch = async (value: string) => {
     setSearchValue(value);
     if (value.trim()) {
       try {
-        await refetchsearchProfileByName();
+        await refetchSearchProfileByName();
         await setSearchResults(searchProfileByNameResults); // Cập nhật kết quả tìm kiếm
       } catch (error) {
         console.error('Error fetching profiles:', error);
@@ -82,11 +82,21 @@ const Navbar: React.FC = () => {
     setVisible(true);
   };
 
+  const handleCheckProfileNavigation = (userId: number) => {
+    if (userId === profile.userId) {
+      // Nếu điều kiện hợp lệ, thực hiện điều hướng
+      navigate(CLIENT_ROUTE_PATH.PROFILE);
+    } else {
+      // Thực hiện hành động khác nếu cần (thông báo, cảnh báo, v.v.)
+      navigate(`${CLIENT_ROUTE_PATH.ORTHERPROFILE}?userId=${userId}`);
+    }
+  };
+
   // hien thi ket qua search
   const searchMenuItems = searchResults?.map((item: any) => ({
     key: item.id,
     label: (
-      <div onClick={() => navigate(`/profile/${item.id}`)}>
+      <div onClick={() => handleCheckProfileNavigation(item.userId)}>
         <Avatar src={item.avatar.url} className="mr-2" />
         {`${item.lastName} ${item.firstName}`}
       </div>
