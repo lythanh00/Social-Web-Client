@@ -13,3 +13,15 @@ export const useGetFriends = () => {
     },
   });
 };
+
+// check is friend
+const checkIsFriend = async (friendId: number | null) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/user-friends/is-friend/${friendId}`);
+  return response.data;
+};
+
+export const useCheckIsFriend = (friendId: number | null) => {
+  return useQuery(['checkIsFriend', friendId], () => checkIsFriend(friendId), {
+    enabled: !!friendId, // Chỉ gọi khi userId có giá trị
+  });
+};
