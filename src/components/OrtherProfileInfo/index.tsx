@@ -12,7 +12,7 @@ const OrtherProfileInfo: React.FC = () => {
     <div className="profile-info">
       <div className="relative">
         <img
-          src={ortherProfile?.coverPhoto.url} // Thay bằng ảnh bìa của bạn
+          src={ortherProfile?.coverPhoto.url} // ảnh bìa
           alt="cover-photo"
           className="profile-info-cover-photo"
         />
@@ -21,7 +21,7 @@ const OrtherProfileInfo: React.FC = () => {
       <div className="profile-info-avatar-name">
         <div className="relative">
           <img
-            src={ortherProfile?.avatar.url} // Thay bằng ảnh đại diện của bạn
+            src={ortherProfile?.avatar.url} // avatar
             alt="avatar"
             className="profile-info-avatar "
           />
@@ -31,6 +31,8 @@ const OrtherProfileInfo: React.FC = () => {
           <p className="text-gray-600">77 người bạn</p>
         </div>
       </div>
+
+      <div className="profile-info-addfr-mess"></div>
       <hr className="border-gray-300 mt-4 mb-4" />
     </div>
   );

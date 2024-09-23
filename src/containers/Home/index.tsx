@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Layout } from 'antd';
-import Logout from '../../components/Logout';
 import Navbar from '../../components/Navbar';
 import LeftSidebar from '../../components/LeftSidebar';
 import PostCard from '../../components/PostCard';
@@ -18,6 +17,7 @@ const { Header, Content, Sider } = Layout;
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { data: dataProfile, error } = useGetProfile();
+
   useEffect(() => {
     if (dataProfile && dataProfile.data) {
       dispatch(setProfile(dataProfile?.data as any));

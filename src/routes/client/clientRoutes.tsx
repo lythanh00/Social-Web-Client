@@ -21,7 +21,6 @@ const NotFound = React.lazy(() => import('../../components/NotFound'));
 export const ClientRoutes = () => {
   const navigate = useNavigate();
   // push user back to signin if token doesnt exist
-  // logout
   useEffect(() => {
     function checkUserData() {
       const token = localStorage.getItem('token');

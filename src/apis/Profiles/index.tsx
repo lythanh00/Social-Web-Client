@@ -39,7 +39,7 @@ const searchProfileByName = async (name: string) => {
 
 export const useSearchProfileByName = (name: string) => {
   return useQuery(['searchProfile', name], () => searchProfileByName(name), {
-    enabled: false, // Chỉ gọi khi name có giá trị
+    enabled: !!name, // Chỉ gọi khi name có giá trị
   });
 };
 

@@ -24,6 +24,11 @@ const Navbar: React.FC = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [visible, setVisible] = useState(false);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate(CLIENT_ROUTE_PATH.SIGNIN);
+  };
+
   const profilePopoverContent = (
     <div className="profile-popover-content">
       <p onClick={() => navigate(CLIENT_ROUTE_PATH.PROFILE)}>
@@ -35,7 +40,7 @@ const Navbar: React.FC = () => {
       <p>
         <Avatar src={setting} /> Cài đặt
       </p>
-      <p>
+      <p onClick={handleLogout}>
         <Avatar src={logout} /> Đăng xuất
       </p>
     </div>
