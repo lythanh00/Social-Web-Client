@@ -19,7 +19,16 @@ const OrtherProfileInfo: React.FC = () => {
   const { data: isPendingFriendRequest } = useCheckIsPendingFriendRequest(ortherProfile?.userId);
   const { mutate: removeFriendRequest, data: dataRemoveFriendRequest } = useRemoveFriendRequest();
 
-  const [isPending, setIsPending] = useState(isPendingFriendRequest);
+  const [isPending, setIsPending] = useState(false);
+  const [isSender, setIsSender] = useState(false);
+  useEffect(() => {
+    if (isPendingFriendRequest) {
+      setIsPending(isPendingFriendRequest.isPending);
+      setIsSender(isPendingFriendRequest.owner === 'sender');
+    }
+  }, [isPendingFriendRequest]);
+  console.log('isPendingFriendRequest', isPendingFriendRequest);
+  console.log('isSender', isSender);
 
   const handleAddFriendClick = async () => {
     try {
@@ -27,14 +36,22 @@ const OrtherProfileInfo: React.FC = () => {
         // await onRemoveFriend();
         message.success('Đã hủy kết bạn!');
       } else if (isPending) {
-        // Hủy lời mời kết bạn
-        removeFriendRequest(ortherProfile?.userId);
-        message.success('Đã hủy lời mời kết bạn!');
-        setIsPending(false);
+        // Nếu là người gửi, cho phép hủy lời mời
+        if (isSender) {
+          removeFriendRequest(ortherProfile?.userId);
+          message.success('Đã hủy lời mời kết bạn!');
+          setIsPending(false);
+          setIsSender(false);
+        } else {
+          // Nếu là người nhận, có thể hiện nút "Chấp nhận"
+          // từ từ làm sau
+          message.success('Bạn chưa chấp nhận lời mời kết bạn!');
+        }
       } else {
         sendFriendRequest(ortherProfile?.userId);
         message.success('Đã gửi lời mời kết bạn!');
         setIsPending(true);
+        setIsSender(true);
       }
     } catch (error) {
       message.error('Đã xảy ra lỗi!');
@@ -67,21 +84,30 @@ const OrtherProfileInfo: React.FC = () => {
         </div>
 
         <div className="profile-info-addfr-mess">
-          <Button
-            type={isFriend ? 'default' : 'primary'}
-            icon={
-              isFriend ? (
-                <UserDeleteOutlined />
-              ) : isPending ? (
-                <UndoOutlined /> // Hiển thị khi đang gửi lời mời
-              ) : (
-                <UserAddOutlined />
-              )
-            }
-            onClick={handleAddFriendClick}
-          >
-            {isFriend ? 'Hủy kết bạn' : isPending ? 'Hủy lời mời' : 'Thêm bạn bè'}
-          </Button>
+          {isPendingFriendRequest?.owner === 'receiver' ? (
+            <div className="flex items-center text-black text-base bg-gray-100 rounded-lg p-4">
+              <span className="font-bold">{ortherProfile?.lastName + ' ' + ortherProfile?.firstName}</span>
+              <span className="ml-1"> đã gửi cho bạn lời mời kết bạn</span>
+            </div>
+          ) : (
+            <div>
+              <Button
+                type={isFriend ? 'default' : 'primary'}
+                icon={
+                  isFriend ? (
+                    <UserDeleteOutlined />
+                  ) : isPending ? (
+                    <UndoOutlined /> // Hiển thị khi đang gửi lời mời
+                  ) : (
+                    <UserAddOutlined />
+                  )
+                }
+                onClick={handleAddFriendClick}
+              >
+                {isFriend ? 'Hủy kết bạn' : isPending ? 'Hủy lời mời' : 'Thêm bạn bè'}
+              </Button>
+            </div>
+          )}
           <Button
             type="primary" // Nút sẽ có màu xanh khi chưa là bạn bè
             icon={<MessageOutlined />} // Biểu tượng thay đổi tùy vào trạng thái

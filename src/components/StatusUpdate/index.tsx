@@ -110,6 +110,11 @@ const StatusUpdate: React.FC = () => {
                 }}
                 fileList={fileList}
                 listType="picture-card"
+                onRemove={(file) => {
+                  // Xóa file khỏi danh sách lưu trữ hình ảnh (images) và fileList
+                  setFileList((prevFileList) => prevFileList.filter((f) => f.uid !== file.uid));
+                  setImages((prevImages) => prevImages.filter((image) => image.uid !== file.uid));
+                }}
               >
                 <Button>
                   <CameraOutlined />
