@@ -50,3 +50,17 @@ export const useGetReceivedFriendRequests = () => {
     enabled: true, // Chỉ gọi khi userId có giá trị
   });
 };
+
+// respond to received friend requests
+const respondToFriendRequest = async (friendRequestId: number, accept: boolean) => {
+  const response = await api.put(`${process.env.REACT_APP_API_URL}/friend-requests/respond/${friendRequestId}`, {
+    accept,
+  });
+  return response.data;
+};
+
+export const useRespondToFriendRequest = () => {
+  return useMutation((x: { friendRequestId: number; accept: boolean }) =>
+    respondToFriendRequest(x.friendRequestId, x.accept),
+  );
+};
