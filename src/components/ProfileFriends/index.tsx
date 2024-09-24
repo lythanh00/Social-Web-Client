@@ -1,14 +1,11 @@
 import { Avatar, Button, Card, DatePicker, DatePickerProps, Divider, Input, List, Modal, Space } from 'antd';
 
 import './index.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+
 import { useGetFriends } from '../../apis/User-Friends';
-import { size } from 'lodash';
 
 const ProfileFriends: React.FC = () => {
-  const profile = useSelector((state: RootState) => state.profile.profile);
-  const { data, error } = useGetFriends();
+  const { data } = useGetFriends();
 
   return (
     <Card className="profile-friends" title="Bạn bè">

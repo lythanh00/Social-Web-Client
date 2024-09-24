@@ -1,0 +1,16 @@
+.friends-page {
+  display: flex;
+  overflow-y: auto;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.friends-page-layout-content {
+  display: flex;
+  position: relative;
+  top: 64px;
+}
+
+.friends-page-content {
+  padding: 20px;
+}

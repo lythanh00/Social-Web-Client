@@ -38,3 +38,15 @@ const removeFriendRequest = async (receiverId: number | null) => {
 export const useRemoveFriendRequest = () => {
   return useMutation((receiverId: number | null) => removeFriendRequest(receiverId));
 };
+
+// get list received friend requests
+const getReceivedFriendRequests = async () => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/friend-requests/list-received-friend-requests`);
+  return response.data;
+};
+
+export const useGetReceivedFriendRequests = () => {
+  return useQuery(['getReceivedFriendRequests'], () => getReceivedFriendRequests(), {
+    enabled: true, // Chỉ gọi khi userId có giá trị
+  });
+};
