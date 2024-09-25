@@ -6,7 +6,7 @@ import AuthRoute from '../../components/AuthRoutes';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import Home from '../../containers/Home';
 import ProfilePage from '../../containers/Profile';
-import OrtherProfilePage from '../../containers/OrtherProfile';
+import OtherProfilePage from '../../containers/OtherProfile';
 import FriendsPage from '../../containers/Friends';
 
 // example of lazy loading
@@ -65,8 +65,8 @@ export const ClientRoutes = () => {
           <Route path={`/${CLIENT_ROUTE_PATH.HOME}`} element={<SuspenseWrapper component={<Home />} />} />
           <Route path={`/${CLIENT_ROUTE_PATH.PROFILE}`} element={<SuspenseWrapper component={<ProfilePage />} />} />
           <Route
-            path={`/${CLIENT_ROUTE_PATH.ORTHERPROFILE}`}
-            element={<SuspenseWrapper component={<OrtherProfilePage />} />}
+            path={`/${CLIENT_ROUTE_PATH.OTHERPROFILE}`}
+            element={<SuspenseWrapper component={<OtherProfilePage />} />}
           />
           <Route path={`/${CLIENT_ROUTE_PATH.FRIENDS}`} element={<SuspenseWrapper component={<FriendsPage />} />} />
         </Route>

@@ -2,14 +2,15 @@ import React from 'react';
 import StatusUpdate from '../StatusUpdate';
 import NewsFeed from '../NewsFeed';
 import './index.scss';
+import OtherNewsFeed from '../OtherNewsFeed';
 
-const OrtherContentArea: React.FC = () => {
+const OtherContentArea: React.FC = () => {
   return (
     <div className="content-area">
-      <StatusUpdate />
-      {/* <OrtherNewsFeed /> */}
+      {/* <StatusUpdate /> */}
+      <OtherNewsFeed />
     </div>
   );
 };
 
-export default OrtherContentArea;
+export default OtherContentArea;

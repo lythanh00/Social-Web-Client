@@ -50,7 +50,7 @@ const getProfileByUserId = async (userId: number) => {
 };
 
 export const useGetProfileByUserId = (userId: number) => {
-  return useQuery(['getOrtherProfile', userId], () => getProfileByUserId(userId), {
+  return useQuery(['getOtherProfile', userId], () => getProfileByUserId(userId), {
     enabled: !!userId, // Chỉ gọi khi userId có giá trị
   });
 };

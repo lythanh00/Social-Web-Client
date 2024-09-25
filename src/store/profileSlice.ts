@@ -22,7 +22,7 @@ export interface ProfileState {
     };
     userId: number | null;
   };
-  ortherProfile: {
+  otherProfile: {
     id: number | null;
     firstName: string;
     lastName: string;
@@ -66,7 +66,7 @@ export const profileSlice = createSlice({
         },
         userId: null,
       },
-      ortherProfile: {
+      otherProfile: {
         id: null,
         firstName: '',
         lastName: '',
@@ -109,8 +109,8 @@ export const profileSlice = createSlice({
         userId: action.payload.userId,
       };
     },
-    setOrtherProfile: (state, action: PayloadAction<any>) => {
-      state.ortherProfile = {
+    setOtherProfile: (state, action: PayloadAction<any>) => {
+      state.otherProfile = {
         id: action.payload.id,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
@@ -132,6 +132,6 @@ export const profileSlice = createSlice({
   },
 });
 
-export const { setProfile, setOrtherProfile } = profileSlice.actions;
+export const { setProfile, setOtherProfile } = profileSlice.actions;
 export const selectProfile = (state: RootState) => state.profile;
 export default profileSlice.reducer;

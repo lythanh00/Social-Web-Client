@@ -93,7 +93,7 @@ const Navbar: React.FC = () => {
       navigate(CLIENT_ROUTE_PATH.PROFILE);
     } else {
       // Thực hiện hành động khác nếu cần (thông báo, cảnh báo, v.v.)
-      navigate(`${CLIENT_ROUTE_PATH.ORTHERPROFILE}?userId=${userId}`);
+      navigate(`${CLIENT_ROUTE_PATH.OTHERPROFILE}?userId=${userId}`);
     }
   };
 

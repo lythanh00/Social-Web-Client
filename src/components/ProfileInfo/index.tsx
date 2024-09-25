@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { Button, GetProp, message, UploadProps } from 'antd';
+import { Avatar, Button, GetProp, message, UploadProps } from 'antd';
 import Upload, { RcFile, UploadFile } from 'antd/es/upload';
 import { CameraOutlined } from '@ant-design/icons';
 import { useGetProfile } from '../../apis/Profiles';
@@ -61,7 +61,7 @@ const ProfileInfo: React.FC = () => {
 
       <div className="profile-info-avatar-name">
         <div className="relative">
-          <img
+          <Avatar
             src={profile.avatar.url} // Thay bằng ảnh đại diện của bạn
             alt="avatar"
             className="profile-info-avatar "

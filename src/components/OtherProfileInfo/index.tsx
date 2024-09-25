@@ -12,12 +12,12 @@ import {
   useSendFriendRequest,
 } from '../../apis/Friend-Requests';
 
-const OrtherProfileInfo: React.FC = () => {
-  const ortherProfile = useSelector((state: RootState) => state.profile.ortherProfile);
-  const { data: isFriend, refetch: refetchIsFriend } = useCheckIsFriend(ortherProfile?.userId);
-  const { mutate: sendFriendRequest, data: dataSendFriendRequest } = useSendFriendRequest();
-  const { data: isPendingFriendRequest } = useCheckIsPendingFriendRequest(ortherProfile?.userId);
-  const { mutate: removeFriendRequest, data: dataRemoveFriendRequest } = useRemoveFriendRequest();
+const OtherProfileInfo: React.FC = () => {
+  const otherProfile = useSelector((state: RootState) => state.profile.otherProfile);
+  const { data: isFriend } = useCheckIsFriend(otherProfile?.userId);
+  const { mutate: sendFriendRequest } = useSendFriendRequest();
+  const { data: isPendingFriendRequest } = useCheckIsPendingFriendRequest(otherProfile?.userId);
+  const { mutate: removeFriendRequest } = useRemoveFriendRequest();
 
   const [isPending, setIsPending] = useState(false);
   const [isSender, setIsSender] = useState(false);
@@ -27,8 +27,8 @@ const OrtherProfileInfo: React.FC = () => {
       setIsSender(isPendingFriendRequest.owner === 'sender');
     }
   }, [isPendingFriendRequest]);
-  console.log('isPendingFriendRequest', isPendingFriendRequest);
-  console.log('isSender', isSender);
+  // console.log('isPendingFriendRequest', isPendingFriendRequest);
+  // console.log('isSender', isSender);
 
   const handleAddFriendClick = async () => {
     try {
@@ -38,7 +38,7 @@ const OrtherProfileInfo: React.FC = () => {
       } else if (isPending) {
         // Nếu là người gửi, cho phép hủy lời mời
         if (isSender) {
-          removeFriendRequest(ortherProfile?.userId);
+          removeFriendRequest(otherProfile?.userId);
           message.success('Đã hủy lời mời kết bạn!');
           setIsPending(false);
           setIsSender(false);
@@ -48,7 +48,7 @@ const OrtherProfileInfo: React.FC = () => {
           message.success('Bạn chưa chấp nhận lời mời kết bạn!');
         }
       } else {
-        sendFriendRequest(ortherProfile?.userId);
+        sendFriendRequest(otherProfile?.userId);
         message.success('Đã gửi lời mời kết bạn!');
         setIsPending(true);
         setIsSender(true);
@@ -62,7 +62,7 @@ const OrtherProfileInfo: React.FC = () => {
     <div className="profile-info">
       <div className="relative">
         <img
-          src={ortherProfile?.coverPhoto.url} // ảnh bìa
+          src={otherProfile?.coverPhoto.url} // ảnh bìa
           alt="cover-photo"
           className="profile-info-cover-photo"
         />
@@ -72,13 +72,13 @@ const OrtherProfileInfo: React.FC = () => {
         <div className="profile-info-avatar-name">
           <div className="relative">
             <img
-              src={ortherProfile?.avatar.url} // avatar
+              src={otherProfile?.avatar.url} // avatar
               alt="avatar"
               className="profile-info-avatar "
             />
           </div>
           <div className="ml-4">
-            <h1 className="text-3xl font-bold">{ortherProfile?.lastName + ' ' + ortherProfile?.firstName}</h1>
+            <h1 className="text-3xl font-bold">{otherProfile?.lastName + ' ' + otherProfile?.firstName}</h1>
             <p className="text-gray-600">77 người bạn</p>
           </div>
         </div>
@@ -86,7 +86,7 @@ const OrtherProfileInfo: React.FC = () => {
         <div className="profile-info-addfr-mess">
           {isPendingFriendRequest?.owner === 'receiver' ? (
             <div className="flex items-center text-black text-base bg-gray-100 rounded-lg p-4">
-              <span className="font-bold">{ortherProfile?.lastName + ' ' + ortherProfile?.firstName}</span>
+              <span className="font-bold">{otherProfile?.lastName + ' ' + otherProfile?.firstName}</span>
               <span className="ml-1"> đã gửi cho bạn lời mời kết bạn</span>
             </div>
           ) : (
@@ -121,4 +121,4 @@ const OrtherProfileInfo: React.FC = () => {
   );
 };
 
-export default OrtherProfileInfo;
+export default OtherProfileInfo;
