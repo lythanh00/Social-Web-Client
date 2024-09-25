@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import StatusUpdate from '../StatusUpdate';
-import NewsFeed from '../NewsFeed';
 import './index.scss';
 import { Avatar, Button, Card, List, message } from 'antd';
 import { useGetReceivedFriendRequests, useRespondToFriendRequest } from '../../apis/Friend-Requests';
@@ -10,7 +8,7 @@ import { setProfile } from '../../store/profileSlice';
 
 const ReceivedFriendRequests: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { data: dataProfile, error } = useGetProfile();
+  const { data: dataProfile } = useGetProfile();
 
   useEffect(() => {
     if (dataProfile && dataProfile.data) {
@@ -18,17 +16,17 @@ const ReceivedFriendRequests: React.FC = () => {
     }
   }, [dataProfile?.data]);
   const { data } = useGetReceivedFriendRequests();
-  const { mutate: respondToFriendRequest, data: dataRespondToFriendRequest } = useRespondToFriendRequest();
-  const [acceptedRequests, setAcceptedRequests] = useState<any>(null);
-  const [rejectedRequests, setRejectedRequests] = useState<any>(null);
+  const { mutate: respondToFriendRequest } = useRespondToFriendRequest();
+  const [acceptedRequests, setAcceptedRequests] = useState<number[]>([]);
+  const [rejectedRequests, setRejectedRequests] = useState<number[]>([]);
 
   const handleAccept = async (friendRequestId: number, accept: boolean) => {
     try {
       await respondToFriendRequest({ friendRequestId, accept });
       if (accept) {
-        setAcceptedRequests(friendRequestId);
+        setAcceptedRequests((prev) => [...prev, friendRequestId]);
       } else {
-        setRejectedRequests(friendRequestId);
+        setRejectedRequests((prev) => [...prev, friendRequestId]);
       }
     } catch (error) {
       message.error('Đã xảy ra lỗi!');
@@ -56,11 +54,11 @@ const ReceivedFriendRequests: React.FC = () => {
                   {item.sender.profile.lastName + ' ' + item.sender.profile.firstName}
                 </div>
                 <div className="received-friend-requests-button">
-                  {acceptedRequests !== null ? (
+                  {acceptedRequests.includes(item.id) ? (
                     <Button disabled type="default">
                       Đã chấp nhận lời mời
                     </Button>
-                  ) : rejectedRequests !== null ? (
+                  ) : rejectedRequests.includes(item.id) ? (
                     <Button disabled type="default">
                       Đã từ chối lời mời
                     </Button>
