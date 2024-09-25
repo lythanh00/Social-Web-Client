@@ -3,9 +3,9 @@ import './index.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
-import { Button, message } from 'antd';
+import { Button, message, Modal } from 'antd';
 import { MessageOutlined, UndoOutlined, UserAddOutlined, UserDeleteOutlined } from '@ant-design/icons';
-import { useCheckIsFriend } from '../../apis/User-Friends';
+import { useCheckIsFriend, useRemoveUserFriend } from '../../apis/User-Friends';
 import {
   useCheckIsPendingFriendRequest,
   useRemoveFriendRequest,
@@ -14,13 +14,39 @@ import {
 
 const OtherProfileInfo: React.FC = () => {
   const otherProfile = useSelector((state: RootState) => state.profile.otherProfile);
-  const { data: isFriend } = useCheckIsFriend(otherProfile?.userId);
+  const { data: isFriendUserFriend } = useCheckIsFriend(otherProfile?.userId);
   const { mutate: sendFriendRequest } = useSendFriendRequest();
   const { data: isPendingFriendRequest } = useCheckIsPendingFriendRequest(otherProfile?.userId);
   const { mutate: removeFriendRequest } = useRemoveFriendRequest();
+  const { mutate: removeUserFriend } = useRemoveUserFriend();
 
   const [isPending, setIsPending] = useState(false);
   const [isSender, setIsSender] = useState(false);
+  const [isFriend, setIsFriend] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    removeUserFriend(otherProfile?.userId);
+    setIsFriend(false);
+    message.success('Đã hủy kết bạn!');
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (isFriendUserFriend) {
+      setIsFriend(isFriendUserFriend);
+    }
+  }, [isFriendUserFriend]);
+
   useEffect(() => {
     if (isPendingFriendRequest) {
       setIsPending(isPendingFriendRequest.isPending);
@@ -34,7 +60,7 @@ const OtherProfileInfo: React.FC = () => {
     try {
       if (isFriend) {
         // await onRemoveFriend();
-        message.success('Đã hủy kết bạn!');
+        showModal();
       } else if (isPending) {
         // Nếu là người gửi, cho phép hủy lời mời
         if (isSender) {
@@ -117,6 +143,17 @@ const OtherProfileInfo: React.FC = () => {
         </div>
       </div>
       <hr className="border-gray-300 mt-4 mb-4" />
+
+      <Modal
+        title={`Hủy kết bạn với ${otherProfile?.lastName + ' ' + otherProfile?.firstName}`}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="Xác nhận"
+        cancelText="Hủy"
+      >
+        <p>Bạn có chắc chắn muốn hủy kết bạn với {otherProfile?.lastName + ' ' + otherProfile?.firstName} không?</p>
+      </Modal>
     </div>
   );
 };
