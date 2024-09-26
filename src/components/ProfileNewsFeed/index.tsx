@@ -1,17 +1,17 @@
 import React from 'react';
-import PostCard from '../PostCard';
-import { Divider, List, Typography } from 'antd';
+import ProfilePostCard from '../ProfilePostCard';
+import { List } from 'antd';
 import { useGetListPostsByOwner } from '../../apis/Posts';
 
-const NewsFeed: React.FC = () => {
-  const { data, error } = useGetListPostsByOwner();
+const ProfileNewsFeed: React.FC = () => {
+  const { data } = useGetListPostsByOwner();
   return (
     <div className="newsfeed-container">
       <List
         dataSource={data?.data}
         renderItem={(item) => (
           <List.Item>
-            <PostCard post={item} />
+            <ProfilePostCard post={item} />
           </List.Item>
         )}
       />
@@ -19,4 +19,4 @@ const NewsFeed: React.FC = () => {
   );
 };
 
-export default NewsFeed;
+export default ProfileNewsFeed;

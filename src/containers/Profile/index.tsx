@@ -7,7 +7,7 @@ import { useGetProfile } from '../../apis/Profiles';
 import { setProfile } from '../../store/profileSlice';
 import ProfileInfo from '../../components/ProfileInfo';
 import ProfileMenu from '../../components/ProfileMenu';
-import ContentArea from '../../components/ContentArea';
+import ProfileContentArea from '../../components/ProfileContentArea';
 import ProfileIntroduction from '../../components/ProfileIntroduction';
 import ProfileFriends from '../../components/ProfileFriends';
 
@@ -30,7 +30,7 @@ const ProfilePage: React.FC = () => {
         <ProfileInfo />
         <ProfileMenu onChange={handleMenuChange} />
         <div className="profile-content">
-          {selectedMenu === '1' && <ContentArea />}
+          {selectedMenu === '1' && <ProfileContentArea />}
           {selectedMenu === '2' && <ProfileIntroduction />}
           {selectedMenu === '3' && <ProfileFriends />}
         </div>

@@ -3,7 +3,7 @@ import './index.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
-import { Button, message, Modal } from 'antd';
+import { Avatar, Button, message, Modal } from 'antd';
 import { MessageOutlined, UndoOutlined, UserAddOutlined, UserDeleteOutlined } from '@ant-design/icons';
 import { useCheckIsFriend, useRemoveUserFriend } from '../../apis/User-Friends';
 import {
@@ -97,8 +97,8 @@ const OtherProfileInfo: React.FC = () => {
       <div className="flex gap-2 justify-between items-center">
         <div className="profile-info-avatar-name">
           <div className="relative">
-            <img
-              src={otherProfile?.avatar.url} // avatar
+            <Avatar
+              src={otherProfile?.avatar.url} // Thay bằng ảnh đại diện của bạn
               alt="avatar"
               className="profile-info-avatar "
             />

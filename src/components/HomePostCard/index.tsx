@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, Avatar, Image } from 'antd';
 import { LikeOutlined, CommentOutlined, ShareAltOutlined } from '@ant-design/icons';
 import './index.scss';
-import testImage from '../../assets/test-image.jpg';
 import { formatDistanceToNow } from 'date-fns';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -13,10 +12,9 @@ interface Props {
   post: any;
 }
 
-const PostCard: React.FC<Props> = (props: Props) => {
+const HomePostCard: React.FC<Props> = (props: Props) => {
   const { post } = props;
   const timeAgo = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true });
-  const profile = useSelector((state: RootState) => state.profile.profile);
 
   return (
     <Card
@@ -25,10 +23,10 @@ const PostCard: React.FC<Props> = (props: Props) => {
     >
       <Meta
         className="post-card-meta"
-        avatar={<Avatar className="post-card-meta-avatar" src={profile.avatar.url} />}
+        avatar={<Avatar className="post-card-meta-avatar" src={post.user.profile.avatar.url} />}
         title={
           <div className="post-card-meta-name-time">
-            <p className="post-card-meta-name">{profile.lastName + ' ' + profile.firstName}</p>
+            <p className="post-card-meta-name">{post.user.profile.lastName + ' ' + post.user.profile.firstName}</p>
             <span className="post-card-meta-time">{timeAgo}</span>
           </div>
         }
@@ -46,4 +44,4 @@ const PostCard: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default PostCard;
+export default HomePostCard;

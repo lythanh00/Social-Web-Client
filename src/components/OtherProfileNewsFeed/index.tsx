@@ -1,12 +1,11 @@
 import React from 'react';
-import PostCard from '../PostCard';
-import { Divider, List, Typography } from 'antd';
+import { List } from 'antd';
 import { useGetListPostsByOther } from '../../apis/Posts';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import OtherPostCard from '../OtherPostCard';
+import OtherProfilePostCard from '../OtherProfilePostCard';
 
-const OtherNewsFeed: React.FC = () => {
+const OtherProfileNewsFeed: React.FC = () => {
   const otherProfile = useSelector((state: RootState) => state.profile.otherProfile);
   const { data } = useGetListPostsByOther(otherProfile.userId);
 
@@ -16,7 +15,7 @@ const OtherNewsFeed: React.FC = () => {
         dataSource={data}
         renderItem={(item) => (
           <List.Item>
-            <OtherPostCard post={item} />
+            <OtherProfilePostCard post={item} />
           </List.Item>
         )}
       />
@@ -24,4 +23,4 @@ const OtherNewsFeed: React.FC = () => {
   );
 };
 
-export default OtherNewsFeed;
+export default OtherProfileNewsFeed;

@@ -12,10 +12,10 @@ interface Props {
   post: any;
 }
 
-const OtherPostCard: React.FC<Props> = (props: Props) => {
+const ProfilePostCard: React.FC<Props> = (props: Props) => {
   const { post } = props;
   const timeAgo = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true });
-  const otherProfile = useSelector((state: RootState) => state.profile.otherProfile);
+  const profile = useSelector((state: RootState) => state.profile.profile);
 
   return (
     <Card
@@ -24,10 +24,10 @@ const OtherPostCard: React.FC<Props> = (props: Props) => {
     >
       <Meta
         className="post-card-meta"
-        avatar={<Avatar className="post-card-meta-avatar" src={otherProfile.avatar.url} />}
+        avatar={<Avatar className="post-card-meta-avatar" src={profile.avatar.url} />}
         title={
           <div className="post-card-meta-name-time">
-            <p className="post-card-meta-name">{otherProfile.lastName + ' ' + otherProfile.firstName}</p>
+            <p className="post-card-meta-name">{profile.lastName + ' ' + profile.firstName}</p>
             <span className="post-card-meta-time">{timeAgo}</span>
           </div>
         }
@@ -45,4 +45,4 @@ const OtherPostCard: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default OtherPostCard;
+export default ProfilePostCard;

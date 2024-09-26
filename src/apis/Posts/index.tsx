@@ -42,3 +42,15 @@ export const useGetListPostsByOther = (userId: number | null) => {
     enabled: !!userId, // Chỉ gọi khi userId có giá trị
   });
 };
+
+// get list posts by owner and friends
+const getListPostsByOwnerAndFriends = async () => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/posts/list-posts-by-owner-and-friends`);
+  return response.data;
+};
+
+export const useGetListPostsByOwnerAndFriends = () => {
+  return useQuery(['getListPostsByOwnerAndFriends'], () => getListPostsByOwnerAndFriends(), {
+    enabled: true,
+  });
+};

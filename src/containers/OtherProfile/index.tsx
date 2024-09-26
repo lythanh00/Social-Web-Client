@@ -5,14 +5,12 @@ import Navbar from '../../components/Navbar';
 import { useAppDispatch } from '../../store';
 import { useGetProfile, useGetProfileByUserId } from '../../apis/Profiles';
 import { setOtherProfile, setProfile } from '../../store/profileSlice';
-import ProfileInfo from '../../components/ProfileInfo';
 import ProfileMenu from '../../components/ProfileMenu';
-import ContentArea from '../../components/ContentArea';
-import ProfileIntroduction from '../../components/ProfileIntroduction';
-import ProfileFriends from '../../components/ProfileFriends';
 import OtherProfileInfo from '../../components/OtherProfileInfo';
-import { useParams, useSearchParams } from 'react-router-dom';
-import OtherContentArea from '../../components/OtherContentArea';
+import { useSearchParams } from 'react-router-dom';
+import OtherProfileContentArea from '../../components/OtherProfileContentArea';
+import OtherProfileIntroduction from '../../components/OtherProfileIntroduction';
+import OtherProfileFriends from '../../components/OtherProfileFriends';
 
 const OtherProfilePage: React.FC = () => {
   // load owner profile
@@ -48,9 +46,9 @@ const OtherProfilePage: React.FC = () => {
         <OtherProfileInfo />
         <ProfileMenu onChange={handleMenuChange} />
         <div className="profile-content">
-          {selectedMenu === '1' && <OtherContentArea />}
-          {selectedMenu === '2' && <ProfileIntroduction />}
-          {selectedMenu === '3' && <ProfileFriends />}
+          {selectedMenu === '1' && <OtherProfileContentArea />}
+          {selectedMenu === '2' && <OtherProfileIntroduction />}
+          {selectedMenu === '3' && <OtherProfileFriends />}
         </div>
       </Layout>
     </Layout>

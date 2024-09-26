@@ -18,7 +18,8 @@ const LeftSidebar: React.FC = () => {
       key: '1',
       label: (
         <div onClick={() => navigate(CLIENT_ROUTE_PATH.PROFILE)}>
-          <Avatar src={profile.avatar.url} /> {profile.lastName + ' ' + profile.firstName}
+          <Avatar src={profile.avatar.url} />{' '}
+          <span className="font-medium">{profile.lastName + ' ' + profile.firstName}</span>
         </div>
       ),
     },

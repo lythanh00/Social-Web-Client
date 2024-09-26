@@ -1,15 +1,15 @@
 import React from 'react';
 import StatusUpdate from '../StatusUpdate';
-import NewsFeed from '../NewsFeed';
+import ProfileNewsFeed from '../ProfileNewsFeed';
 import './index.scss';
 
-const ContentArea: React.FC = () => {
+const ProfileContentArea: React.FC = () => {
   return (
     <div className="content-area">
       <StatusUpdate />
-      <NewsFeed />
+      <ProfileNewsFeed />
     </div>
   );
 };
 
-export default ContentArea;
+export default ProfileContentArea;
