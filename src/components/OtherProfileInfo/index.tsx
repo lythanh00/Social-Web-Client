@@ -5,7 +5,7 @@ import { RootState } from '../../store';
 
 import { Avatar, Button, message, Modal } from 'antd';
 import { MessageOutlined, UndoOutlined, UserAddOutlined, UserDeleteOutlined } from '@ant-design/icons';
-import { useCheckIsFriend, useRemoveUserFriend } from '../../apis/User-Friends';
+import { useCheckIsFriend, useCountFriendsByOther, useRemoveUserFriend } from '../../apis/User-Friends';
 import {
   useCheckIsPendingFriendRequest,
   useRemoveFriendRequest,
@@ -19,6 +19,7 @@ const OtherProfileInfo: React.FC = () => {
   const { data: isPendingFriendRequest } = useCheckIsPendingFriendRequest(otherProfile?.userId);
   const { mutate: removeFriendRequest } = useRemoveFriendRequest();
   const { mutate: removeUserFriend } = useRemoveUserFriend();
+  const { data: dataCountFriends } = useCountFriendsByOther(otherProfile?.userId);
 
   const [isPending, setIsPending] = useState(false);
   const [isSender, setIsSender] = useState(false);
@@ -105,7 +106,7 @@ const OtherProfileInfo: React.FC = () => {
           </div>
           <div className="ml-4">
             <h1 className="text-3xl font-bold">{otherProfile?.lastName + ' ' + otherProfile?.firstName}</h1>
-            <p className="text-gray-600">77 người bạn</p>
+            <p className="text-gray-600 font-medium">{dataCountFriends} người bạn</p>
           </div>
         </div>
 

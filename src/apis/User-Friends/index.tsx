@@ -49,3 +49,27 @@ export const useGetListFriendsByOther = (userId: number | null) => {
     enabled: !!userId, // Chỉ gọi khi userId có giá trị
   });
 };
+
+// count friends by owner
+const countFriendsByOwner = async () => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/user-friends/count-friends-by-owner`);
+  return response.data;
+};
+
+export const useCountFriendsByOwner = () => {
+  return useQuery(['countFriendsByOwner'], () => countFriendsByOwner(), {
+    enabled: true,
+  });
+};
+
+// count friends by other
+const countFriendsByOther = async (userId: number | null) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/user-friends/count-friends-by-user/${userId}`);
+  return response.data;
+};
+
+export const useCountFriendsByOther = (userId: number | null) => {
+  return useQuery(['countFriendsByOther', userId], () => countFriendsByOther(userId), {
+    enabled: !!userId,
+  });
+};
