@@ -43,7 +43,7 @@ const LeftSidebar: React.FC = () => {
       key: '4',
       label: (
         <>
-          <Avatar src={more} /> More
+          <Avatar src={more} /> Xem thêm
         </>
       ),
     },

@@ -10,6 +10,7 @@
 .post-card-meta-avatar {
   height: 40px;
   width: 40px;
+  cursor: pointer;
 }
 
 .post-card-meta-name-time {
@@ -26,6 +27,7 @@
   word-break: break-word; /* Cắt từ quá dài để tránh tràn ra ngoài */
   overflow-wrap: break-word; /* Đảm bảo từ dài sẽ tự xuống dòng */
   white-space: normal; /* Cho phép xuống dòng tự động */
+  cursor: pointer;
 }
 
 .post-card-meta-time {

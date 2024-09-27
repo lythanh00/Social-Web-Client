@@ -6,6 +6,7 @@ import HomePostCard from '../HomePostCard';
 
 const HomeNewsFeed: React.FC = () => {
   const { data } = useGetListPostsByOwnerAndFriends();
+
   return (
     <div className="newsfeed-container">
       <List
