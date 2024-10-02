@@ -45,7 +45,7 @@ export const useSearchProfileByName = (name: string) => {
 
 // get profile by user id
 const getProfileByUserId = async (userId: number) => {
-  const response = await api.get(`${process.env.REACT_APP_API_URL}/profiles/${userId}`);
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/profiles/profile/${userId}`);
   return response.data;
 };
 
