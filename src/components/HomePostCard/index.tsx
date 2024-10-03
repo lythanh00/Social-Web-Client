@@ -5,9 +5,10 @@ import './index.scss';
 import { formatDistanceToNow } from 'date-fns';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { useLikePost, useUnLikePost } from '../../apis/Like';
+import { useLikePost, useUnLikePost } from '../../apis/Likes';
 import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
+import CommentModal from '../CommentModal';
 
 const { Meta } = Card;
 
@@ -23,6 +24,7 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
   const navigate = useNavigate();
   const { mutate: likePost } = useLikePost();
   const { mutate: unLikePost } = useUnLikePost();
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
 
   useEffect(() => {
     if (post.likes?.some((like: any) => like.user.id === profile.userId)) {
@@ -43,6 +45,14 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
     console.log('islike', isLike);
   };
 
+  const handleCommentClick = () => {
+    setIsCommentModalOpen(true);
+  };
+
+  const handleCommentModalClose = () => {
+    setIsCommentModalOpen(false);
+  };
+
   return (
     <Card
       className="post-card"
@@ -58,7 +68,7 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
             </>
           )}
         </span>,
-        <span key="comment" className="like-comment-share-text">
+        <span key="comment" className="like-comment-share-text" onClick={() => handleCommentClick()}>
           <CommentOutlined /> Bình luận
         </span>,
         <span key="share" className="like-comment-share-text">
@@ -66,6 +76,15 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
         </span>,
       ]}
     >
+      {isCommentModalOpen && (
+        <CommentModal
+          open={isCommentModalOpen}
+          onClose={handleCommentModalClose}
+          name={post.user.profile.lastName + ' ' + post.user.profile.firstName}
+          avatarOwner={profile.avatar.url}
+          postId={post.id}
+        />
+      )}
       <Meta
         className="post-card-meta"
         avatar={
