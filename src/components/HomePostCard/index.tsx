@@ -83,6 +83,7 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
           name={post.user.profile.lastName + ' ' + post.user.profile.firstName}
           avatarOwner={profile.avatar.url}
           postId={post.id}
+          post={post}
         />
       )}
       <Meta
@@ -106,7 +107,7 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
           </div>
         }
       />
-      <p>{post.content}</p>
+      <p className="post-card-content">{post.content}</p>
       {/* Render danh sách hình ảnh */}
       {post.images && post.images.length > 0 && (
         <div className="post-card-images">

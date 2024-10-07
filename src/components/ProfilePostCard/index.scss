@@ -37,6 +37,12 @@
   margin-top: 4px; /* Khoảng cách giữa tên và thời gian */
 }
 
+.post-card-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .post-card-image {
   margin-top: 16px;
 }

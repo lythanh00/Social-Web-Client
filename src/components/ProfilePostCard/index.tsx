@@ -32,7 +32,9 @@ const ProfilePostCard: React.FC<Props> = (props: Props) => {
           </div>
         }
       />
-      <p>{post.content}</p>
+
+      <p className="post-card-content">{post.content}</p>
+
       {/* Render danh sách hình ảnh */}
       {post.images && post.images.length > 0 && (
         <div className="post-card-images">
