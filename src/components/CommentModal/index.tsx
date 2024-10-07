@@ -7,6 +7,7 @@ import { useCommentPost, useGetListCommentsByPost } from '../../apis/Comments';
 import { Navigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import HomePostCard from '../HomePostCard';
+import { socketConfig } from '../../socket';
 
 interface CommentModalProps {
   open: boolean;
@@ -15,19 +16,49 @@ interface CommentModalProps {
   avatarOwner: string;
   postId: number;
   post: any;
+  userId: number | null;
 }
 
-const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatarOwner, postId, post }) => {
-  console.log('open', open);
-
+const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatarOwner, postId, post, userId }) => {
   const [content, setContent] = useState('');
-  const { mutate: commentPost } = useCommentPost();
+  // const { mutate: commentPost } = useCommentPost();
   const { data: dataGetListCommentsByPost } = useGetListCommentsByPost(postId);
+  const [comments, setComments] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (postId) {
+      setComments(dataGetListCommentsByPost);
+    }
+  }, [dataGetListCommentsByPost]);
+
+  // kết nối socket khi mở modal comment
+  useEffect(() => {
+    if (postId) {
+      socketConfig.connect();
+      socketConfig.emit('join_comment', postId);
+    }
+  }, [postId]);
 
   const handleCreateComment = () => {
-    commentPost({ postId, content });
-    setContent('');
+    if (content) {
+      socketConfig.emit('sendComment', { userId: userId, postId: postId, content: content });
+      setContent('');
+    }
   };
+
+  // nhận sự kiện newComment từ server sau khi comment
+  useEffect(() => {
+    if (postId) {
+      socketConfig.on('newComment', (newComment: any) => {
+        setComments((prevComments) => [...prevComments, newComment]);
+        console.log('newComment', newComment);
+      });
+    }
+
+    return () => {
+      socketConfig.off('newComment');
+    };
+  }, [postId]);
 
   return (
     <Modal
@@ -41,7 +72,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
       {/*get list comments*/}
       <List
         className="list-post-comments"
-        dataSource={dataGetListCommentsByPost}
+        dataSource={comments}
         renderItem={(item: any) => (
           <List.Item className="post-comment-item">
             <Avatar src={item.user.profile.avatar.url} className="post-comment-item-avatar" />

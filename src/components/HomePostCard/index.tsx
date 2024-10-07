@@ -9,6 +9,7 @@ import { useLikePost, useUnLikePost } from '../../apis/Likes';
 import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import CommentModal from '../CommentModal';
+import { socketConfig } from '../../socket';
 
 const { Meta } = Card;
 
@@ -51,6 +52,7 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
 
   const handleCommentModalClose = () => {
     setIsCommentModalOpen(false);
+    socketConfig.disconnect();
   };
 
   return (
@@ -84,6 +86,7 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
           avatarOwner={profile.avatar.url}
           postId={post.id}
           post={post}
+          userId={profile.userId}
         />
       )}
       <Meta
