@@ -24,8 +24,6 @@ const ProfilePostCard: React.FC<Props> = (props: Props) => {
   const { mutate: unLikePost } = useUnLikePost();
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
 
-  console.log('profile', profile);
-
   useEffect(() => {
     if (post.likes?.some((like: any) => like.user.id === profile.userId)) {
       setIsLike(true);
