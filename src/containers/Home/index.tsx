@@ -7,7 +7,7 @@ import './index.scss';
 import { useGetProfile } from '../../apis/Profiles';
 import { useAppDispatch } from '../../store';
 import { setProfile } from '../../store/profileSlice';
-import HomeContentArea from '../../components/HomeContentArea';
+import HomeContentArea from '../../components/Home/HomeContentArea';
 
 const { Content, Sider } = Layout;
 

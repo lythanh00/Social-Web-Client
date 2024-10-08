@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfilePostCard from '../ProfilePostCard';
 import { List } from 'antd';
-import { useGetListPostsByOwner } from '../../apis/Posts';
+import { useGetListPostsByOwner } from '../../../apis/Posts';
 
 const ProfileNewsFeed: React.FC = () => {
   const { data } = useGetListPostsByOwner();

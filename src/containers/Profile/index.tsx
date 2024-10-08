@@ -5,11 +5,11 @@ import Navbar from '../../components/Navbar';
 import { useAppDispatch } from '../../store';
 import { useGetProfile } from '../../apis/Profiles';
 import { setProfile } from '../../store/profileSlice';
-import ProfileInfo from '../../components/ProfileInfo';
-import ProfileMenu from '../../components/ProfileMenu';
-import ProfileContentArea from '../../components/ProfileContentArea';
-import ProfileIntroduction from '../../components/ProfileIntroduction';
-import ProfileFriends from '../../components/ProfileFriends';
+import ProfileInfo from '../../components/Profile/ProfileInfo';
+import ProfileMenu from '../../components/Profile/ProfileMenu';
+import ProfileContentArea from '../../components/Profile/ProfileContentArea';
+import ProfileIntroduction from '../../components/Profile/ProfileIntroduction';
+import ProfileFriends from '../../components/Profile/ProfileFriends';
 
 const ProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();

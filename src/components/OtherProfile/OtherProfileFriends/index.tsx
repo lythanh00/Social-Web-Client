@@ -2,9 +2,9 @@ import { Avatar, Card, List } from 'antd';
 
 import './index.scss';
 
-import { useGetFriends, useGetListFriendsByOther } from '../../apis/User-Friends';
+import { useGetListFriendsByOther } from '../../../apis/User-Friends';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../../store';
 
 const OtherProfileFriends: React.FC = () => {
   const otherProfile = useSelector((state: RootState) => state.profile.otherProfile);

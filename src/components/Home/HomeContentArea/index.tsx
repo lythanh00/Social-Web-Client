@@ -1,5 +1,5 @@
 import React from 'react';
-import StatusUpdate from '../StatusUpdate';
+import StatusUpdate from '../../StatusUpdate';
 import './index.scss';
 import HomeNewsFeed from '../HomeNewsFeed';
 

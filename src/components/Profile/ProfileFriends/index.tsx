@@ -2,9 +2,9 @@ import { Avatar, Button, Card, DatePicker, DatePickerProps, Divider, Input, List
 
 import './index.scss';
 
-import { useGetFriends } from '../../apis/User-Friends';
+import { useGetFriends } from '../../../apis/User-Friends';
 import { useNavigate } from 'react-router-dom';
-import { CLIENT_ROUTE_PATH } from '../../constant/routes';
+import { CLIENT_ROUTE_PATH } from '../../../constant/routes';
 
 const ProfileFriends: React.FC = () => {
   const { data } = useGetFriends();

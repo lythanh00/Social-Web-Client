@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../../store';
 import { Avatar, Button, GetProp, message, UploadProps } from 'antd';
 import Upload, { RcFile, UploadFile } from 'antd/es/upload';
 import { CameraOutlined } from '@ant-design/icons';
-import { useGetProfile } from '../../apis/Profiles';
-import { useCountFriendsByOwner } from '../../apis/User-Friends';
+import { useGetProfile } from '../../../apis/Profiles';
+import { useCountFriendsByOwner } from '../../../apis/User-Friends';
 
 const ProfileInfo: React.FC = () => {
   const profile = useSelector((state: RootState) => state.profile.profile);

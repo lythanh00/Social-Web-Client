@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons';
 import './index.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../../store';
 
 import { format } from 'date-fns';
 

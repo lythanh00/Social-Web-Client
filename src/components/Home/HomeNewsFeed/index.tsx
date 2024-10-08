@@ -1,7 +1,6 @@
 import React from 'react';
-import ProfilePostCard from '../ProfilePostCard';
 import { List } from 'antd';
-import { useGetListPostsByOwnerAndFriends } from '../../apis/Posts';
+import { useGetListPostsByOwnerAndFriends } from '../../../apis/Posts';
 import HomePostCard from '../HomePostCard';
 
 const HomeNewsFeed: React.FC = () => {

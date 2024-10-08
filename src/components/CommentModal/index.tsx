@@ -6,7 +6,7 @@ import { RightOutlined, UpOutlined } from '@ant-design/icons';
 import { useCommentPost, useGetListCommentsByPost } from '../../apis/Comments';
 import { Navigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
-import HomePostCard from '../HomePostCard';
+import HomePostCard from '../Home/HomePostCard';
 import { socketConfig } from '../../socket';
 
 interface CommentModalProps {

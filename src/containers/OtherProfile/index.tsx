@@ -5,12 +5,12 @@ import Navbar from '../../components/Navbar';
 import { useAppDispatch } from '../../store';
 import { useGetProfile, useGetProfileByUserId } from '../../apis/Profiles';
 import { setOtherProfile, setProfile } from '../../store/profileSlice';
-import ProfileMenu from '../../components/ProfileMenu';
-import OtherProfileInfo from '../../components/OtherProfileInfo';
+import ProfileMenu from '../../components/Profile/ProfileMenu';
+import OtherProfileInfo from '../../components/OtherProfile/OtherProfileInfo';
 import { useSearchParams } from 'react-router-dom';
-import OtherProfileContentArea from '../../components/OtherProfileContentArea';
-import OtherProfileIntroduction from '../../components/OtherProfileIntroduction';
-import OtherProfileFriends from '../../components/OtherProfileFriends';
+import OtherProfileContentArea from '../../components/OtherProfile/OtherProfileContentArea';
+import OtherProfileIntroduction from '../../components/OtherProfile/OtherProfileIntroduction';
+import OtherProfileFriends from '../../components/OtherProfile/OtherProfileFriends';
 
 const OtherProfilePage: React.FC = () => {
   // load owner profile

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../../store';
 
 import { Avatar, Button, message, Modal } from 'antd';
 import { MessageOutlined, UndoOutlined, UserAddOutlined, UserDeleteOutlined } from '@ant-design/icons';
-import { useCheckIsFriend, useCountFriendsByOther, useRemoveUserFriend } from '../../apis/User-Friends';
+import { useCheckIsFriend, useCountFriendsByOther, useRemoveUserFriend } from '../../../apis/User-Friends';
 import {
   useCheckIsPendingFriendRequest,
   useRemoveFriendRequest,
   useSendFriendRequest,
-} from '../../apis/Friend-Requests';
+} from '../../../apis/Friend-Requests';
 
 const OtherProfileInfo: React.FC = () => {
   const otherProfile = useSelector((state: RootState) => state.profile.otherProfile);

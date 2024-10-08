@@ -9,11 +9,11 @@ import {
 } from '@ant-design/icons';
 import './index.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import InputComponent from '../Input';
+import { RootState } from '../../../store';
+import InputComponent from '../../Input';
 import { useMutation } from 'react-query';
-import { api } from '../../apis';
-import { useGetProfile, useUpdateProfile } from '../../apis/Profiles';
+import { api } from '../../../apis';
+import { useGetProfile, useUpdateProfile } from '../../../apis/Profiles';
 import { format } from 'date-fns';
 
 const ProfileIntroduction: React.FC = () => {

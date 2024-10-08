@@ -1,8 +1,8 @@
 import React from 'react';
 import { List } from 'antd';
-import { useGetListPostsByOther } from '../../apis/Posts';
+import { useGetListPostsByOther } from '../../../apis/Posts';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../../store';
 import OtherProfilePostCard from '../OtherProfilePostCard';
 
 const OtherProfileNewsFeed: React.FC = () => {

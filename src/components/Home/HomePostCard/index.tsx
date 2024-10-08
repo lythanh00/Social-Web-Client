@@ -4,12 +4,12 @@ import { LikeOutlined, CommentOutlined, ShareAltOutlined } from '@ant-design/ico
 import './index.scss';
 import { formatDistanceToNow } from 'date-fns';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { useLikePost, useUnLikePost } from '../../apis/Likes';
+import { RootState } from '../../../store';
+import { useLikePost, useUnLikePost } from '../../../apis/Likes';
 import { useNavigate } from 'react-router-dom';
-import { CLIENT_ROUTE_PATH } from '../../constant/routes';
-import CommentModal from '../CommentModal';
-import { socketConfig } from '../../socket';
+import { CLIENT_ROUTE_PATH } from '../../../constant/routes';
+import CommentModal from '../../CommentModal';
+import { socketConfig } from '../../../socket';
 
 const { Meta } = Card;
 
