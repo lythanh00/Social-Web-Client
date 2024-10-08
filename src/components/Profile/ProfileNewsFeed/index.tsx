@@ -8,7 +8,7 @@ const ProfileNewsFeed: React.FC = () => {
   return (
     <div className="newsfeed-container">
       <List
-        dataSource={data?.data}
+        dataSource={data}
         renderItem={(item) => (
           <List.Item>
             <ProfilePostCard post={item} />

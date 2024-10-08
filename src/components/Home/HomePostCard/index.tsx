@@ -43,7 +43,6 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
       likePost(post.id);
       setIsLike(true);
     }
-    console.log('islike', isLike);
   };
 
   const handleCommentClick = () => {
