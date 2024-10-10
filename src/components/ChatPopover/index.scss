@@ -1,0 +1,27 @@
+.chat-popover-trigger {
+  position: fixed;
+  bottom: 0px; /* Điều chỉnh vị trí từ dưới lên */
+  right: 110px; /* Điều chỉnh vị trí từ bên phải vào */
+  z-index: 1000; /* Đảm bảo nó ở phía trên các phần tử khác */
+}
+
+.ant-popover {
+  width: 370px; /* Đặt chiều rộng tối đa cho khung chat */
+  z-index: 1001; /* Đảm bảo popover nằm trên các phần khác */
+}
+
+.ant-popover-content {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng đổ bóng */
+}
+
+.chat-popover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-icon {
+  cursor: pointer;
+  font-size: 16px;
+  color: #000;
+}

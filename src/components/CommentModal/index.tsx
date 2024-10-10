@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, DatePicker, DatePickerProps, Divider, Input, Modal, Space, Form, Avatar, List } from 'antd';
+import { Button, Input, Modal, Form, Avatar, List } from 'antd';
 
 import './index.scss';
-import { RightOutlined, UpOutlined } from '@ant-design/icons';
-import { useCommentPost, useGetListCommentsByPost } from '../../apis/Comments';
-import { Navigate } from 'react-router-dom';
-import { CLIENT_ROUTE_PATH } from '../../constant/routes';
-import HomePostCard from '../Home/HomePostCard';
+import { RightOutlined } from '@ant-design/icons';
+import { useGetListCommentsByPost } from '../../apis/Comments';
 import { socketConfig } from '../../socket';
 
 interface CommentModalProps {
@@ -102,7 +99,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
         </Form.Item>
         <Form.Item className="pr-2">
           <Button onClick={() => handleCreateComment()}>
-            <UpOutlined />
+            <RightOutlined />
           </Button>
         </Form.Item>
       </Form>

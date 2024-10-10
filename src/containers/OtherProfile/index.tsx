@@ -27,7 +27,6 @@ const OtherProfilePage: React.FC = () => {
   const userId = parseInt(stringUserId as any);
 
   const { data: dataOtherProfile } = useGetProfileByUserId(userId);
-  console.log('data other profile', dataOtherProfile);
   if (dataOtherProfile) {
     dispatch(setOtherProfile(dataOtherProfile as any));
   }

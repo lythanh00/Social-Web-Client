@@ -1,32 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, List, Avatar } from 'antd';
 import './index.scss';
 import { useGetFriends } from '../../apis/User-Friends';
-import { useNavigate } from 'react-router-dom';
-import { CLIENT_ROUTE_PATH } from '../../constant/routes';
+import ChatPopover from '../ChatPopover';
 
 const RightSidebar: React.FC = () => {
   const { data } = useGetFriends();
-  const navigate = useNavigate();
+
+  const [isChatPopoverOpen, setIsChatPopoverOpen] = useState(false);
+  const [selectedFriend, setSelectedFriend] = useState<any>(null);
+
+  // Hàm mở Drawer và đặt thông tin người bạn
+  const handleChatPopoverOpen = (friend: any) => {
+    setSelectedFriend(friend); // Cập nhật thông tin người bạn khi click
+    setIsChatPopoverOpen(true); // Hiển thị Drawer
+  };
+
+  // Hàm đóng Drawer
+  const handleChatPopoverClose = () => {
+    setIsChatPopoverOpen(false); // Ẩn Drawer
+  };
 
   return (
-    <Card className="right-sidebar-card" title="Người liên hệ">
-      <List
-        dataSource={data?.data}
-        renderItem={(item: any) => (
-          <List.Item>
-            <div
-              className="right-sidebar-card-item"
-              onClick={() => navigate(`${CLIENT_ROUTE_PATH.OTHERPROFILE}?userId=${item.friend.id}`)}
-              style={{ cursor: 'pointer' }}
-            >
-              <Avatar src={item.friend.profile.avatar.url} />
-              <span className="font-medium">{item.friend.profile.lastName + ' ' + item.friend.profile.firstName}</span>
-            </div>
-          </List.Item>
-        )}
-      />
-    </Card>
+    <>
+      <Card className="right-sidebar-card" title="Người liên hệ">
+        <List
+          dataSource={data}
+          renderItem={(item: any) => (
+            <List.Item>
+              <div
+                className="right-sidebar-card-item"
+                onClick={() => handleChatPopoverOpen(item.friend)}
+                style={{ cursor: 'pointer' }}
+              >
+                <Avatar src={item.friend.profile.avatar.url} />
+                <span className="font-medium">
+                  {item.friend.profile.lastName + ' ' + item.friend.profile.firstName}
+                </span>
+              </div>
+            </List.Item>
+          )}
+        />
+      </Card>
+
+      {isChatPopoverOpen && (
+        <ChatPopover open={isChatPopoverOpen} onClose={handleChatPopoverClose} friend={selectedFriend} />
+      )}
+    </>
   );
 };
 
