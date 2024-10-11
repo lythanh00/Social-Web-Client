@@ -14,6 +14,7 @@ const RightSidebar: React.FC = () => {
   const handleChatPopoverOpen = (friend: any) => {
     setSelectedFriend(friend); // Cập nhật thông tin người bạn khi click
     setIsChatPopoverOpen(true); // Hiển thị Drawer
+    console.log('fr', friend);
   };
 
   // Hàm đóng Drawer
