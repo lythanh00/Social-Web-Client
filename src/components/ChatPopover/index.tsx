@@ -7,18 +7,20 @@ import { useGetListMessagesByChat, useSendMessage } from '../../apis/Messages';
 import { useCreateChat } from '../../apis/Chats';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { socketConfig } from '../../socket';
 
 interface ChatPopoverProps {
   open: boolean;
   onClose: () => void;
   friend: any;
+  senderId: number | null;
 }
 
-const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend }) => {
+const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, senderId }) => {
   const [message, setMessage] = useState('');
   const { mutate: createChat, data: dataCreateChat } = useCreateChat(friend.id);
   const profile = useSelector((state: RootState) => state.profile.profile);
-  const { mutate: sendMessage, data: dataSendMessage } = useSendMessage(dataCreateChat?.id, friend.id, message);
+  const [arrMessages, setArrMessages] = useState<any[]>([]);
 
   // Ref để scroll đến cuối danh sách tin nhắn
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -35,7 +37,21 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend }) => {
 
   useEffect(() => {
     if (dataCreateChat?.id) {
+      setArrMessages(dataGetListMessagesByChat);
+    }
+  }, [dataGetListMessagesByChat]);
+
+  useEffect(() => {
+    if (dataCreateChat?.id) {
       refetchGetListMessagesByChat();
+    }
+  }, [dataCreateChat?.id]);
+
+  // kết nối socket khi mở chat popover
+  useEffect(() => {
+    if (dataCreateChat?.id) {
+      socketConfig.connect();
+      socketConfig.emit('join_chat', dataCreateChat?.id);
     }
   }, [dataCreateChat?.id]);
 
@@ -46,7 +62,7 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend }) => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, 500); // Delay để đảm bảo tất cả các tin nhắn đã được render
     }
-  }, [dataGetListMessagesByChat]);
+  }, [arrMessages]);
 
   const renderMessageItem = (item: any, index: number) => {
     const isSender = item.senderId === profile.userId;
@@ -80,9 +96,29 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend }) => {
   };
 
   const handleSendMessage = () => {
-    sendMessage();
-    setMessage('');
+    if (message) {
+      socketConfig.emit('sendMessage', {
+        senderId: senderId,
+        chatId: dataCreateChat?.id,
+        receiverId: friend.id,
+        text: message,
+      });
+      setMessage('');
+    }
   };
+
+  // nhận sự kiện newMessage từ server sau khi send message
+  useEffect(() => {
+    if (dataCreateChat?.id) {
+      socketConfig.on('newMessage', (newMessage: any) => {
+        setArrMessages((prevArrMessages) => [...prevArrMessages, newMessage]);
+      });
+    }
+
+    return () => {
+      socketConfig.off('newMessage');
+    };
+  }, [dataCreateChat?.id]);
 
   return (
     <>
@@ -99,7 +135,7 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend }) => {
             </div>
             {/* chat popover list messages */}
             <div className="chat-popover-content">
-              <List dataSource={dataGetListMessagesByChat} renderItem={renderMessageItem} />
+              <List dataSource={arrMessages} renderItem={renderMessageItem} />
               {/* Phần tử ẩn để cuộn đến */}
               <div ref={messagesEndRef} />
             </div>

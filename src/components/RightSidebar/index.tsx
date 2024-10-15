@@ -3,10 +3,13 @@ import { Card, List, Avatar } from 'antd';
 import './index.scss';
 import { useGetFriends } from '../../apis/User-Friends';
 import ChatPopover from '../ChatPopover';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { socketConfig } from '../../socket';
 
 const RightSidebar: React.FC = () => {
   const { data } = useGetFriends();
-
+  const profile = useSelector((state: RootState) => state.profile.profile);
   const [isChatPopoverOpen, setIsChatPopoverOpen] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState<any>(null);
 
@@ -17,9 +20,10 @@ const RightSidebar: React.FC = () => {
     console.log('fr', friend);
   };
 
-  // Hàm đóng Drawer
+  // Hàm đóng ChatPopover
   const handleChatPopoverClose = () => {
     setIsChatPopoverOpen(false); // Ẩn Drawer
+    socketConfig.disconnect();
   };
 
   return (
@@ -45,7 +49,12 @@ const RightSidebar: React.FC = () => {
       </Card>
 
       {isChatPopoverOpen && (
-        <ChatPopover open={isChatPopoverOpen} onClose={handleChatPopoverClose} friend={selectedFriend} />
+        <ChatPopover
+          open={isChatPopoverOpen}
+          onClose={handleChatPopoverClose}
+          friend={selectedFriend}
+          senderId={profile.userId}
+        />
       )}
     </>
   );
