@@ -3,7 +3,7 @@ import { Avatar, Button, Input, List, Popover } from 'antd';
 
 import './index.scss';
 import { CloseOutlined, RightOutlined } from '@ant-design/icons';
-import { useGetListMessagesByChat } from '../../apis/Messages';
+import { useGetListMessagesByChat, useSendMessage } from '../../apis/Messages';
 import { useCreateChat } from '../../apis/Chats';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -18,6 +18,7 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend }) => {
   const [message, setMessage] = useState('');
   const { mutate: createChat, data: dataCreateChat } = useCreateChat(friend.id);
   const profile = useSelector((state: RootState) => state.profile.profile);
+  const { mutate: sendMessage, data: dataSendMessage } = useSendMessage(dataCreateChat?.id, friend.id, message);
 
   // Ref để scroll đến cuối danh sách tin nhắn
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -79,9 +80,8 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend }) => {
   };
 
   const handleSendMessage = () => {
-    // Thực hiện logic gửi tin nhắn ở đây
-    console.log(`Message sent to ${friend.profile.firstName}: ${message}`);
-    setMessage(''); // Reset message
+    sendMessage();
+    setMessage('');
   };
 
   return (
