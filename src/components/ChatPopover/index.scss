@@ -5,16 +5,16 @@
   z-index: 1000;
 }
 
-.chat-popover .ant-popover {
+.chat-popover.ant-popover {
   width: 370px;
   z-index: 1001;
   height: 500px;
   position: fixed;
   bottom: 0px !important;
-  right: 300px !important;
+  right: 110px !important;
 }
 
-.chat-popover .ant-popover-content {
+.chat-popover.ant-popover-content {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: 100%;
 }
@@ -36,7 +36,7 @@
   overflow-y: auto;
   position: relative;
   top: 42px;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
 }
 
 .chat-popover-footer {
