@@ -91,9 +91,6 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
           className={`message-bubble ${isSender ? 'message-right-bubble' : 'message-left-bubble'}`}
           style={{
             backgroundColor: isSender ? '#87e8de' : '#f5f5f5',
-            padding: '10px',
-            borderRadius: '15px',
-            maxWidth: '60%',
             textAlign: isSender ? 'right' : 'left',
           }}
         >
