@@ -39,7 +39,13 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
     if (dataCreateChat?.id) {
       setArrMessages(dataGetListMessagesByChat);
     }
-  }, [dataGetListMessagesByChat]);
+  }, [dataGetListMessagesByChat, dataCreateChat?.id]);
+
+  // arrMessages rỗng
+  console.log('arrMessages', arrMessages);
+  console.log('dataGetListMessagesByChat', dataGetListMessagesByChat);
+  console.log('dataCreateChat?.id', dataCreateChat?.id);
+  console.log('friend.id', friend.id);
 
   useEffect(() => {
     if (dataCreateChat?.id) {
@@ -66,6 +72,9 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
 
   const renderMessageItem = (item: any, index: number) => {
     const isSender = item.senderId === profile.userId;
+
+    // Hàm đóng ChatPopover
+    const onClose = () => {};
 
     return (
       <div
@@ -158,6 +167,7 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
         open={open}
         onOpenChange={() => {}}
         arrow={false}
+        overlayClassName="chat-popover"
       >
         <div className="chat-popover-trigger">
           <Avatar src={friend.profile.avatar.url} size={'large'} />

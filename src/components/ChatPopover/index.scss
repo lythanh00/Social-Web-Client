@@ -5,17 +5,17 @@
   z-index: 1000;
 }
 
-.ant-popover {
+.chat-popover .ant-popover {
   width: 370px;
   z-index: 1001;
   height: 500px;
   position: fixed;
   bottom: 0px !important;
-  right: 110px !important;
+  right: 300px !important;
 }
 
-.ant-popover-content {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng đổ bóng */
+.chat-popover .ant-popover-content {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: 100%;
 }
 

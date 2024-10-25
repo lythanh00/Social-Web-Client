@@ -24,6 +24,7 @@ const RightSidebar: React.FC = () => {
   const handleChatPopoverClose = () => {
     setIsChatPopoverOpen(false); // Ẩn Drawer
     socketConfig.disconnect();
+    setSelectedFriend(null);
   };
 
   return (
