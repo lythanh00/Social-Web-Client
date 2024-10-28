@@ -89,6 +89,7 @@ const SignIn: React.FC = () => {
     onSuccess: (data) => {
       console.log('token', data?.data);
       localStorage.setItem('token', data?.data?.access_token);
+      localStorage.setItem('refreshToken', data?.data?.refresh_token);
       navigate(CLIENT_ROUTE_PATH.HOME);
       setInputError(''); // Xóa lỗi khi thành công
       message.success('Login success!'); // Hiển thị thông báo thành công

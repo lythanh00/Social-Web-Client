@@ -26,6 +26,7 @@ const Navbar: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
   };
 
