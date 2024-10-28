@@ -23,7 +23,7 @@ const Home: React.FC = () => {
 
   return (
     <Layout className="home-page">
-      <Navbar />
+      {/* <Navbar /> */}
       <Layout className="home-page-layout-content">
         <Sider width={400}>
           <LeftSidebar />

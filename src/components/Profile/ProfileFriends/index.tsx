@@ -13,7 +13,7 @@ const ProfileFriends: React.FC = () => {
   return (
     <Card className="profile-friends" title="Bạn bè">
       <List
-        dataSource={data?.data}
+        dataSource={data}
         renderItem={(item: any) => (
           <List.Item>
             <div

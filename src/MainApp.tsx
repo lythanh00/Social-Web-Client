@@ -2,6 +2,7 @@ import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { api } from './apis';
+import Navbar from './components/Navbar';
 
 const { Content } = Layout;
 
@@ -14,7 +15,10 @@ const MainApp = (props: IMainAppProp) => {
     //     <Outlet />
     //   </Content>
     // </Layout>
-    <Outlet />
+    <>
+      <Navbar />
+      <Outlet />
+    </>
   );
 };
 export default MainApp;

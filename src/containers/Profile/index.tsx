@@ -25,7 +25,7 @@ const ProfilePage: React.FC = () => {
   };
   return (
     <Layout className="profile-page">
-      <Navbar />
+      {/* <Navbar /> */}
       <Layout className="profile-page-layout-content">
         <ProfileInfo />
         <ProfileMenu onChange={handleMenuChange} />

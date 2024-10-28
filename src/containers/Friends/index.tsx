@@ -10,7 +10,7 @@ import ReceivedFriendRequests from '../../components/ReceivedFriendRequests';
 const FriendsPage: React.FC = () => {
   return (
     <Layout className="friends-page">
-      <Navbar />
+      {/* <Navbar /> */}
       <Layout className="friends-page-layout-content">
         <Sider width={350}>
           <LeftSidebarFriendsPage />
