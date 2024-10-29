@@ -3,21 +3,19 @@ import { Avatar, Button, Input, List, Popover } from 'antd';
 
 import './index.scss';
 import { CloseOutlined, RightOutlined } from '@ant-design/icons';
-import { useGetListMessagesByChat, useSendMessage } from '../../apis/Messages';
-import { useCreateChat } from '../../apis/Chats';
+import { useGetListMessagesByChat } from '../../apis/Messages';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { socketConfig } from '../../socket';
-import { openChat, closeChat, addMessage, setMessages } from '../../store/chatSlice';
+import { closeChat } from '../../store/chatSlice';
 
 const ChatPopover: React.FC = () => {
   const dispatch = useDispatch();
   const { open, friend, senderId, chatId } = useSelector((state: RootState) => state.chat);
   const [message, setMessage] = useState('');
-  // const { mutate: createChat, data: dataCreateChat } = useCreateChat(friend?.id);
   const profile = useSelector((state: RootState) => state.profile.profile);
   const [arrMessages, setArrMessages] = useState<any[]>([]);
-  const { data: dataGetListMessagesByChat, refetch: refetchGetListMessagesByChat } = useGetListMessagesByChat(chatId);
+  const { data: dataGetListMessagesByChat } = useGetListMessagesByChat(chatId);
 
   useEffect(() => {
     if (chatId) {
@@ -25,39 +23,8 @@ const ChatPopover: React.FC = () => {
     }
   }, [dataGetListMessagesByChat, chatId]);
 
-  console.log('open', open);
-  console.log('arrMessages', arrMessages);
-  console.log('friend', friend);
-  console.log('senderId', senderId);
-  console.log('chatId', chatId);
-
   // Ref để scroll đến cuối danh sách tin nhắn
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-  // // tạo | lấy đoạn chat
-  // useEffect(() => {
-  //   if (friend?.id) {
-  //     createChat();
-  //   }
-  // }, [friend?.id]);
-
-  // const { data: dataGetListMessagesByChat, refetch: refetchGetListMessagesByChat } = useGetListMessagesByChat(
-  //   dataCreateChat?.id,
-  // );
-
-  // // lấy lại danh sách tin nhắn
-  // useEffect(() => {
-  //   if (dataCreateChat?.id) {
-  //     refetchGetListMessagesByChat();
-  //   }
-  // }, [dataCreateChat?.id]);
-
-  // // dispatch danh sách tin nhắn
-  // useEffect(() => {
-  //   if (chatId) {
-  //     dispatch(setMessages(dataGetListMessagesByChat));
-  //   }
-  // }, [chatId]);
 
   // kết nối socket khi mở chat popover
   useEffect(() => {
@@ -120,7 +87,7 @@ const ChatPopover: React.FC = () => {
   useEffect(() => {
     if (chatId) {
       socketConfig.on('newMessage', (newMessage: any) => {
-        dispatch(addMessage(newMessage));
+        setArrMessages((prevArrMessages) => [...prevArrMessages, newMessage]);
       });
     }
     return () => {

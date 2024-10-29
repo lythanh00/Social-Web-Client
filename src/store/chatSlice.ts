@@ -4,7 +4,6 @@ import { socketConfig } from '../socket';
 
 interface ChatState {
   open: boolean;
-  arrMessages: any[];
   friend: any;
   senderId: number | null;
   chatId: number | null;
@@ -12,7 +11,6 @@ interface ChatState {
 
 const initialState: ChatState = {
   open: false,
-  arrMessages: [],
   friend: null,
   senderId: null,
   chatId: null,
@@ -32,14 +30,8 @@ const chatSlice = createSlice({
       state.open = false;
       socketConfig.disconnect();
     },
-    setMessages(state, action: PayloadAction<any[]>) {
-      state.arrMessages = action.payload;
-    },
-    addMessage(state, action: PayloadAction<any>) {
-      state.arrMessages.push(action.payload);
-    },
   },
 });
 
-export const { openChat, closeChat, setMessages, addMessage } = chatSlice.actions;
+export const { openChat, closeChat } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -8,7 +8,7 @@ const getListMessagesByChat = async (chatId: number | null) => {
 };
 
 export const useGetListMessagesByChat = (chatId: number | null) => {
-  return useQuery(['getListMessagesByChat'], () => getListMessagesByChat(chatId), {
+  return useQuery(['getListMessagesByChat', chatId], () => getListMessagesByChat(chatId), {
     enabled: !!chatId,
   });
 };
