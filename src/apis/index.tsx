@@ -25,11 +25,6 @@ const createAxiosInstance = (
       const originalRequest = error.config;
       const refreshToken = localStorage.getItem('refreshToken');
 
-      console.log('abc');
-      console.log('error.response.status', error.response.status);
-      console.log('refreshToken', refreshToken);
-      console.log('originalRequest._retry', originalRequest._retry);
-
       // Kiểm tra nếu lỗi là 401 và chưa thực hiện refresh token
       if (error.response.status === 401 && refreshToken && !originalRequest._retry) {
         originalRequest._retry = true; // Đánh dấu rằng đã thử refresh token
@@ -39,8 +34,6 @@ const createAxiosInstance = (
           const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, {
             refreshToken,
           });
-
-          console.log('data', data);
 
           // Lưu token mới
           localStorage.setItem('token', data.access_token);

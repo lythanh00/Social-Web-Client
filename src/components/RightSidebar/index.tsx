@@ -2,29 +2,27 @@ import React, { useState } from 'react';
 import { Card, List, Avatar } from 'antd';
 import './index.scss';
 import { useGetFriends } from '../../apis/User-Friends';
-import ChatPopover from '../ChatPopover';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { socketConfig } from '../../socket';
+import { openChat, setMessages } from '../../store/chatSlice';
+import ChatPopover from '../ChatPopover';
+import { useCreateChat } from '../../apis/Chats';
+import { useGetListMessagesByChat } from '../../apis/Messages';
 
 const RightSidebar: React.FC = () => {
+  const dispatch = useDispatch();
   const { data } = useGetFriends();
   const profile = useSelector((state: RootState) => state.profile.profile);
-  const [isChatPopoverOpen, setIsChatPopoverOpen] = useState(false);
-  const [selectedFriend, setSelectedFriend] = useState<any>(null);
+  const { mutate: createChat, data: dataCreateChat } = useCreateChat();
 
   // Hàm mở Drawer và đặt thông tin người bạn
-  const handleChatPopoverOpen = (friend: any) => {
-    setSelectedFriend(friend); // Cập nhật thông tin người bạn khi click
-    setIsChatPopoverOpen(true); // Hiển thị Drawer
-    console.log('fr', friend);
-  };
-
-  // Hàm đóng ChatPopover
-  const handleChatPopoverClose = () => {
-    setIsChatPopoverOpen(false); // Ẩn Drawer
-    socketConfig.disconnect();
-    setSelectedFriend(null);
+  const handleChatPopoverOpen = async (friend: any) => {
+    // Bước 1: Tạo cuộc trò chuyện mới với bạn bè
+    createChat(friend.id, {
+      onSuccess: async (dataCreateChat) => {
+        dispatch(openChat({ friend, senderId: profile.userId, chatId: dataCreateChat?.id }));
+      },
+    });
   };
 
   return (
@@ -48,15 +46,6 @@ const RightSidebar: React.FC = () => {
           )}
         />
       </Card>
-
-      {isChatPopoverOpen && (
-        <ChatPopover
-          open={isChatPopoverOpen}
-          onClose={handleChatPopoverClose}
-          friend={selectedFriend}
-          senderId={profile.userId}
-        />
-      )}
     </>
   );
 };

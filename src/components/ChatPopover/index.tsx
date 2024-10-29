@@ -5,61 +5,67 @@ import './index.scss';
 import { CloseOutlined, RightOutlined } from '@ant-design/icons';
 import { useGetListMessagesByChat, useSendMessage } from '../../apis/Messages';
 import { useCreateChat } from '../../apis/Chats';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { socketConfig } from '../../socket';
+import { openChat, closeChat, addMessage, setMessages } from '../../store/chatSlice';
 
-interface ChatPopoverProps {
-  open: boolean;
-  onClose: () => void;
-  friend: any;
-  senderId: number | null;
-}
-
-const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, senderId }) => {
+const ChatPopover: React.FC = () => {
+  const dispatch = useDispatch();
+  const { open, friend, senderId, chatId } = useSelector((state: RootState) => state.chat);
   const [message, setMessage] = useState('');
-  const { mutate: createChat, data: dataCreateChat } = useCreateChat(friend.id);
+  // const { mutate: createChat, data: dataCreateChat } = useCreateChat(friend?.id);
   const profile = useSelector((state: RootState) => state.profile.profile);
   const [arrMessages, setArrMessages] = useState<any[]>([]);
+  const { data: dataGetListMessagesByChat, refetch: refetchGetListMessagesByChat } = useGetListMessagesByChat(chatId);
+
+  useEffect(() => {
+    if (chatId) {
+      setArrMessages(dataGetListMessagesByChat);
+    }
+  }, [dataGetListMessagesByChat, chatId]);
+
+  console.log('open', open);
+  console.log('arrMessages', arrMessages);
+  console.log('friend', friend);
+  console.log('senderId', senderId);
+  console.log('chatId', chatId);
 
   // Ref để scroll đến cuối danh sách tin nhắn
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (friend.id) {
-      createChat();
-    }
-  }, [friend.id]);
+  // // tạo | lấy đoạn chat
+  // useEffect(() => {
+  //   if (friend?.id) {
+  //     createChat();
+  //   }
+  // }, [friend?.id]);
 
-  const { data: dataGetListMessagesByChat, refetch: refetchGetListMessagesByChat } = useGetListMessagesByChat(
-    dataCreateChat?.id,
-  );
+  // const { data: dataGetListMessagesByChat, refetch: refetchGetListMessagesByChat } = useGetListMessagesByChat(
+  //   dataCreateChat?.id,
+  // );
 
-  useEffect(() => {
-    if (dataCreateChat?.id) {
-      setArrMessages(dataGetListMessagesByChat);
-    }
-  }, [dataGetListMessagesByChat, dataCreateChat?.id]);
+  // // lấy lại danh sách tin nhắn
+  // useEffect(() => {
+  //   if (dataCreateChat?.id) {
+  //     refetchGetListMessagesByChat();
+  //   }
+  // }, [dataCreateChat?.id]);
 
-  // arrMessages rỗng
-  console.log('arrMessages', arrMessages);
-  console.log('dataGetListMessagesByChat', dataGetListMessagesByChat);
-  console.log('dataCreateChat?.id', dataCreateChat?.id);
-  console.log('friend.id', friend.id);
-
-  useEffect(() => {
-    if (dataCreateChat?.id) {
-      refetchGetListMessagesByChat();
-    }
-  }, [dataCreateChat?.id]);
+  // // dispatch danh sách tin nhắn
+  // useEffect(() => {
+  //   if (chatId) {
+  //     dispatch(setMessages(dataGetListMessagesByChat));
+  //   }
+  // }, [chatId]);
 
   // kết nối socket khi mở chat popover
   useEffect(() => {
-    if (dataCreateChat?.id) {
+    if (chatId) {
       socketConfig.connect();
-      socketConfig.emit('join_chat', dataCreateChat?.id);
+      socketConfig.emit('join_chat', chatId);
     }
-  }, [dataCreateChat?.id]);
+  }, [chatId]);
 
   // Tự động cuộn xuống khi mở chat hoặc có tin nhắn mới
   useEffect(() => {
@@ -72,9 +78,6 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
 
   const renderMessageItem = (item: any, index: number) => {
     const isSender = item.senderId === profile.userId;
-
-    // Hàm đóng ChatPopover
-    const onClose = () => {};
 
     return (
       <div
@@ -105,8 +108,8 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
     if (message) {
       socketConfig.emit('sendMessage', {
         senderId: senderId,
-        chatId: dataCreateChat?.id,
-        receiverId: friend.id,
+        chatId: chatId,
+        receiverId: friend?.id,
         text: message,
       });
       setMessage('');
@@ -115,16 +118,15 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
 
   // nhận sự kiện newMessage từ server sau khi send message
   useEffect(() => {
-    if (dataCreateChat?.id) {
+    if (chatId) {
       socketConfig.on('newMessage', (newMessage: any) => {
-        setArrMessages((prevArrMessages) => [...prevArrMessages, newMessage]);
+        dispatch(addMessage(newMessage));
       });
     }
-
     return () => {
       socketConfig.off('newMessage');
     };
-  }, [dataCreateChat?.id]);
+  }, [chatId]);
 
   return (
     <>
@@ -134,10 +136,10 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
             {/* chat popover header */}
             <div className="chat-popover-header">
               <div className="flex items-center gap-1" style={{ cursor: 'pointer' }}>
-                <Avatar src={friend.profile.avatar.url} />
-                <span className="font-medium">{friend.profile.lastName + ' ' + friend.profile.firstName}</span>
+                <Avatar src={friend?.profile.avatar.url} />
+                <span className="font-medium">{friend?.profile.lastName + ' ' + friend?.profile.firstName}</span>
               </div>
-              <CloseOutlined className="close-icon" onClick={onClose} /> {/* Nút "X" để đóng */}
+              <CloseOutlined className="close-icon" onClick={() => dispatch(closeChat())} /> {/* Nút "X" để đóng */}
             </div>
             {/* chat popover list messages */}
             <div className="chat-popover-content">
@@ -167,7 +169,7 @@ const ChatPopover: React.FC<ChatPopoverProps> = ({ open, onClose, friend, sender
         overlayClassName="chat-popover"
       >
         <div className="chat-popover-trigger">
-          <Avatar src={friend.profile.avatar.url} size={'large'} />
+          <Avatar src={friend?.profile.avatar.url} size={'large'} />
         </div>
       </Popover>
     </>

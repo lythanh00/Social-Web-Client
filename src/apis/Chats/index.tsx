@@ -9,6 +9,6 @@ const createChat = async (participant2Id: number | null) => {
   return response.data;
 };
 
-export const useCreateChat = (participant2Id: number | null) => {
-  return useMutation(() => createChat(participant2Id));
+export const useCreateChat = () => {
+  return useMutation((participant2Id: number | null) => createChat(participant2Id));
 };

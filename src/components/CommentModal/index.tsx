@@ -48,7 +48,6 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
     if (postId) {
       socketConfig.on('newComment', (newComment: any) => {
         setComments((prevComments) => [...prevComments, newComment]);
-        console.log('newComment', newComment);
       });
     }
 

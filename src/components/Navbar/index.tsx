@@ -18,6 +18,8 @@ const { Header } = Layout;
 const { Search } = Input;
 
 const Navbar: React.FC = () => {
+  console.log('xyz');
+
   const profile = useSelector((state: RootState) => state.profile.profile);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
