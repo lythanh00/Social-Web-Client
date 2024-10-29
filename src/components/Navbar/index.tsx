@@ -7,12 +7,13 @@ import setting from '../../assets/setting.jpg';
 import logout from '../../assets/logout.jpg';
 import message from '../../assets/message.jpg';
 import notification from '../../assets/notification.jpg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { api } from '../../apis';
 import { useSearchProfileByName } from '../../apis/Profiles';
+import { closeChat } from '../../store/chatSlice';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -25,10 +26,12 @@ const Navbar: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
+    dispatch(closeChat());
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
   };
 
