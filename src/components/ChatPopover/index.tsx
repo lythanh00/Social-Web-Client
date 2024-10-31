@@ -11,7 +11,7 @@ import { closeChat } from '../../store/chatSlice';
 
 const ChatPopover: React.FC = () => {
   const dispatch = useDispatch();
-  const { open, friend, senderId, chatId } = useSelector((state: RootState) => state.chat);
+  const { open, friend, ownerId, chatId } = useSelector((state: RootState) => state.chat);
   const [message, setMessage] = useState('');
   const profile = useSelector((state: RootState) => state.profile.profile);
   const [arrMessages, setArrMessages] = useState<any[]>([]);
@@ -38,7 +38,7 @@ const ChatPopover: React.FC = () => {
   useEffect(() => {
     if (chatId) {
       socketConfig.emit('markAsRead', {
-        senderId: senderId,
+        ownerId: ownerId,
         chatId: chatId,
       });
     }
@@ -53,7 +53,7 @@ const ChatPopover: React.FC = () => {
         if (markAsRead.success) {
           setArrMessages((arrMessages) =>
             arrMessages.map((message) => {
-              return message.senderId === senderId && message.isRead === false
+              return message.senderId === ownerId && message.isRead === false
                 ? {
                     ...message,
                     isRead: true,
@@ -90,30 +90,30 @@ const ChatPopover: React.FC = () => {
   }, [arrMessages]);
 
   const renderMessageItem = (item: any, index: number) => {
-    const isSender = item.senderId === profile.userId;
+    const isOwner = item.senderId === profile.userId;
 
     return (
       <div
         key={index}
-        className={`message-item ${isSender ? 'message-right' : 'message-left'}`}
+        className={`message-item ${isOwner ? 'message-right' : 'message-left'}`}
         style={{
           display: 'flex',
-          justifyContent: isSender ? 'flex-end' : 'flex-start',
+          justifyContent: isOwner ? 'flex-end' : 'flex-start',
           padding: '5px',
         }}
       >
-        {!isSender && <Avatar src={friend.profile.avatar.url} size={'small'} />}
+        {!isOwner && <Avatar src={friend.profile.avatar.url} size={'small'} />}
         <div
-          className={`message-bubble ${isSender ? 'message-right-bubble' : 'message-left-bubble'}`}
+          className={`message-bubble ${isOwner ? 'message-right-bubble' : 'message-left-bubble'}`}
           style={{
-            backgroundColor: isSender ? '#87e8de' : '#f5f5f5',
-            textAlign: isSender ? 'right' : 'left',
+            backgroundColor: isOwner ? '#87e8de' : '#f5f5f5',
+            textAlign: isOwner ? 'right' : 'left',
           }}
         >
           {item.text && item.text}
           {item.image && <img src={item.image} />}
         </div>
-        {isSender && item.isRead && (
+        {isOwner && item.isRead && (
           <span className="is-read">
             <CheckCircleOutlined />
           </span>
@@ -125,7 +125,7 @@ const ChatPopover: React.FC = () => {
   const handleSendMessage = () => {
     if (message) {
       socketConfig.emit('sendMessage', {
-        senderId: senderId,
+        senderId: ownerId,
         chatId: chatId,
         receiverId: friend?.id,
         text: message,

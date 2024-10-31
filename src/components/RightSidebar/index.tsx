@@ -18,7 +18,7 @@ const RightSidebar: React.FC = () => {
     // Bước 1: Tạo cuộc trò chuyện mới với bạn bè
     createChat(friend.id, {
       onSuccess: async (dataCreateChat) => {
-        dispatch(openChat({ friend, senderId: profile.userId, chatId: dataCreateChat?.id }));
+        dispatch(openChat({ friend, ownerId: profile.userId, chatId: dataCreateChat?.id }));
       },
     });
   };

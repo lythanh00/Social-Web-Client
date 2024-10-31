@@ -5,14 +5,14 @@ import { socketConfig } from '../socket';
 interface ChatState {
   open: boolean;
   friend: any;
-  senderId: number | null;
+  ownerId: number | null;
   chatId: number | null;
 }
 
 const initialState: ChatState = {
   open: false,
   friend: null,
-  senderId: null,
+  ownerId: null,
   chatId: null,
 };
 
@@ -20,10 +20,10 @@ const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    openChat(state, action: PayloadAction<{ friend: any; senderId: number | null; chatId: number | null }>) {
+    openChat(state, action: PayloadAction<{ friend: any; ownerId: number | null; chatId: number | null }>) {
       state.open = true;
       state.friend = action.payload.friend;
-      state.senderId = action.payload.senderId;
+      state.ownerId = action.payload.ownerId;
       state.chatId = action.payload.chatId;
     },
     closeChat(state) {
