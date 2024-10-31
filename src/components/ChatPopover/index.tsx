@@ -61,17 +61,6 @@ const ChatPopover: React.FC = () => {
                 : message;
             }),
           );
-          // setArrMessages(
-          //   arrMessages.map((message) => {
-          //     console.log(message);
-          //     return message.senderId === senderId && message.isRead === false
-          //       ? {
-          //           ...message,
-          //           isRead: true,
-          //         }
-          //       : message;
-          //   }),
-          // );
         }
       });
     }
