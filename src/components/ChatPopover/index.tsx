@@ -42,18 +42,36 @@ const ChatPopover: React.FC = () => {
         chatId: chatId,
       });
     }
-  }, [chatId]);
+  }, [chatId, arrMessages]);
 
   // nhận sự kiện xem tin nhắn từ server sau khi mở  chatpopover
   useEffect(() => {
     if (chatId) {
-      socketConfig.on('markAsRead', (markAsRead: boolean) => {
-        if (markAsRead) {
-          setArrMessages((prevArrMessages) =>
-            prevArrMessages.map((message) => {
-              return { ...message, isRead: true };
+      socketConfig.on('markAsRead', (markAsRead) => {
+        console.log('markAsRead', markAsRead);
+
+        if (markAsRead.success) {
+          setArrMessages((arrMessages) =>
+            arrMessages.map((message) => {
+              return message.senderId === senderId && message.isRead === false
+                ? {
+                    ...message,
+                    isRead: true,
+                  }
+                : message;
             }),
           );
+          // setArrMessages(
+          //   arrMessages.map((message) => {
+          //     console.log(message);
+          //     return message.senderId === senderId && message.isRead === false
+          //       ? {
+          //           ...message,
+          //           isRead: true,
+          //         }
+          //       : message;
+          //   }),
+          // );
         }
       });
     }
