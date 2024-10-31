@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, Button, Input, List, Popover } from 'antd';
 
 import './index.scss';
-import { CloseOutlined, RightOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, CloseOutlined, RightOutlined } from '@ant-design/icons';
 import { useGetListMessagesByChat } from '../../apis/Messages';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -32,6 +32,34 @@ const ChatPopover: React.FC = () => {
       socketConfig.connect();
       socketConfig.emit('join_chat', chatId);
     }
+  }, [chatId]);
+
+  // xem tin nhắn
+  useEffect(() => {
+    if (chatId) {
+      socketConfig.emit('markAsRead', {
+        senderId: senderId,
+        chatId: chatId,
+      });
+    }
+  }, [chatId]);
+
+  // nhận sự kiện xem tin nhắn từ server sau khi mở  chatpopover
+  useEffect(() => {
+    if (chatId) {
+      socketConfig.on('markAsRead', (markAsRead: boolean) => {
+        if (markAsRead) {
+          setArrMessages((prevArrMessages) =>
+            prevArrMessages.map((message) => {
+              return { ...message, isRead: true };
+            }),
+          );
+        }
+      });
+    }
+    return () => {
+      socketConfig.off('markAsRead');
+    };
   }, [chatId]);
 
   // Tự động cuộn xuống khi mở chat hoặc có tin nhắn mới
@@ -67,6 +95,11 @@ const ChatPopover: React.FC = () => {
           {item.text && item.text}
           {item.image && <img src={item.image} />}
         </div>
+        {isSender && item.isRead && (
+          <span className="is-read">
+            <CheckCircleOutlined />
+          </span>
+        )}
       </div>
     );
   };

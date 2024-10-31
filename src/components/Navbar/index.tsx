@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Popover, List, Dropdown } from 'antd';
-import { SearchOutlined, BellOutlined, MessageOutlined } from '@ant-design/icons';
+import { Layout, Menu, Input, Avatar, Popover, Dropdown } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import './index.scss';
 import logo from '../../assets/logo.jpg';
 import setting from '../../assets/setting.jpg';
@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
-import { api } from '../../apis';
 import { useSearchProfileByName } from '../../apis/Profiles';
 import { closeChat } from '../../store/chatSlice';
 
@@ -19,8 +18,6 @@ const { Header } = Layout;
 const { Search } = Input;
 
 const Navbar: React.FC = () => {
-  console.log('xyz');
-
   const profile = useSelector((state: RootState) => state.profile.profile);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
@@ -114,7 +111,7 @@ const Navbar: React.FC = () => {
     ),
   }));
 
-  // neu mo dropdown thi flag la tru, dong dropdown thi flag la false
+  // neu mo dropdown thi flag la true, dong dropdown thi flag la false
   const handleDropdownVisibility = (flag: boolean) => {
     setVisible(flag);
   };
