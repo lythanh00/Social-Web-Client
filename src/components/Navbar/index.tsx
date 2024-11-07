@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Popover, Dropdown } from 'antd';
+import { Layout, Menu, Input, Avatar, Popover, Dropdown, List } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import './index.scss';
 import logo from '../../assets/logo.jpg';
@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { useSearchProfileByName } from '../../apis/Profiles';
 import { closeChat } from '../../store/chatSlice';
+import { useGetListNotifications } from '../../apis/Notifications';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -24,6 +25,7 @@ const Navbar: React.FC = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+  const { data: dataGetListNotifications } = useGetListNotifications();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -31,6 +33,47 @@ const Navbar: React.FC = () => {
     dispatch(closeChat());
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
   };
+
+  const notificationContent = (
+    <List
+      dataSource={dataGetListNotifications}
+      renderItem={(item: any) => (
+        <List.Item
+          className={`notification-item ${item.isRead ? 'read' : 'unread'}`}
+          onClick={() => {
+            // Chuyển hướng hoặc đánh dấu thông báo đã đọc
+            setVisible(false);
+          }}
+        >
+          <List.Item.Meta
+            avatar={<Avatar src={item.sender.avatar} />}
+            title={
+              <span>
+                {item.type === 'like' && (
+                  <>
+                    <strong>{`${item.sender.lastName} ${item.sender.firstName}`}</strong> đã thích bài viết của bạn.
+                  </>
+                )}
+                {item.type === 'comment' && (
+                  <>
+                    <strong>{`${item.sender.lastName} ${item.sender.firstName}`}</strong> đã bình luận về bài viết của
+                    bạn.
+                  </>
+                )}
+                {item.type === 'friend_request' && (
+                  <>
+                    <strong>{`${item.sender.lastName} ${item.sender.firstName}`}</strong> đã gửi cho bạn lời mời kết
+                    bạn.
+                  </>
+                )}
+              </span>
+            }
+            // description={<small>{item.time}</small>}
+          />
+        </List.Item>
+      )}
+    />
+  );
 
   const profilePopoverContent = (
     <div className="profile-popover-content">
@@ -56,7 +99,16 @@ const Navbar: React.FC = () => {
     },
     {
       key: '2',
-      icon: <Avatar src={notification} />,
+      icon: (
+        <Popover
+          content={notificationContent}
+          trigger="click"
+          placement="bottomRight"
+          // arrow={{ pointAtCenter: false }}
+        >
+          <Avatar src={notification} />
+        </Popover>
+      ),
     },
     {
       key: '3',

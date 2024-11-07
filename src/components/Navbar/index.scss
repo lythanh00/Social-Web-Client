@@ -95,3 +95,27 @@
 .profile-popover-content p:hover {
   background-color: #e6e6e6;
 }
+
+.notification-item {
+  display: flex;
+  cursor: pointer;
+  padding: 10px;
+  width: 400px;
+  border-radius: 10px;
+  align-items: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.unread {
+  background-color: #f0f2f5;
+}
+
+.read {
+  background-color: white;
+}
+
+.notification-item:hover {
+  background-color: #e6f7ff;
+}
