@@ -14,6 +14,7 @@ import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { useSearchProfileByName } from '../../apis/Profiles';
 import { closeChat } from '../../store/chatSlice';
 import { useGetListNotifications } from '../../apis/Notifications';
+import { formatDistanceToNow } from 'date-fns';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -34,16 +35,25 @@ const Navbar: React.FC = () => {
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
   };
 
+  const handleClickNotification = (item: any) => {
+    if (item.likeId) {
+      navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.likeId}`);
+    }
+    if (item.commentId) {
+      navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.commentId}`);
+    }
+    // if (item.friendRequestId) {
+    //   navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.friendRequestId}`)
+    // }
+  };
+
   const notificationContent = (
     <List
       dataSource={dataGetListNotifications}
       renderItem={(item: any) => (
         <List.Item
           className={`notification-item ${item.isRead ? 'read' : 'unread'}`}
-          onClick={() => {
-            // Chuyển hướng hoặc đánh dấu thông báo đã đọc
-            setVisible(false);
-          }}
+          onClick={() => handleClickNotification(item)}
         >
           <List.Item.Meta
             avatar={<Avatar src={item.sender.avatar} />}
@@ -68,7 +78,7 @@ const Navbar: React.FC = () => {
                 )}
               </span>
             }
-            // description={<small>{item.time}</small>}
+            description={<small>{formatDistanceToNow(new Date(item.createdAt), { addSuffix: true })}</small>}
           />
         </List.Item>
       )}

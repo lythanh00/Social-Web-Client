@@ -51,3 +51,17 @@ export const useGetListPostsByOwnerAndFriends = () => {
     enabled: true,
   });
 };
+
+// get post by postId
+const getPostByPostId = async (postId: number) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/posts/get-post/${postId}`);
+  return response.data;
+};
+
+export const useGetPostByPostId = (postId: number) => {
+  console.log('ooo');
+
+  return useQuery(['getPostByPostId', postId], () => getPostByPostId(postId), {
+    enabled: !!postId, // Chỉ gọi khi userId có giá trị
+  });
+};

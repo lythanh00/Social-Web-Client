@@ -8,6 +8,7 @@ import Home from '../../containers/Home';
 import ProfilePage from '../../containers/Profile';
 import OtherProfilePage from '../../containers/OtherProfile';
 import FriendsPage from '../../containers/Friends';
+import PostPage from '../../containers/Post';
 
 // example of lazy loading
 const Client = React.lazy(() => import('./index'));
@@ -69,6 +70,7 @@ export const ClientRoutes = () => {
             element={<SuspenseWrapper component={<OtherProfilePage />} />}
           />
           <Route path={`/${CLIENT_ROUTE_PATH.FRIENDS}`} element={<SuspenseWrapper component={<FriendsPage />} />} />
+          <Route path={`/${CLIENT_ROUTE_PATH.POST}`} element={<SuspenseWrapper component={<PostPage />} />} />
         </Route>
       </Route>
       {/* Not Found */}

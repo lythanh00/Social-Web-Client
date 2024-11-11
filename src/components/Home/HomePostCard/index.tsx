@@ -19,6 +19,7 @@ interface Props {
 
 const HomePostCard: React.FC<Props> = (props: Props) => {
   const { post } = props;
+
   const timeAgo = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true });
   const [isLike, setIsLike] = useState<boolean>(false);
   const profile = useSelector((state: RootState) => state.profile.profile);

@@ -12,6 +12,7 @@ export const CLIENT_ROUTE_NAME = {
   PROFILE: 'profile',
   OTHERPROFILE: 'other-profile',
   FRIENDS: 'friends',
+  POST: 'post',
 };
 
 export const CLIENT_ROUTE_PATH = {
@@ -26,4 +27,5 @@ export const CLIENT_ROUTE_PATH = {
   PROFILE: `${CLIENT}/${CLIENT_ROUTE_NAME.PROFILE}`,
   OTHERPROFILE: `${CLIENT}/${CLIENT_ROUTE_NAME.OTHERPROFILE}`,
   FRIENDS: `${CLIENT}/${CLIENT_ROUTE_NAME.FRIENDS}`,
+  POST: `${CLIENT}/${CLIENT_ROUTE_NAME.POST}`,
 };

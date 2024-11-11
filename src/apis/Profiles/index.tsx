@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from 'react-query';
 import { api } from '..';
-import { log } from 'console';
 
 // get profile owner
 export const useGetProfile = () => {
