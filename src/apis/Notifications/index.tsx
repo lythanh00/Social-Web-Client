@@ -12,3 +12,12 @@ export const useGetListNotifications = () => {
     enabled: true,
   });
 };
+
+// mark notification as read
+const markNotificationAsRead = async (notificationId: number) => {
+  return api.put(`${process.env.REACT_APP_API_URL}/notifications/mark-notification-as-read`, { notificationId });
+};
+
+export const useMarkNotificationAsRead = () => {
+  return useMutation(markNotificationAsRead);
+};

@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { useSearchProfileByName } from '../../apis/Profiles';
 import { closeChat } from '../../store/chatSlice';
-import { useGetListNotifications } from '../../apis/Notifications';
+import { useGetListNotifications, useMarkNotificationAsRead } from '../../apis/Notifications';
 import { formatDistanceToNow } from 'date-fns';
 
 const { Header } = Layout;
@@ -27,6 +27,7 @@ const Navbar: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const { data: dataGetListNotifications } = useGetListNotifications();
+  const { mutate: markNotificationAsRead } = useMarkNotificationAsRead();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -36,11 +37,12 @@ const Navbar: React.FC = () => {
   };
 
   const handleClickNotification = (item: any) => {
-    if (item.likeId) {
-      navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.likeId}`);
+    markNotificationAsRead(item.id);
+    if (item.likedPostId) {
+      navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.likedPostId}`);
     }
-    if (item.commentId) {
-      navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.commentId}`);
+    if (item.commentedPostId) {
+      navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.commentedPostId}`);
     }
     // if (item.friendRequestId) {
     //   navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.friendRequestId}`)

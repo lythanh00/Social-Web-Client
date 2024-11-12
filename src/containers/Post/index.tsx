@@ -43,7 +43,7 @@ const Post: React.FC = () => {
         <Sider width={400}>
           <LeftSidebar />
         </Sider>
-        <Content className="content">
+        <Content className="content flex items-center">
           <HomePostCard post={dataGetPostByPostId} />
         </Content>
         <Sider width={400}>
