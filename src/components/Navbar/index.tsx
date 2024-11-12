@@ -44,9 +44,9 @@ const Navbar: React.FC = () => {
     if (item.commentedPostId) {
       navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.commentedPostId}`);
     }
-    // if (item.friendRequestId) {
-    //   navigate(`${CLIENT_ROUTE_PATH.POST}?postId=${item.friendRequestId}`)
-    // }
+    if (item.friendRequestId) {
+      navigate(`${CLIENT_ROUTE_PATH.FRIENDS}`);
+    }
   };
 
   const notificationContent = (
