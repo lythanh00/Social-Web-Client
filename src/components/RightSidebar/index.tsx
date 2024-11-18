@@ -15,7 +15,6 @@ const RightSidebar: React.FC = () => {
 
   // Hàm mở Drawer và đặt thông tin người bạn
   const handleChatPopoverOpen = async (friend: any) => {
-    // Bước 1: Tạo cuộc trò chuyện mới với bạn bè
     createChat(friend.id, {
       onSuccess: async (dataCreateChat) => {
         dispatch(openChat({ friend, ownerId: profile.userId, chatId: dataCreateChat?.id }));

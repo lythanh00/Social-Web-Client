@@ -119,3 +119,15 @@
 .notification-item:hover {
   background-color: #e6f7ff;
 }
+
+.chat-item {
+  display: flex;
+  cursor: pointer;
+  padding: 10px;
+  width: 400px;
+  border-radius: 10px;
+  align-items: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}

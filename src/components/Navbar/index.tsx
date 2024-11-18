@@ -15,6 +15,7 @@ import { useSearchProfileByName } from '../../apis/Profiles';
 import { closeChat } from '../../store/chatSlice';
 import { useGetListNotifications, useMarkNotificationAsRead } from '../../apis/Notifications';
 import { formatDistanceToNow } from 'date-fns';
+import { useGetListChats } from '../../apis/Chats';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -28,6 +29,7 @@ const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const { data: dataGetListNotifications } = useGetListNotifications();
   const { mutate: markNotificationAsRead } = useMarkNotificationAsRead();
+  const { data: dataGetListChats } = useGetListChats();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -35,6 +37,8 @@ const Navbar: React.FC = () => {
     dispatch(closeChat());
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
   };
+
+  const handleClickChat = (item: any) => {};
 
   const handleClickNotification = (item: any) => {
     markNotificationAsRead(item.id);
@@ -48,6 +52,27 @@ const Navbar: React.FC = () => {
       navigate(`${CLIENT_ROUTE_PATH.FRIENDS}`);
     }
   };
+
+  const messageContent = (
+    <>
+      <strong className="text-xl p-1">Hộp thư</strong>
+      <List
+        dataSource={dataGetListChats}
+        renderItem={(item: any) => (
+          <List.Item className={`chat-item`} onClick={() => handleClickChat(item)}>
+            <List.Item.Meta
+              avatar={<Avatar src={item.participant2.avatar} />}
+              title={
+                <span>
+                  <strong>{`${item.participant2.lastName} ${item.participant2.firstName}`}</strong>
+                </span>
+              }
+            />
+          </List.Item>
+        )}
+      />
+    </>
+  );
 
   const notificationContent = (
     <List
@@ -107,7 +132,16 @@ const Navbar: React.FC = () => {
   const menuItems = [
     {
       key: '1',
-      icon: <Avatar src={message} />,
+      icon: (
+        <Popover
+          content={messageContent}
+          trigger="click"
+          placement="bottomRight"
+          // arrow={{ pointAtCenter: false }}
+        >
+          <Avatar src={message} />
+        </Popover>
+      ),
     },
     {
       key: '2',
