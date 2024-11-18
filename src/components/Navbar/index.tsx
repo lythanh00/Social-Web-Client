@@ -12,7 +12,7 @@ import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { useSearchProfileByName } from '../../apis/Profiles';
-import { closeChat } from '../../store/chatSlice';
+import { closeChat, openChat } from '../../store/chatSlice';
 import { useGetListNotifications, useMarkNotificationAsRead } from '../../apis/Notifications';
 import { formatDistanceToNow } from 'date-fns';
 import { useGetListChats } from '../../apis/Chats';
@@ -38,7 +38,15 @@ const Navbar: React.FC = () => {
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
   };
 
-  const handleClickChat = (item: any) => {};
+  const handleClickChat = (item: any) => {
+    dispatch(
+      openChat({
+        friend: item.participant2.id !== profile.userId ? item.participant2 : item.participant1,
+        ownerId: profile.userId,
+        chatId: item.id,
+      }),
+    );
+  };
 
   const handleClickNotification = (item: any) => {
     markNotificationAsRead(item.id);
@@ -61,10 +69,22 @@ const Navbar: React.FC = () => {
         renderItem={(item: any) => (
           <List.Item className={`chat-item`} onClick={() => handleClickChat(item)}>
             <List.Item.Meta
-              avatar={<Avatar src={item.participant2.avatar} />}
+              avatar={
+                <Avatar
+                  src={
+                    item.participant2.id !== profile.userId
+                      ? item.participant2.profile.avatar.url
+                      : item.participant1.profile.avatar.url
+                  }
+                />
+              }
               title={
                 <span>
-                  <strong>{`${item.participant2.lastName} ${item.participant2.firstName}`}</strong>
+                  <strong>
+                    {item.participant2.id !== profile.userId
+                      ? `${item.participant2.profile.lastName} ${item.participant2.profile.firstName}`
+                      : `${item.participant1.profile.lastName} ${item.participant1.profile.firstName}`}
+                  </strong>
                 </span>
               }
             />
