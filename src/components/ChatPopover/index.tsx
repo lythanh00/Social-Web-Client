@@ -19,7 +19,9 @@ const ChatPopover: React.FC = () => {
 
   useEffect(() => {
     if (chatId) {
-      setArrMessages(dataGetListMessagesByChat);
+      setTimeout(() => {
+        setArrMessages(dataGetListMessagesByChat);
+      }, 500);
     }
   }, [dataGetListMessagesByChat, chatId]);
 
@@ -50,7 +52,10 @@ const ChatPopover: React.FC = () => {
       socketConfig.on('markAsRead', (markAsRead) => {
         console.log('markAsRead', markAsRead);
 
-        if (markAsRead.success) {
+        if (markAsRead) {
+          console.log('x');
+          console.log('arrMessages', arrMessages);
+
           setArrMessages((arrMessages) =>
             arrMessages.map((message) => {
               return message.senderId === ownerId && message.isRead === false
@@ -128,7 +133,9 @@ const ChatPopover: React.FC = () => {
   useEffect(() => {
     if (chatId) {
       socketConfig.on('newMessage', (newMessage: any) => {
-        setArrMessages((prevArrMessages) => [...prevArrMessages, newMessage]);
+        if (newMessage.chatId === chatId) {
+          setArrMessages((prevArrMessages) => [...prevArrMessages, newMessage]);
+        }
       });
     }
     return () => {

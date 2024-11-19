@@ -16,6 +16,7 @@ import { closeChat, openChat } from '../../store/chatSlice';
 import { useGetListNotifications, useMarkNotificationAsRead } from '../../apis/Notifications';
 import { formatDistanceToNow } from 'date-fns';
 import { useGetListChats } from '../../apis/Chats';
+// import { socketConfig } from '../../socket';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -30,6 +31,7 @@ const Navbar: React.FC = () => {
   const { data: dataGetListNotifications } = useGetListNotifications();
   const { mutate: markNotificationAsRead } = useMarkNotificationAsRead();
   const { data: dataGetListChats } = useGetListChats();
+  // const { chatId } = useSelector((state: RootState) => state.chat);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -39,6 +41,7 @@ const Navbar: React.FC = () => {
   };
 
   const handleClickChat = (item: any) => {
+    // socketConfig.emit('leave_chat', chatId);
     dispatch(
       openChat({
         friend: item.participant2.id !== profile.userId ? item.participant2 : item.participant1,
