@@ -13,13 +13,14 @@ const { Content, Sider } = Layout;
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { data: dataProfile } = useGetProfile();
+  const { refetch } = useGetProfile();
 
   useEffect(() => {
-    if (dataProfile && dataProfile.data) {
-      dispatch(setProfile(dataProfile?.data as any));
-    }
-  }, [dataProfile?.data]);
+    refetch().then((res) => {
+      console.log('home', res?.data);
+      dispatch(setProfile(res?.data?.data as any));
+    });
+  }, []);
 
   return (
     <Layout className="home-page">

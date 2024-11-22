@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '.';
 
-export interface ProfileState {
+interface ProfileState {
   loading: boolean;
   error: string;
   profile: {
@@ -42,52 +42,50 @@ export interface ProfileState {
   };
 }
 
+const initialState: ProfileState = {
+  loading: false,
+  error: '',
+  profile: {
+    id: null,
+    firstName: '',
+    lastName: '',
+    dateOfBirth: null,
+    bio: '',
+    location: '',
+    interests: '',
+    avatar: {
+      id: null,
+      url: '',
+    },
+    coverPhoto: {
+      id: null,
+      url: '',
+    },
+    userId: null,
+  },
+  otherProfile: {
+    id: null,
+    firstName: '',
+    lastName: '',
+    dateOfBirth: null,
+    bio: '',
+    location: '',
+    interests: '',
+    avatar: {
+      id: null,
+      url: '',
+    },
+    coverPhoto: {
+      id: null,
+      url: '',
+    },
+    userId: null,
+  },
+};
+
 export const profileSlice = createSlice({
   name: 'profile',
-  initialState: (): ProfileState => {
-    let initState: ProfileState = {
-      loading: false,
-      error: '',
-      profile: {
-        id: null,
-        firstName: '',
-        lastName: '',
-        dateOfBirth: null,
-        bio: '',
-        location: '',
-        interests: '',
-        avatar: {
-          id: null,
-          url: '',
-        },
-        coverPhoto: {
-          id: null,
-          url: '',
-        },
-        userId: null,
-      },
-      otherProfile: {
-        id: null,
-        firstName: '',
-        lastName: '',
-        dateOfBirth: null,
-        bio: '',
-        location: '',
-        interests: '',
-        avatar: {
-          id: null,
-          url: '',
-        },
-        coverPhoto: {
-          id: null,
-          url: '',
-        },
-        userId: null,
-      },
-    };
-
-    return initState;
-  },
+  initialState,
   reducers: {
     setProfile: (state, action: PayloadAction<any>) => {
       state.profile = {
@@ -129,9 +127,47 @@ export const profileSlice = createSlice({
         userId: action.payload.userId,
       };
     },
+    resetProfileState: (state) => {
+      state.profile = {
+        id: null,
+        firstName: '',
+        lastName: '',
+        dateOfBirth: null,
+        bio: '',
+        location: '',
+        interests: '',
+        avatar: {
+          id: null,
+          url: '',
+        },
+        coverPhoto: {
+          id: null,
+          url: '',
+        },
+        userId: null,
+      };
+      state.otherProfile = {
+        id: null,
+        firstName: '',
+        lastName: '',
+        dateOfBirth: null,
+        bio: '',
+        location: '',
+        interests: '',
+        avatar: {
+          id: null,
+          url: '',
+        },
+        coverPhoto: {
+          id: null,
+          url: '',
+        },
+        userId: null,
+      };
+    },
   },
 });
 
-export const { setProfile, setOtherProfile } = profileSlice.actions;
+export const { setProfile, setOtherProfile, resetProfileState } = profileSlice.actions;
 export const selectProfile = (state: RootState) => state.profile;
 export default profileSlice.reducer;

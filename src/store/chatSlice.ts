@@ -30,8 +30,14 @@ const chatSlice = createSlice({
       state.open = false;
       socketConfig.disconnect();
     },
+    resetChatState: (state) => {
+      state.open = false;
+      state.friend = null;
+      state.ownerId = null;
+      state.chatId = null;
+    },
   },
 });
 
-export const { openChat, closeChat } = chatSlice.actions;
+export const { openChat, closeChat, resetChatState } = chatSlice.actions;
 export default chatSlice.reducer;

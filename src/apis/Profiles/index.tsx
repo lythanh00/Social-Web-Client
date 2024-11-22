@@ -1,16 +1,19 @@
 import { useMutation, useQuery } from 'react-query';
 import { api } from '..';
+import { useAppDispatch } from '../../store';
+import { setProfile } from '../../store/profileSlice';
 
 // get profile owner
 export const useGetProfile = () => {
   return useQuery({
+    enabled: false,
     queryKey: ['profile'],
     queryFn: async () => api.get(`${process.env.REACT_APP_API_URL}/profiles/profile`),
-    staleTime: 5000,
     onSuccess: (data) => {},
     onError: (error) => {
       console.error('Error fetching posts:', error);
     },
+    staleTime: 1,
   });
 };
 

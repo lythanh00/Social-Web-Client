@@ -134,6 +134,8 @@ const ChatPopover: React.FC = () => {
     if (chatId) {
       socketConfig.on('newMessage', (newMessage: any) => {
         if (newMessage.chatId === chatId) {
+          console.log('y');
+
           setArrMessages((prevArrMessages) => [...prevArrMessages, newMessage]);
         }
       });

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Layout, Menu, Input, Avatar, Popover, Dropdown, List } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Layout, Menu, Input, Avatar, Popover, Dropdown, List, Badge } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import './index.scss';
 import logo from '../../assets/logo.jpg';
@@ -12,16 +12,21 @@ import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { useSearchProfileByName } from '../../apis/Profiles';
-import { closeChat, openChat } from '../../store/chatSlice';
+import { closeChat, openChat, resetChatState } from '../../store/chatSlice';
 import { useGetListNotifications, useMarkNotificationAsRead } from '../../apis/Notifications';
 import { formatDistanceToNow } from 'date-fns';
 import { useGetListChats } from '../../apis/Chats';
+import { useCountUnreadChats } from '../../apis/Messages';
+import { resetAuthState } from '../../store/authSlice';
+import { resetProfileState } from '../../store/profileSlice';
+import { socketConfig } from '../../socket';
 // import { socketConfig } from '../../socket';
 
 const { Header } = Layout;
 const { Search } = Input;
 
 const Navbar: React.FC = () => {
+  // const [profile, setProfile] = useState<any>(useSelector((state: RootState) => state.profile.profile));
   const profile = useSelector((state: RootState) => state.profile.profile);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
@@ -32,11 +37,29 @@ const Navbar: React.FC = () => {
   const { mutate: markNotificationAsRead } = useMarkNotificationAsRead();
   const { data: dataGetListChats } = useGetListChats();
   // const { chatId } = useSelector((state: RootState) => state.chat);
+  const { data: dataCountUnreadChats, isLoading: isLoadingCountUnreadChats } = useCountUnreadChats();
+  const [unreadChatsCount, setUnreadChatsCount] = useState(0);
+  const [listUnreadChats, setListUnreadChats] = useState<any[]>([]);
 
-  const handleLogout = () => {
+  useEffect(() => {
+    if (dataCountUnreadChats) {
+      setUnreadChatsCount(dataCountUnreadChats.unreadChatsCount);
+      setListUnreadChats(dataCountUnreadChats.listUnreadChats);
+    }
+  }, [dataCountUnreadChats]);
+
+  const handleLogout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
-    dispatch(closeChat());
+    await Promise.all([
+      dispatch(closeChat()),
+      dispatch(resetAuthState()),
+      dispatch(resetProfileState()),
+      dispatch(resetChatState()),
+    ]);
+
+    console.log('state.profile.profile', profile);
+
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
   };
 
@@ -49,6 +72,10 @@ const Navbar: React.FC = () => {
         chatId: item.id,
       }),
     );
+  };
+
+  const handleUnreadChats = () => {
+    setUnreadChatsCount(0);
   };
 
   const handleClickNotification = (item: any) => {
@@ -162,7 +189,9 @@ const Navbar: React.FC = () => {
           placement="bottomRight"
           // arrow={{ pointAtCenter: false }}
         >
-          <Avatar src={message} />
+          <Badge size="small" count={isLoadingCountUnreadChats ? 0 : unreadChatsCount} overflowCount={9}>
+            <Avatar src={message} size="large" onClick={() => handleUnreadChats()} />
+          </Badge>
         </Popover>
       ),
     },
@@ -175,7 +204,7 @@ const Navbar: React.FC = () => {
           placement="bottomRight"
           // arrow={{ pointAtCenter: false }}
         >
-          <Avatar src={notification} />
+          <Avatar src={notification} size="large" />
         </Popover>
       ),
     },
@@ -188,7 +217,7 @@ const Navbar: React.FC = () => {
           placement="bottomRight"
           // arrow={{ pointAtCenter: false }}
         >
-          <Avatar className="border-1 border-gray-400 rounded-full" src={profile.avatar.url} />
+          <Avatar className="border-1 border-gray-400 rounded-full" src={profile.avatar.url} size="large" />
         </Popover>
       ),
     },
@@ -236,6 +265,20 @@ const Navbar: React.FC = () => {
   const handleDropdownVisibility = (flag: boolean) => {
     setVisible(flag);
   };
+
+  useEffect(() => {
+    socketConfig.on('newMessage', (newMessage: any) => {
+      if (!listUnreadChats.includes(newMessage.chatId)) {
+        console.log('x');
+
+        setUnreadChatsCount((prevCount) => prevCount + 1);
+      }
+    });
+
+    return () => {
+      socketConfig.off('newMessage');
+    };
+  }, [listUnreadChats, unreadChatsCount]);
 
   return (
     <Header className="navbar">

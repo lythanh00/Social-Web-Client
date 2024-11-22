@@ -26,3 +26,15 @@ const sendMessage = async (chatId: number | null, receiverId: number | null, tex
 export const useSendMessage = (chatId: number | null, receiverId: number | null, text: string | null) => {
   return useMutation(() => sendMessage(chatId, receiverId, text));
 };
+
+// count unread chats
+const countUnreadChats = async () => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/messages/count-unread-chats`);
+  return response.data;
+};
+
+export const useCountUnreadChats = () => {
+  return useQuery(['countUnreadChats'], () => countUnreadChats(), {
+    enabled: true,
+  });
+};
