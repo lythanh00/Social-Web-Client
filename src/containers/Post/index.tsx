@@ -30,8 +30,6 @@ const Post: React.FC = () => {
   const postId = parseInt(stringPostId as any);
   const { data: dataGetPostByPostId } = useGetPostByPostId(postId);
   // const dataGetPostByPostId = refetchDataGetPostByPostId();
-  console.log('postid', postId);
-  console.log('dataGetPostByPostId', dataGetPostByPostId);
   if (!dataGetPostByPostId) {
     return <div>Loading...</div>; // Hoặc một loader khác
   }

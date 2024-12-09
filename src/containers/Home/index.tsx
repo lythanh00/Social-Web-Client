@@ -17,7 +17,6 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     refetch().then((res) => {
-      console.log('home', res?.data);
       dispatch(setProfile(res?.data?.data as any));
     });
   }, []);

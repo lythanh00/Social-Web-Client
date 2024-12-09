@@ -57,9 +57,6 @@ const Navbar: React.FC = () => {
       dispatch(resetProfileState()),
       dispatch(resetChatState()),
     ]);
-
-    console.log('state.profile.profile', profile);
-
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
   };
 
@@ -72,6 +69,8 @@ const Navbar: React.FC = () => {
         chatId: item.id,
       }),
     );
+    // Loại bỏ item.id khỏi listUnreadChats
+    setListUnreadChats((prevList) => prevList.filter((chatId) => chatId !== item.id));
   };
 
   const handleUnreadChats = () => {
@@ -100,13 +99,25 @@ const Navbar: React.FC = () => {
           <List.Item className={`chat-item`} onClick={() => handleClickChat(item)}>
             <List.Item.Meta
               avatar={
-                <Avatar
-                  src={
-                    item.participant2.id !== profile.userId
-                      ? item.participant2.profile.avatar.url
-                      : item.participant1.profile.avatar.url
-                  }
-                />
+                listUnreadChats.includes(item.id) ? (
+                  <Badge size="small" count="1">
+                    <Avatar
+                      src={
+                        item.participant2.id !== profile.userId
+                          ? item.participant2.profile.avatar.url
+                          : item.participant1.profile.avatar.url
+                      }
+                    />
+                  </Badge>
+                ) : (
+                  <Avatar
+                    src={
+                      item.participant2.id !== profile.userId
+                        ? item.participant2.profile.avatar.url
+                        : item.participant1.profile.avatar.url
+                    }
+                  />
+                )
               }
               title={
                 <span>
@@ -269,8 +280,6 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     socketConfig.on('newMessage', (newMessage: any) => {
       if (!listUnreadChats.includes(newMessage.chatId)) {
-        console.log('x');
-
         setUnreadChatsCount((prevCount) => prevCount + 1);
       }
     });
