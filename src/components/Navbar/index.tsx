@@ -279,7 +279,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     socketConfig.on('newMessage', (newMessage: any) => {
-      if (!listUnreadChats.includes(newMessage.chatId)) {
+      if (!listUnreadChats.includes(newMessage.chatId) && profile.userId === newMessage.receiverId) {
         setUnreadChatsCount((prevCount) => prevCount + 1);
       }
     });
