@@ -49,7 +49,6 @@ const OtherProfilePostCard: React.FC<Props> = (props: Props) => {
 
   const handleCommentModalClose = () => {
     setIsCommentModalOpen(false);
-    socketConfig.disconnect();
   };
 
   return (

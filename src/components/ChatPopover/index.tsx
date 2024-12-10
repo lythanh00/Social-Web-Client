@@ -31,7 +31,7 @@ const ChatPopover: React.FC = () => {
   // kết nối socket khi mở chat popover
   useEffect(() => {
     if (chatId) {
-      socketConfig.connect();
+      // socketConfig.connect();
       socketConfig.emit('join_chat', chatId);
     }
   }, [chatId]);

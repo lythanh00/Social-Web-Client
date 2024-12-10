@@ -51,6 +51,7 @@ const Navbar: React.FC = () => {
   const handleLogout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
+    socketConfig.disconnect();
     await Promise.all([
       dispatch(closeChat()),
       dispatch(resetAuthState()),
@@ -89,6 +90,24 @@ const Navbar: React.FC = () => {
       navigate(`${CLIENT_ROUTE_PATH.FRIENDS}`);
     }
   };
+
+  useEffect(() => {
+    if (profile.userId) {
+      socketConfig.on('message_notification', (messageNotification: any) => {
+        if (
+          !listUnreadChats.includes(messageNotification.chatId) &&
+          profile.userId === messageNotification.receiverId
+        ) {
+          setUnreadChatsCount((prevCount) => prevCount + 1);
+          // thêm id đoạn chat có tin nhắn mới vào listUnreadChats
+          setListUnreadChats((prevList) => [...prevList, messageNotification.chatId]);
+        }
+      });
+    }
+    return () => {
+      socketConfig.off('message_notification');
+    };
+  }, [profile.userId]);
 
   const messageContent = (
     <>
@@ -277,17 +296,17 @@ const Navbar: React.FC = () => {
     setVisible(flag);
   };
 
-  useEffect(() => {
-    socketConfig.on('newMessage', (newMessage: any) => {
-      if (!listUnreadChats.includes(newMessage.chatId) && profile.userId === newMessage.receiverId) {
-        setUnreadChatsCount((prevCount) => prevCount + 1);
-      }
-    });
+  // useEffect(() => {
+  //   socketConfig.on('newMessage', (newMessage: any) => {
+  //     if (!listUnreadChats.includes(newMessage.chatId) && profile.userId === newMessage.receiverId) {
+  //       setUnreadChatsCount((prevCount) => prevCount + 1);
+  //     }
+  //   });
 
-    return () => {
-      socketConfig.off('newMessage');
-    };
-  }, [listUnreadChats, unreadChatsCount]);
+  //   return () => {
+  //     socketConfig.off('newMessage');
+  //   };
+  // }, [listUnreadChats, unreadChatsCount]);
 
   return (
     <Header className="navbar">

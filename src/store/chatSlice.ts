@@ -28,7 +28,7 @@ const chatSlice = createSlice({
     },
     closeChat(state) {
       state.open = false;
-      socketConfig.disconnect();
+      socketConfig.emit('leave_chat', state.chatId);
     },
     resetChatState: (state) => {
       state.open = false;

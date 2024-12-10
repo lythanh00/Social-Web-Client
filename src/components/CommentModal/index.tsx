@@ -31,7 +31,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
   // kết nối socket khi mở modal comment
   useEffect(() => {
     if (postId) {
-      socketConfig.connect();
+      // socketConfig.connect();
       socketConfig.emit('join_comment', postId);
     }
   }, [postId]);
