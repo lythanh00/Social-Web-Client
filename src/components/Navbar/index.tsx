@@ -101,13 +101,15 @@ const Navbar: React.FC = () => {
           setUnreadChatsCount((prevCount) => prevCount + 1);
           // thêm id đoạn chat có tin nhắn mới vào listUnreadChats
           setListUnreadChats((prevList) => [...prevList, messageNotification.chatId]);
+          console.log('messageNotification.chatId', messageNotification.chatId);
+          console.log('listUnreadChats', listUnreadChats);
         }
       });
     }
     return () => {
       socketConfig.off('message_notification');
     };
-  }, [profile.userId]);
+  }, [profile.userId, listUnreadChats]);
 
   const messageContent = (
     <>
