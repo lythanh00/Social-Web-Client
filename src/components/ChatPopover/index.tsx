@@ -124,7 +124,7 @@ const ChatPopover: React.FC = () => {
   };
 
   // nhận sự kiện newMessage từ server sau khi send message
-  // vấn đề: bỏ tin nhắn mới nhận vào mảng chat hiện tại
+  // bỏ tin nhắn mới nhận vào mảng chat hiện tại
   useEffect(() => {
     if (chatId) {
       socketConfig.on('newMessage', (newMessage: any) => {

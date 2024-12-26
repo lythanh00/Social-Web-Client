@@ -40,6 +40,13 @@ const Navbar: React.FC = () => {
   const { data: dataCountUnreadChats, isLoading: isLoadingCountUnreadChats } = useCountUnreadChats();
   const [unreadChatsCount, setUnreadChatsCount] = useState(0);
   const [listUnreadChats, setListUnreadChats] = useState<any[]>([]);
+  const [listChats, setListChats] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (dataGetListChats) {
+      setListChats(dataGetListChats);
+    }
+  }, [dataGetListChats]);
 
   useEffect(() => {
     if (dataCountUnreadChats) {
@@ -95,15 +102,21 @@ const Navbar: React.FC = () => {
     if (profile.userId) {
       socketConfig.on('message_notification', (messageNotification: any) => {
         if (
-          !listUnreadChats.includes(messageNotification.chatId) &&
+          !listUnreadChats.includes(messageNotification.chat.id) &&
           profile.userId === messageNotification.receiverId
         ) {
           setUnreadChatsCount((prevCount) => prevCount + 1);
           // thêm id đoạn chat có tin nhắn mới vào listUnreadChats
-          setListUnreadChats((prevList) => [...prevList, messageNotification.chatId]);
-          console.log('messageNotification.chatId', messageNotification.chatId);
+          setListUnreadChats((prevList) => [...prevList, messageNotification.chat.id]);
+
+          console.log('messageNotification.chat.id', messageNotification.chat.id);
           console.log('listUnreadChats', listUnreadChats);
+          console.log('listChats', listChats);
         }
+        setListChats((prevList) => {
+          const updatedList = prevList.filter((chat) => chat.id !== messageNotification.chat.id);
+          return [messageNotification.chat, ...updatedList];
+        });
       });
     }
     return () => {
@@ -115,7 +128,7 @@ const Navbar: React.FC = () => {
     <>
       <strong className="text-xl p-1">Hộp thư</strong>
       <List
-        dataSource={dataGetListChats}
+        dataSource={listChats}
         renderItem={(item: any) => (
           <List.Item className={`chat-item`} onClick={() => handleClickChat(item)}>
             <List.Item.Meta
@@ -297,18 +310,6 @@ const Navbar: React.FC = () => {
   const handleDropdownVisibility = (flag: boolean) => {
     setVisible(flag);
   };
-
-  // useEffect(() => {
-  //   socketConfig.on('newMessage', (newMessage: any) => {
-  //     if (!listUnreadChats.includes(newMessage.chatId) && profile.userId === newMessage.receiverId) {
-  //       setUnreadChatsCount((prevCount) => prevCount + 1);
-  //     }
-  //   });
-
-  //   return () => {
-  //     socketConfig.off('newMessage');
-  //   };
-  // }, [listUnreadChats, unreadChatsCount]);
 
   return (
     <Header className="navbar">
