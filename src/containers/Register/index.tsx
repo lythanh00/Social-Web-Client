@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useMutation } from 'react-query';
 import { api } from '../../apis';
-import { Form, Tooltip, ConfigProvider, message } from 'antd';
+import { Form, Tooltip, ConfigProvider, message, Layout } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
 import { Outlet, Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import ButtonLink from '../../components/ButtonLink';
 import InputEmail from '../../components/InputEmail';
 import InputPassWord from '../../components/InputPassword';
 import Header from '../../components/Header';
+import background from '../../assets/background.jpg';
 
 interface IRegisterDto {
   email: string;
@@ -98,7 +99,7 @@ const Register: React.FC = () => {
   const register = useMutation({
     mutationFn: (payload: IRegisterDto) => api.post(`${process.env.REACT_APP_API_URL}/auth/register`, payload),
     onSuccess: (data) => {
-      message.success('Register success! Verify email');
+      message.success('Đăng ký thành công! Xác thực email');
     },
     onError: (error: any) => {
       console.error('onError:', error);
@@ -139,15 +140,20 @@ const Register: React.FC = () => {
     <div>
       <Header />
       {contextHolder}
-      <div className='bg-[url("https://www.zandxgroup.com/wp-content/uploads/2017/05/nature-sea-water-night-sunset-sky-clouds-sea-sunset-sky-background-wallpaper-widescreen-full-screen-widescreen-hd-wallpapers-background-wallpaper.jpg")] bg-cover bg-no-repeat h-screen w-full flex justify-center items-center'>
-        <Form name="basic" className="bg-zinc-200/20 p-5 rounded-md shadow-xl m-10 " onFinish={handleSubmit}>
-          <div className="text-center text-white text-2xl m-2 font-bold">ĐĂNG KÝ</div>
-          <div className="h-px w-48 mx-auto bg-white mb-4"></div>
+      <Layout
+        style={{
+          backgroundImage: `url(${background})`,
+        }}
+        className="bg-gray-400 bg-cover bg-no-repeat h-screen w-full flex justify-center items-center"
+      >
+        <Form name="basic" className="bg-zinc-200/70 p-5 rounded-md shadow-xl m-10 " onFinish={handleSubmit}>
+          <div className="text-center text-black text-2xl m-2 font-bold">ĐĂNG KÝ</div>
+          <div className="h-px w-48 mx-auto bg-black mb-4"></div>
 
           <Form.Item
-            label="Email tài khoản"
+            label="Email"
             name="email"
-            rules={[{ required: true, message: 'Hãy nhập email!' }]}
+            rules={[{ required: true, message: 'Vui lòng nhập email của bạn!' }]}
             className="font-bold text-center"
           >
             <InputEmail
@@ -159,7 +165,7 @@ const Register: React.FC = () => {
           <Form.Item
             label="Mật khẩu"
             name="password"
-            rules={[{ required: true, message: 'Hãy nhập mật khẩu!' }]}
+            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu của bạn!' }]}
             className="font-bold text-center "
           >
             <div className="grid grid-cols-10">
@@ -194,7 +200,7 @@ const Register: React.FC = () => {
           <Form.Item
             label="Xác nhận mật khẩu"
             name="confirmpassword"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: 'Vui lòng nhập mật khẩu của bạn!' }]}
             className="font-bold text-center"
           >
             <div className="grid grid-cols-10">
@@ -203,7 +209,7 @@ const Register: React.FC = () => {
                   inputProps={{
                     size: 'middle',
                     className: 'font-normal',
-                    placeholder: 'Nhập mật khẩu',
+                    placeholder: 'Nhập lại mật khẩu',
                     value: confirmPassword,
                     onChange: handleConfirmPasswordChange,
                   }}
@@ -236,7 +242,7 @@ const Register: React.FC = () => {
               <ButtonC
                 buttonProps={{
                   size: 'middle',
-                  className: 'bg-blue-400 text-white',
+                  className: 'bg-blue-400 text-black',
                   htmlType: 'submit',
                   onClick: handleClick,
                 }}
@@ -244,13 +250,13 @@ const Register: React.FC = () => {
               />
             </ConfigProvider>
             <Link to="/">
-              <ButtonLink buttonProps={{ size: 'middle', className: 'text-white' }} textButton="Đã có tài khoản?" />
+              <ButtonLink buttonProps={{ size: 'middle', className: 'text-black' }} textButton="Đã có tài khoản?" />
             </Link>
           </Form.Item>
 
           <Outlet />
         </Form>
-      </div>
+      </Layout>
     </div>
   );
 };

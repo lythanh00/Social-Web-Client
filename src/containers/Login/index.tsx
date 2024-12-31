@@ -11,6 +11,7 @@ import Header from '../../components/Header';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import InputEmail from '../../components/InputEmail';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
+import background from '../../assets/background.jpg';
 
 interface ILoginDto {
   email: string;
@@ -32,32 +33,6 @@ const SignIn: React.FC = () => {
       navigate(CLIENT_ROUTE_PATH.HOME);
     }
   }, [navigate]);
-
-  const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
-  const rootPrefixCls = getPrefixCls();
-  const linearGradientButton = css`
-    &.${rootPrefixCls}-btn-primary:not([disabled]):not(.${rootPrefixCls}-btn-dangerous) {
-      border-width: 0;
-
-      > span {
-        position: relative;
-      }
-
-      &::before {
-        content: '';
-        background: linear-gradient(135deg, #6253e1, #04befe);
-        position: absolute;
-        inset: 0;
-        opacity: 1;
-        transition: all 0.3s;
-        border-radius: inherit;
-      }
-
-      &:hover::before {
-        opacity: 0;
-      }
-    }
-  `;
 
   const handleEmailChange = (value: string, isValid: boolean) => {
     setEmail(value);
@@ -92,12 +67,12 @@ const SignIn: React.FC = () => {
       localStorage.setItem('refreshToken', data?.data?.refresh_token);
       navigate(CLIENT_ROUTE_PATH.HOME);
       setInputError(''); // Xóa lỗi khi thành công
-      message.success('Login success!'); // Hiển thị thông báo thành công
+      message.success('Đăng nhập thành công!'); // Hiển thị thông báo thành công
     },
     onError: (error) => {
       console.error('onError:', error);
-      setInputError('Incorrect email or password'); // Cập nhật lỗi
-      message.error('Incorrect email or password'); // Hiển thị thông báo lỗi
+      setInputError('Sai email hoặc mật khẩu'); // Cập nhật lỗi
+      message.error('Sai email hoặc mật khẩu'); // Hiển thị thông báo lỗi
     },
   });
 
@@ -106,19 +81,19 @@ const SignIn: React.FC = () => {
     if (!password || !email) {
       return messageApi.open({
         type: 'error',
-        content: 'Fields cannot be empty',
+        content: 'Các trường không được để trống',
       });
     }
     if (!isEmail(email)) {
       return messageApi.open({
         type: 'error',
-        content: 'Invalid email format',
+        content: 'Định dạng email không hợp lệ',
       });
     }
     if (password.length < 6) {
       return messageApi.open({
         type: 'error',
-        content: 'Password must be at least 6 characters',
+        content: 'Mật khẩu phải có ít nhất 6 ký tự',
       });
     } else {
       signInMutate.mutate({ email, password });
@@ -128,16 +103,21 @@ const SignIn: React.FC = () => {
   return (
     <>
       {contextHolder}
-      <Layout className='bg-[url("https://www.zandxgroup.com/wp-content/uploads/2017/05/nature-sea-water-night-sunset-sky-clouds-sea-sunset-sky-background-wallpaper-widescreen-full-screen-widescreen-hd-wallpapers-background-wallpaper.jpg")] bg-gray-400 bg-cover bg-no-repeat h-screen w-full'>
+      <Layout
+        style={{
+          backgroundImage: `url(${background})`,
+        }}
+        className="bg-gray-400 bg-cover bg-no-repeat h-screen w-full"
+      >
         <Header />
         <div className="h-screen w-full flex  justify-center items-center">
-          <Form name="basic" className="bg-zinc-200/20 p-5 rounded-md shadow-2xl m-10">
-            <div className="text-center text-white m-2 font-bold text-xl">LOGIN</div>
-            <div className="h-px w-48 mx-auto bg-white mb-4"></div>
+          <Form name="basic" className="bg-zinc-200/70 p-5 rounded-md shadow-2xl m-10">
+            <div className="text-center text-black m-2 font-bold text-xl">ĐĂNG NHẬP</div>
+            <div className="h-px w-48 mx-auto bg-black mb-4"></div>
             <Form.Item
               label="Email"
               name="email"
-              rules={[{ required: true, message: 'Please enter your email!' }]}
+              rules={[{ required: true, message: 'Vui lòng nhập email của bạn!' }]}
               className="font-bold text-center opacity-100"
             >
               <InputEmail
@@ -147,9 +127,9 @@ const SignIn: React.FC = () => {
             </Form.Item>
 
             <Form.Item
-              label="Password"
+              label="Mật khẩu"
               name="password"
-              rules={[{ required: true, message: 'Please enter your password!' }]}
+              rules={[{ required: true, message: 'Vui lòng nhập mật khẩu của bạn!' }]}
               className="font-bold text-center "
               validateStatus={inputError ? 'error' : undefined}
               help={inputError || undefined}
@@ -172,7 +152,7 @@ const SignIn: React.FC = () => {
                       {isValid ? (
                         <CheckCircleOutlined />
                       ) : (
-                        <Tooltip title="Password must be at least 6 characters">
+                        <Tooltip title="Mật khẩu phải có ít nhất 6 ký tự">
                           <span>
                             <CheckCircleOutlined />
                           </span>
@@ -189,22 +169,17 @@ const SignIn: React.FC = () => {
               <ButtonLink buttonProps={{ size: 'middle', className: 'text-black' }} textButton="Quên mật khẩu?" />
             </Link>
             <Form.Item className="text-center">
-              <ConfigProvider
-                button={{
-                  className: linearGradientButton,
+              <Button
+                buttonProps={{
+                  size: 'middle',
+                  className: 'bg-blue-400 text-black',
+                  htmlType: 'submit',
+                  onClick: handleClick,
                 }}
-              >
-                <Button
-                  buttonProps={{
-                    size: 'middle',
-                    className: 'text-black',
-                    onClick: handleClick,
-                  }}
-                  textButton="Login"
-                />
-              </ConfigProvider>
+                textButton="Đăng nhập"
+              />
               <Link to="/register">
-                <ButtonLink buttonProps={{ size: 'middle', className: 'text-black' }} textButton="Create new account" />
+                <ButtonLink buttonProps={{ size: 'middle', className: 'text-black' }} textButton="Tạo tài khoản" />
               </Link>
             </Form.Item>
           </Form>
