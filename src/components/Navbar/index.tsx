@@ -13,7 +13,11 @@ import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { useSearchProfileByName } from '../../apis/Profiles';
 import { closeChat, openChat, resetChatState } from '../../store/chatSlice';
-import { useGetListNotifications, useMarkNotificationAsRead } from '../../apis/Notifications';
+import {
+  useCountUnreadNotifications,
+  useGetListNotifications,
+  useMarkNotificationAsRead,
+} from '../../apis/Notifications';
 import { formatDistanceToNow } from 'date-fns';
 import { useGetListChats } from '../../apis/Chats';
 import { useCountUnreadChats } from '../../apis/Messages';
@@ -41,6 +45,9 @@ const Navbar: React.FC = () => {
   const [unreadChatsCount, setUnreadChatsCount] = useState(0);
   const [listUnreadChats, setListUnreadChats] = useState<any[]>([]);
   const [listChats, setListChats] = useState<any[]>([]);
+  const { data: dataCountUnreadNotifications, isLoading: isLoadingCountUnreadNotifications } =
+    useCountUnreadNotifications();
+  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
 
   useEffect(() => {
     if (dataGetListChats) {
@@ -54,6 +61,12 @@ const Navbar: React.FC = () => {
       setListUnreadChats(dataCountUnreadChats.listUnreadChats);
     }
   }, [dataCountUnreadChats]);
+
+  useEffect(() => {
+    if (dataCountUnreadNotifications) {
+      setUnreadNotificationsCount(dataCountUnreadNotifications);
+    }
+  }, [dataCountUnreadNotifications]);
 
   const handleLogout = async () => {
     localStorage.removeItem('token');
@@ -83,6 +96,10 @@ const Navbar: React.FC = () => {
 
   const handleUnreadChats = () => {
     setUnreadChatsCount(0);
+  };
+
+  const handleUnreadNotifications = () => {
+    setUnreadNotificationsCount(0);
   };
 
   const handleClickNotification = (item: any) => {
@@ -249,7 +266,13 @@ const Navbar: React.FC = () => {
           placement="bottomRight"
           // arrow={{ pointAtCenter: false }}
         >
-          <Avatar src={notification} size="large" />
+          <Badge
+            size="small"
+            count={isLoadingCountUnreadNotifications ? 0 : unreadNotificationsCount}
+            overflowCount={9}
+          >
+            <Avatar src={notification} size="large" onClick={() => handleUnreadNotifications()} />
+          </Badge>
         </Popover>
       ),
     },

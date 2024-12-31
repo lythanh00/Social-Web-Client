@@ -10,6 +10,7 @@ const getListNotifications = async () => {
 export const useGetListNotifications = () => {
   return useQuery(['getListNotifications'], () => getListNotifications(), {
     enabled: true,
+    refetchInterval: 60000,
   });
 };
 
@@ -20,4 +21,17 @@ const markNotificationAsRead = async (notificationId: number) => {
 
 export const useMarkNotificationAsRead = () => {
   return useMutation(markNotificationAsRead);
+};
+
+// count unread notifications
+const countUnreadNotifications = async () => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/notifications/count-unread-notifications`);
+  return response.data;
+};
+
+export const useCountUnreadNotifications = () => {
+  return useQuery(['countUnreadNotifications'], () => countUnreadNotifications(), {
+    enabled: true,
+    refetchInterval: 60000,
+  });
 };
