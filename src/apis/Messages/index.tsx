@@ -2,13 +2,15 @@ import { useMutation, useQuery } from 'react-query';
 import { api } from '..';
 
 // get list messages by chat
-const getListMessagesByChat = async (chatId: number | null) => {
-  const response = await api.get(`${process.env.REACT_APP_API_URL}/messages/list-messages-by-chat/${chatId}`);
+const getListMessagesByChat = async (chatId: number | null, cursor: number | null) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/messages/list-messages-by-chat/${chatId}`, {
+    params: { cursor }, // Lấy 20 tin nhắn trước cursor
+  });
   return response.data;
 };
 
-export const useGetListMessagesByChat = (chatId: number | null) => {
-  return useQuery(['getListMessagesByChat', chatId], () => getListMessagesByChat(chatId), {
+export const useGetListMessagesByChat = (chatId: number | null, cursor: number | null) => {
+  return useQuery(['getListMessagesByChat', chatId], () => getListMessagesByChat(chatId, cursor), {
     enabled: !!chatId,
   });
 };

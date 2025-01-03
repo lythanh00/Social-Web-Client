@@ -15,18 +15,53 @@ const ChatPopover: React.FC = () => {
   const [message, setMessage] = useState('');
   const profile = useSelector((state: RootState) => state.profile.profile);
   const [arrMessages, setArrMessages] = useState<any[]>([]);
-  const { data: dataGetListMessagesByChat } = useGetListMessagesByChat(chatId);
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const [previousScrollHeight, setPreviousScrollHeight] = useState<number>(1);
+  const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(1);
+  const [cursor, setCursor] = useState<any>();
 
+  const { data: dataGetListMessagesByChat, refetch: refetchGetListMessagesByChat } = useGetListMessagesByChat(
+    chatId,
+    cursor,
+  );
+
+  // set 20 tin nhắn vào mảng
   useEffect(() => {
-    if (chatId) {
+    if (chatId && dataGetListMessagesByChat) {
       setTimeout(() => {
-        setArrMessages(dataGetListMessagesByChat);
-      }, 500);
+        setArrMessages((prevMessages) => [...dataGetListMessagesByChat, ...prevMessages]);
+      }, 1000);
     }
   }, [dataGetListMessagesByChat, chatId]);
 
   // Ref để scroll đến cuối danh sách tin nhắn
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const messagesRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<any>(null);
+
+  // callback khi cuộn lên gần đầu danh sách để load thêm tin nhắn
+  const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const isTop = e.currentTarget.scrollTop === 0;
+    const scrollTopValue = e.currentTarget.scrollTop;
+    setScrollPosition(scrollTopValue);
+    setCursor(arrMessages[0].id);
+    if (isTop) {
+      setPreviousScrollHeight(currentScrollHeight);
+      setCurrentScrollHeight(e.currentTarget.scrollHeight);
+      refetchGetListMessagesByChat();
+    }
+  };
+  // scroll đến giữa danh sách tin nhắn khi load thêm
+  useEffect(() => {
+    if (messagesRef.current && scrollPosition === 0 && previousScrollHeight && currentScrollHeight) {
+      console.log('previousScrollHeight', previousScrollHeight);
+      console.log('currentScrollHeight', currentScrollHeight);
+      setTimeout(() => {
+        const newScrollTop = currentScrollHeight - previousScrollHeight;
+        console.log(newScrollTop);
+        document.getElementById('scroll-message')?.scrollTo({ top: newScrollTop });
+      }, 1000);
+    }
+  }, [dataGetListMessagesByChat]);
 
   // kết nối socket khi mở chat popover
   useEffect(() => {
@@ -71,10 +106,10 @@ const ChatPopover: React.FC = () => {
 
   // Tự động cuộn xuống khi mở chat hoặc có tin nhắn mới
   useEffect(() => {
-    if (messagesEndRef.current) {
+    if (messagesRef.current && arrMessages.length <= 20) {
       setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }, 500); // Delay để đảm bảo tất cả các tin nhắn đã được render
+        messagesRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 1000); // Delay để đảm bảo tất cả các tin nhắn đã được render
     }
   }, [arrMessages]);
 
@@ -152,10 +187,10 @@ const ChatPopover: React.FC = () => {
               <CloseOutlined className="close-icon" onClick={() => dispatch(closeChat())} /> {/* Nút "X" để đóng */}
             </div>
             {/* chat popover list messages */}
-            <div className="chat-popover-content">
+            <div className="chat-popover-content" id="scroll-message" ref={listRef} onScroll={handleScroll}>
               <List dataSource={arrMessages} renderItem={renderMessageItem} />
               {/* Phần tử ẩn để cuộn đến */}
-              <div ref={messagesEndRef} />
+              <div ref={messagesRef} />
             </div>
             {/* chat popover send message */}
             <div className="chat-popover-footer flex flex-row items-end gap-1">
