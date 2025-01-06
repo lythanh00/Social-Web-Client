@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ProfilePostCard from '../ProfilePostCard';
 import { List } from 'antd';
 import { useGetListPostsByOwner } from '../../../apis/Posts';
 
 const ProfileNewsFeed: React.FC = () => {
   const { data } = useGetListPostsByOwner();
+
   return (
     <div className="newsfeed-container">
       <List

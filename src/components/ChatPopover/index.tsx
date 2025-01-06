@@ -19,6 +19,7 @@ const ChatPopover: React.FC = () => {
   const [previousScrollHeight, setPreviousScrollHeight] = useState<number>(1);
   const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(1);
   const [cursor, setCursor] = useState<any>();
+  const [sendMesScroll, setSendMesScroll] = useState<boolean>(false);
 
   const { data: dataGetListMessagesByChat, refetch: refetchGetListMessagesByChat } = useGetListMessagesByChat(
     chatId,
@@ -106,10 +107,11 @@ const ChatPopover: React.FC = () => {
 
   // Tự động cuộn xuống khi mở chat hoặc có tin nhắn mới
   useEffect(() => {
-    if (messagesRef.current && arrMessages.length <= 20) {
+    if (messagesRef.current && (arrMessages.length <= 20 || sendMesScroll)) {
       setTimeout(() => {
         messagesRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, 1000); // Delay để đảm bảo tất cả các tin nhắn đã được render
+      setSendMesScroll(false);
     }
   }, [arrMessages]);
 
@@ -155,6 +157,7 @@ const ChatPopover: React.FC = () => {
         text: message,
       });
       setMessage('');
+      setSendMesScroll(true);
     }
   };
 
