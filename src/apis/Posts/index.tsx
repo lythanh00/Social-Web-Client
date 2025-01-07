@@ -2,13 +2,15 @@ import { useMutation, useQuery } from 'react-query';
 import { api } from '..';
 
 // get list post by owner
-const getListPostsByOwner = async () => {
-  const response = await api.get(`${process.env.REACT_APP_API_URL}/posts/list-posts-by-owner`);
+const getListPostsByOwner = async (cursor: number | null) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/posts/list-posts-by-owner`, {
+    params: { cursor },
+  });
   return response.data;
 };
 
-export const useGetListPostsByOwner = () => {
-  return useQuery(['getListPostsByOwner'], () => getListPostsByOwner(), {
+export const useGetListPostsByOwner = (cursor: number | null) => {
+  return useQuery(['getListPostsByOwner'], () => getListPostsByOwner(cursor), {
     enabled: true,
   });
 };

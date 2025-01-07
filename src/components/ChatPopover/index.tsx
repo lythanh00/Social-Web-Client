@@ -37,7 +37,6 @@ const ChatPopover: React.FC = () => {
 
   // Ref để scroll đến cuối danh sách tin nhắn
   const messagesRef = useRef<HTMLDivElement | null>(null);
-  const listRef = useRef<any>(null);
 
   // callback khi cuộn lên gần đầu danh sách để load thêm tin nhắn
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
@@ -190,7 +189,7 @@ const ChatPopover: React.FC = () => {
               <CloseOutlined className="close-icon" onClick={() => dispatch(closeChat())} /> {/* Nút "X" để đóng */}
             </div>
             {/* chat popover list messages */}
-            <div className="chat-popover-content" id="scroll-message" ref={listRef} onScroll={handleScroll}>
+            <div className="chat-popover-content" id="scroll-message" onScroll={handleScroll}>
               <List dataSource={arrMessages} renderItem={renderMessageItem} />
               {/* Phần tử ẩn để cuộn đến */}
               <div ref={messagesRef} />

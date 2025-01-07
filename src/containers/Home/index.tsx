@@ -12,15 +12,6 @@ import HomeContentArea from '../../components/Home/HomeContentArea';
 const { Content, Sider } = Layout;
 
 const Home: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { refetch } = useGetProfile();
-
-  useEffect(() => {
-    refetch().then((res) => {
-      dispatch(setProfile(res?.data?.data as any));
-    });
-  }, []);
-
   return (
     <Layout className="home-page">
       {/* <Navbar /> */}

@@ -3,11 +3,15 @@ import StatusUpdate from '../../StatusUpdate';
 import ProfileNewsFeed from '../ProfileNewsFeed';
 import './index.scss';
 
-const ProfileContentArea: React.FC = () => {
+interface ProfileContentAreaProps {
+  isAtEnd: boolean;
+}
+
+const ProfileContentArea: React.FC<ProfileContentAreaProps> = ({ isAtEnd }) => {
   return (
     <div className="content-area">
       <StatusUpdate />
-      <ProfileNewsFeed />
+      <ProfileNewsFeed isAtEnd={isAtEnd} />
     </div>
   );
 };

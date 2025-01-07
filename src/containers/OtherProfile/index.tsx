@@ -13,14 +13,7 @@ import OtherProfileIntroduction from '../../components/OtherProfile/OtherProfile
 import OtherProfileFriends from '../../components/OtherProfile/OtherProfileFriends';
 
 const OtherProfilePage: React.FC = () => {
-  // load owner profile
   const dispatch = useAppDispatch();
-  const { data: dataProfile, error } = useGetProfile();
-  useEffect(() => {
-    if (dataProfile && dataProfile.data) {
-      dispatch(setProfile(dataProfile?.data as any));
-    }
-  }, [dataProfile?.data]);
 
   const [searchParams] = useSearchParams();
   const stringUserId = searchParams.get('userId');

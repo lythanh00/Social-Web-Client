@@ -5,7 +5,11 @@ import { api } from './apis';
 import Navbar from './components/Navbar';
 import ChatPopover from './components/ChatPopover';
 import { useSelector } from 'react-redux';
-import { RootState } from './store';
+import { RootState, useAppDispatch } from './store';
+import { Header } from 'antd/es/layout/layout';
+import { useGetProfile } from './apis/Profiles';
+import { useEffect } from 'react';
+import { setProfile } from './store/profileSlice';
 
 const { Content } = Layout;
 
@@ -14,17 +18,35 @@ interface IMainAppProp {}
 const MainApp = (props: IMainAppProp) => {
   const isOpen = useSelector((state: RootState) => state.chat.open);
 
+  const dispatch = useAppDispatch();
+  const { refetch } = useGetProfile();
+
+  useEffect(() => {
+    refetch().then((res) => {
+      dispatch(setProfile(res?.data?.data as any));
+    });
+  }, []);
+
   return (
-    // <Layout style={{ minHeight: '100vh' }} hasSider={true}>
-    //   <Content>
-    //     <Outlet />
-    //   </Content>
-    // </Layout>
     <>
       <Navbar />
       <Outlet />
       {isOpen && <ChatPopover />}
     </>
   );
+
+  // return (
+  //   <>
+  //     <Layout>
+  //       <Header>
+  //         <Navbar />
+  //       </Header>
+  //       <Content>
+  //         <Outlet />
+  //       </Content>
+  //     </Layout>
+  //     {isOpen && <ChatPopover />}
+  //   </>
+  // );
 };
 export default MainApp;
