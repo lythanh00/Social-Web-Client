@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.scss';
 import { Layout } from 'antd';
-import Navbar from '../../components/Navbar';
-import { useAppDispatch } from '../../store';
-import { useGetProfile } from '../../apis/Profiles';
-import { setProfile } from '../../store/profileSlice';
 import ProfileInfo from '../../components/Profile/ProfileInfo';
 import ProfileMenu from '../../components/Profile/ProfileMenu';
 import ProfileContentArea from '../../components/Profile/ProfileContentArea';

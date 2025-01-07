@@ -31,13 +31,15 @@ export const useCreatePost = () => {
 };
 
 // get list posts by other
-const getListPostsByOther = async (userId: number | null) => {
-  const response = await api.get(`${process.env.REACT_APP_API_URL}/posts/list-posts-by-user/${userId}`);
+const getListPostsByOther = async (userId: number | null, cursor: number | null) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/posts/list-posts-by-user/${userId}`, {
+    params: { cursor },
+  });
   return response.data;
 };
 
-export const useGetListPostsByOther = (userId: number | null) => {
-  return useQuery(['getListPostsByOther', userId], () => getListPostsByOther(userId), {
+export const useGetListPostsByOther = (userId: number | null, cursor: number | null) => {
+  return useQuery(['getListPostsByOther', userId], () => getListPostsByOther(userId, cursor), {
     enabled: !!userId, // Chỉ gọi khi userId có giá trị
   });
 };
