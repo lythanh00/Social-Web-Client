@@ -45,13 +45,15 @@ export const useGetListPostsByOther = (userId: number | null, cursor: number | n
 };
 
 // get list posts by owner and friends
-const getListPostsByOwnerAndFriends = async () => {
-  const response = await api.get(`${process.env.REACT_APP_API_URL}/posts/list-posts-by-owner-and-friends`);
+const getListPostsByOwnerAndFriends = async (cursor: number | null) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/posts/list-posts-by-owner-and-friends`, {
+    params: { cursor },
+  });
   return response.data;
 };
 
-export const useGetListPostsByOwnerAndFriends = () => {
-  return useQuery(['getListPostsByOwnerAndFriends'], () => getListPostsByOwnerAndFriends(), {
+export const useGetListPostsByOwnerAndFriends = (cursor: number | null) => {
+  return useQuery(['getListPostsByOwnerAndFriends'], () => getListPostsByOwnerAndFriends(cursor), {
     enabled: true,
   });
 };

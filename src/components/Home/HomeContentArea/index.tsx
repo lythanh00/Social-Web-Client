@@ -3,11 +3,15 @@ import StatusUpdate from '../../StatusUpdate';
 import './index.scss';
 import HomeNewsFeed from '../HomeNewsFeed';
 
-const HomeContentArea: React.FC = () => {
+interface HomeContentAreaProps {
+  isAtEnd: boolean;
+}
+
+const HomeContentArea: React.FC<HomeContentAreaProps> = ({ isAtEnd }) => {
   return (
     <div className="content-area">
       <StatusUpdate />
-      <HomeNewsFeed />
+      <HomeNewsFeed isAtEnd={isAtEnd} />
     </div>
   );
 };
