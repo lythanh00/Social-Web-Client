@@ -19,14 +19,34 @@ interface CommentModalProps {
 const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatarOwner, postId, post, userId }) => {
   const [content, setContent] = useState('');
   // const { mutate: commentPost } = useCommentPost();
-  const { data: dataGetListCommentsByPost } = useGetListCommentsByPost(postId);
-  const [comments, setComments] = useState<any[]>([]);
+  const [arrComments, setArrComments] = useState<any[]>([]);
+  const [cursor, setCursor] = useState<any>();
+
+  const { data: dataGetListCommentsByPost, refetch: refetchGetListCommentsByPost } = useGetListCommentsByPost(
+    postId,
+    cursor,
+  );
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 1) {
+      refetchGetListCommentsByPost();
+    }
+  };
 
   useEffect(() => {
-    if (postId) {
-      setComments(dataGetListCommentsByPost);
+    if (dataGetListCommentsByPost) {
+      setTimeout(() => {
+        setArrComments((prevComments) => [...prevComments, ...dataGetListCommentsByPost]);
+      }, 1000);
     }
   }, [dataGetListCommentsByPost]);
+
+  useEffect(() => {
+    if (arrComments.length > 0) {
+      setCursor(arrComments[arrComments.length - 1].id); // Cập nhật cursor với id cuối
+    }
+  }, [arrComments]);
 
   // kết nối socket khi mở modal comment
   useEffect(() => {
@@ -47,7 +67,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
   useEffect(() => {
     if (postId) {
       socketConfig.on('newComment', (newComment: any) => {
-        setComments((prevComments) => [...prevComments, newComment]);
+        setArrComments((prevComments) => [...prevComments, newComment]);
       });
     }
 
@@ -66,21 +86,22 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
       width={800}
     >
       {/*get list comments*/}
-      <List
-        className="list-post-comments"
-        dataSource={comments}
-        renderItem={(item: any) => (
-          <List.Item className="post-comment-item">
-            <Avatar src={item.user.profile.avatar.url} className="post-comment-item-avatar" />
-            <div className="post-comment-item-name-content">
-              <div className="pl-4 pt-1 pb-1 pr-2">
-                <span className="font-medium">{item.user.profile.lastName + ' ' + item.user.profile.firstName}</span>
-                <p className="post-comment-item-content">{item.content}</p>
+      <div className="list-post-comments" onScroll={handleScroll}>
+        <List
+          dataSource={arrComments}
+          renderItem={(item: any) => (
+            <List.Item className="post-comment-item">
+              <Avatar src={item.user.profile.avatar.url} className="post-comment-item-avatar" />
+              <div className="post-comment-item-name-content">
+                <div className="pl-4 pt-1 pb-1 pr-2">
+                  <span className="font-medium">{item.user.profile.lastName + ' ' + item.user.profile.firstName}</span>
+                  <p className="post-comment-item-content">{item.content}</p>
+                </div>
               </div>
-            </div>
-          </List.Item>
-        )}
-      />
+            </List.Item>
+          )}
+        />
+      </div>
 
       {/*create comment*/}
       <Form className="post-comment-form">

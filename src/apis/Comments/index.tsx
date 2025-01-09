@@ -14,13 +14,15 @@ export const useCommentPost = () => {
 };
 
 // get list comments by post
-const getListCommentsByPost = async (postId: number | null) => {
-  const response = await api.get(`${process.env.REACT_APP_API_URL}/comments/get-comments-post/${postId}`);
+const getListCommentsByPost = async (postId: number | null, cursor: number | null) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/comments/get-comments-post/${postId}`, {
+    params: { cursor },
+  });
   return response.data;
 };
 
-export const useGetListCommentsByPost = (postId: number | null) => {
-  return useQuery(['getListCommentsByPost', [postId]], () => getListCommentsByPost(postId), {
+export const useGetListCommentsByPost = (postId: number | null, cursor: number | null) => {
+  return useQuery(['getListCommentsByPost', [postId]], () => getListCommentsByPost(postId, cursor), {
     enabled: !!postId,
   });
 };

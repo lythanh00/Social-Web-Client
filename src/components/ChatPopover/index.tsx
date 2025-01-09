@@ -38,7 +38,7 @@ const ChatPopover: React.FC = () => {
   // Ref để scroll đến cuối danh sách tin nhắn
   const messagesRef = useRef<HTMLDivElement | null>(null);
 
-  // callback khi cuộn lên gần đầu danh sách để load thêm tin nhắn
+  // load thêm tin nhắn khi cuộn lên đầu danh sách
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
     const isTop = e.currentTarget.scrollTop === 0;
     const scrollTopValue = e.currentTarget.scrollTop;
