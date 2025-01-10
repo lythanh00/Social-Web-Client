@@ -5,9 +5,10 @@ import { useGetListPostsByOwner } from '../../../apis/Posts';
 
 interface ProfileNewsFeedProps {
   isAtEnd: boolean; // Prop nhận tín hiệu cuộn tới cuối trang
+  newPost: any;
 }
 
-const ProfileNewsFeed: React.FC<ProfileNewsFeedProps> = ({ isAtEnd }) => {
+const ProfileNewsFeed: React.FC<ProfileNewsFeedProps> = ({ isAtEnd, newPost }) => {
   const [arrPosts, setArrPosts] = useState<any[]>([]);
 
   const [cursor, setCursor] = useState<any>();
@@ -34,6 +35,14 @@ const ProfileNewsFeed: React.FC<ProfileNewsFeedProps> = ({ isAtEnd }) => {
       setCursor(arrPosts[arrPosts.length - 1].id);
     }
   }, [arrPosts]);
+
+  useEffect(() => {
+    if (newPost) {
+      setTimeout(() => {
+        setArrPosts((prevPosts) => [newPost, ...prevPosts]);
+      }, 1000);
+    }
+  }, [newPost]);
 
   return (
     <div className="newsfeed-container">

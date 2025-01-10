@@ -20,7 +20,11 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-const StatusUpdate: React.FC = () => {
+interface StatusUpdateProps {
+  onCreatePost?: (post: any) => void; // Hàm truyền từ cha
+}
+
+const StatusUpdate: React.FC<StatusUpdateProps> = ({ onCreatePost }) => {
   const profile = useSelector((state: RootState) => state.profile.profile);
   const [content, setContent] = useState('');
   const [images, setImages] = useState<RcFile[]>([]);
@@ -54,12 +58,15 @@ const StatusUpdate: React.FC = () => {
     });
 
     createPost(formData, {
-      onSuccess: () => {
+      onSuccess: (data) => {
         message.success('Bài viết đã được đăng!');
         setIsModalOpen(false);
         setContent('');
         setImages([]);
         setFileList([]);
+        if (onCreatePost) {
+          onCreatePost(data); // Truyền dữ liệu lên cha
+        }
       },
       onError: () => {
         message.error('Có lỗi xảy ra khi đăng bài viết!');
