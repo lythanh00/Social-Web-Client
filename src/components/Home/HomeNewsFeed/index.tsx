@@ -5,9 +5,10 @@ import HomePostCard from '../HomePostCard';
 
 interface HomeNewsFeedProps {
   isAtEnd: boolean; // Prop nhận tín hiệu cuộn tới cuối trang
+  newPost: any;
 }
 
-const HomeNewsFeed: React.FC<HomeNewsFeedProps> = ({ isAtEnd }) => {
+const HomeNewsFeed: React.FC<HomeNewsFeedProps> = ({ isAtEnd, newPost }) => {
   const [arrPosts, setArrPosts] = useState<any[]>([]);
 
   const [cursor, setCursor] = useState<any>();
@@ -34,6 +35,14 @@ const HomeNewsFeed: React.FC<HomeNewsFeedProps> = ({ isAtEnd }) => {
       setCursor(arrPosts[arrPosts.length - 1].id);
     }
   }, [arrPosts]);
+
+  useEffect(() => {
+    if (newPost) {
+      setTimeout(() => {
+        setArrPosts((prevPosts) => [newPost, ...prevPosts]);
+      }, 1000);
+    }
+  }, [newPost]);
 
   return (
     <div className="newsfeed-container">
