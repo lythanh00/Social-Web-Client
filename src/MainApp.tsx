@@ -1,15 +1,12 @@
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { api } from './apis';
 import Navbar from './components/Navbar';
-import ChatPopover from './components/ChatPopover';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from './store';
-import { Header } from 'antd/es/layout/layout';
 import { useGetProfile } from './apis/Profiles';
 import { useEffect } from 'react';
 import { setProfile } from './store/profileSlice';
+import ChatBox from './components/ChatBox';
 
 const { Content } = Layout;
 
@@ -31,7 +28,7 @@ const MainApp = (props: IMainAppProp) => {
     <>
       <Navbar />
       <Outlet />
-      {isOpen && <ChatPopover />}
+      {isOpen && <ChatBox />}
     </>
   );
 

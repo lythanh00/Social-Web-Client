@@ -9,7 +9,7 @@ import { RootState } from '../../store';
 import { socketConfig } from '../../socket';
 import { closeChat } from '../../store/chatSlice';
 
-const ChatPopover: React.FC = () => {
+const ChatBox: React.FC = () => {
   const dispatch = useDispatch();
   const { open, friend, ownerId, chatId } = useSelector((state: RootState) => state.chat);
   const [message, setMessage] = useState('');
@@ -133,7 +133,7 @@ const ChatPopover: React.FC = () => {
           padding: '5px',
         }}
       >
-        {!isOwner && <Avatar src={friend.profile.avatar.url} size={'small'} />}
+        {!isOwner && <Avatar className="avatar-boxchat" src={friend.profile.avatar.url} size={'small'} />}
         <div
           className={`message-bubble ${isOwner ? 'message-right-bubble' : 'message-left-bubble'}`}
           style={{
@@ -182,51 +182,35 @@ const ChatPopover: React.FC = () => {
   }, [chatId]);
 
   return (
-    <>
-      <Popover
-        content={
-          <div>
-            {/* chat popover header */}
-            <div className="chat-popover-header">
-              <div className="flex items-center gap-1" style={{ cursor: 'pointer' }}>
-                <Avatar src={friend?.profile.avatar.url} />
-                <span className="font-medium">{friend?.profile.lastName + ' ' + friend?.profile.firstName}</span>
-              </div>
-              <CloseOutlined className="close-icon" onClick={() => dispatch(closeChat())} /> {/* Nút "X" để đóng */}
-            </div>
-            {/* chat popover list messages */}
-            <div className="chat-popover-content" id="scroll-message" onScroll={handleScroll}>
-              <List dataSource={arrMessages} renderItem={renderMessageItem} />
-              {/* Phần tử ẩn để cuộn đến */}
-              <div ref={messagesRef} />
-            </div>
-            {/* chat popover send message */}
-            <div className="chat-popover-footer flex flex-row items-end gap-1">
-              <Input.TextArea
-                autoSize={{ minRows: 1, maxRows: 8 }}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Aa"
-              />
-              <Button type="primary" onClick={handleSendMessage}>
-                <RightOutlined />
-              </Button>
-            </div>
-          </div>
-        }
-        trigger="click"
-        placement="topRight"
-        open={open}
-        onOpenChange={() => {}}
-        arrow={false}
-        overlayClassName="chat-popover"
-      >
-        <div className="chat-popover-trigger">
-          <Avatar src={friend?.profile.avatar.url} size={'large'} />
+    <div className="chatbox">
+      {/* chatbox header */}
+      <div className="chat-box-header">
+        <div className="flex items-center gap-1" style={{ cursor: 'pointer' }}>
+          <Avatar className="avatar-boxchat" src={friend?.profile.avatar.url} />
+          <span className="font-medium">{friend?.profile.lastName + ' ' + friend?.profile.firstName}</span>
         </div>
-      </Popover>
-    </>
+        <CloseOutlined className="close-icon" onClick={() => dispatch(closeChat())} /> {/* Nút "X" để đóng */}
+      </div>
+      {/* chatbox list messages */}
+      <div className="chat-box-content" id="scroll-message" onScroll={handleScroll}>
+        <List dataSource={arrMessages} renderItem={renderMessageItem} />
+        {/* Phần tử ẩn để cuộn đến */}
+        <div ref={messagesRef} />
+      </div>
+      {/* chatbox send message */}
+      <div className="chat-box-footer flex flex-row items-end gap-1">
+        <Input.TextArea
+          autoSize={{ minRows: 1, maxRows: 8 }}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Aa"
+        />
+        <Button type="primary" onClick={handleSendMessage}>
+          <RightOutlined />
+        </Button>
+      </div>
+    </div>
   );
 };
 
-export default ChatPopover;
+export default ChatBox;
