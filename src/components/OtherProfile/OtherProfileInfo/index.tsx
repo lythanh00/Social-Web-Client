@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 
 import { Avatar, Button, message, Modal } from 'antd';
@@ -11,15 +11,21 @@ import {
   useRemoveFriendRequest,
   useSendFriendRequest,
 } from '../../../apis/Friend-Requests';
+import { closeChat, openChat } from '../../../store/chatSlice';
+import { useCreateChat } from '../../../apis/Chats';
 
 const OtherProfileInfo: React.FC = () => {
+  const profile = useSelector((state: RootState) => state.profile.profile);
   const otherProfile = useSelector((state: RootState) => state.profile.otherProfile);
+  const isOpenChat = useSelector((state: RootState) => state.chat.open);
+  const dispatch = useDispatch();
   const { data: isFriendUserFriend } = useCheckIsFriend(otherProfile?.userId);
   const { mutate: sendFriendRequest } = useSendFriendRequest();
   const { data: isPendingFriendRequest } = useCheckIsPendingFriendRequest(otherProfile?.userId);
   const { mutate: removeFriendRequest } = useRemoveFriendRequest();
   const { mutate: removeUserFriend } = useRemoveUserFriend();
   const { data: dataCountFriends } = useCountFriendsByOther(otherProfile?.userId);
+  const { mutate: createChat } = useCreateChat();
 
   const [isPending, setIsPending] = useState(false);
   const [isSender, setIsSender] = useState(false);
@@ -85,6 +91,27 @@ const OtherProfileInfo: React.FC = () => {
     }
   };
 
+  const handleChatPopoverOpen = async () => {
+    if (isOpenChat) {
+      console.log('close chat');
+      dispatch(closeChat());
+    }
+    createChat(otherProfile?.userId, {
+      onSuccess: async (dataCreateChat) => {
+        dispatch(
+          openChat({
+            friend:
+              dataCreateChat.participant2.id !== profile.userId
+                ? dataCreateChat.participant2
+                : dataCreateChat.participant1,
+            ownerId: profile.userId,
+            chatId: dataCreateChat?.id,
+          }),
+        );
+      },
+    });
+  };
+
   return (
     <div className="profile-info">
       <div className="relative">
@@ -138,6 +165,7 @@ const OtherProfileInfo: React.FC = () => {
           <Button
             type="primary" // Nút sẽ có màu xanh khi chưa là bạn bè
             icon={<MessageOutlined />} // Biểu tượng thay đổi tùy vào trạng thái
+            onClick={() => handleChatPopoverOpen()}
           >
             Nhắn tin
           </Button>

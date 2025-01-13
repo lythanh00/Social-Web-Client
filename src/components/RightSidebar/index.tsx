@@ -4,17 +4,22 @@ import './index.scss';
 import { useGetFriends } from '../../apis/User-Friends';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { openChat } from '../../store/chatSlice';
+import { closeChat, openChat } from '../../store/chatSlice';
 import { useCreateChat } from '../../apis/Chats';
 
 const RightSidebar: React.FC = () => {
+  const isOpenChat = useSelector((state: RootState) => state.chat.open);
   const dispatch = useDispatch();
   const { data } = useGetFriends();
   const profile = useSelector((state: RootState) => state.profile.profile);
   const { mutate: createChat } = useCreateChat();
 
-  // Hàm mở Drawer và đặt thông tin người bạn
+  // Hàm mở chat popover
   const handleChatPopoverOpen = async (friend: any) => {
+    if (isOpenChat) {
+      console.log('close chat');
+      dispatch(closeChat());
+    }
     createChat(friend.id, {
       onSuccess: async (dataCreateChat) => {
         dispatch(openChat({ friend, ownerId: profile.userId, chatId: dataCreateChat?.id }));

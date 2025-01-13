@@ -18,7 +18,7 @@ const ChatPopover: React.FC = () => {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [previousScrollHeight, setPreviousScrollHeight] = useState<number>(1);
   const [currentScrollHeight, setCurrentScrollHeight] = useState<number>(1);
-  const [cursor, setCursor] = useState<any>();
+  const [cursor, setCursor] = useState<any>(null);
   const [sendMesScroll, setSendMesScroll] = useState<boolean>(false);
 
   const { data: dataGetListMessagesByChat, refetch: refetchGetListMessagesByChat } = useGetListMessagesByChat(
@@ -26,11 +26,18 @@ const ChatPopover: React.FC = () => {
     cursor,
   );
 
+  useEffect(() => {
+    if (open === true) {
+      setArrMessages([]);
+      setCursor(null);
+    }
+  }, [open]);
+
   // set 20 tin nhắn vào mảng
   useEffect(() => {
     if (chatId && dataGetListMessagesByChat) {
       setTimeout(() => {
-        setArrMessages((prevMessages) => [...dataGetListMessagesByChat, ...prevMessages]);
+        setArrMessages([...dataGetListMessagesByChat, ...arrMessages]);
       }, 1000);
     }
   }, [dataGetListMessagesByChat, chatId]);
@@ -53,11 +60,8 @@ const ChatPopover: React.FC = () => {
   // scroll đến giữa danh sách tin nhắn khi load thêm
   useEffect(() => {
     if (messagesRef.current && scrollPosition === 0 && previousScrollHeight && currentScrollHeight) {
-      console.log('previousScrollHeight', previousScrollHeight);
-      console.log('currentScrollHeight', currentScrollHeight);
       setTimeout(() => {
         const newScrollTop = currentScrollHeight - previousScrollHeight;
-        console.log(newScrollTop);
         document.getElementById('scroll-message')?.scrollTo({ top: newScrollTop });
       }, 1000);
     }
@@ -113,6 +117,8 @@ const ChatPopover: React.FC = () => {
       setSendMesScroll(false);
     }
   }, [arrMessages]);
+
+  console.log('cursor', cursor);
 
   const renderMessageItem = (item: any, index: number) => {
     const isOwner = item.senderId === profile.userId;

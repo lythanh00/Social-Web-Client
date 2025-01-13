@@ -19,7 +19,7 @@ import {
   useMarkNotificationAsRead,
 } from '../../apis/Notifications';
 import { formatDistanceToNow } from 'date-fns';
-import { useGetListChats } from '../../apis/Chats';
+import { useCreateChat, useGetListChats } from '../../apis/Chats';
 import { useCountUnreadChats } from '../../apis/Messages';
 import { resetAuthState } from '../../store/authSlice';
 import { resetProfileState } from '../../store/profileSlice';
@@ -32,6 +32,7 @@ const { Search } = Input;
 const Navbar: React.FC = () => {
   // const [profile, setProfile] = useState<any>(useSelector((state: RootState) => state.profile.profile));
   const profile = useSelector((state: RootState) => state.profile.profile);
+  const isOpenChat = useSelector((state: RootState) => state.chat.open);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -48,6 +49,7 @@ const Navbar: React.FC = () => {
   const { data: dataCountUnreadNotifications, isLoading: isLoadingCountUnreadNotifications } =
     useCountUnreadNotifications();
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
+  const { mutate: createChat } = useCreateChat();
 
   useEffect(() => {
     if (dataGetListChats) {
@@ -83,13 +85,21 @@ const Navbar: React.FC = () => {
 
   const handleClickChat = (item: any) => {
     // socketConfig.emit('leave_chat', chatId);
-    dispatch(
-      openChat({
-        friend: item.participant2.id !== profile.userId ? item.participant2 : item.participant1,
-        ownerId: profile.userId,
-        chatId: item.id,
-      }),
-    );
+    if (isOpenChat) {
+      console.log('close chat');
+      dispatch(closeChat());
+    }
+    createChat(item.participant2.id !== profile.userId ? item.participant2.id : item.participant1.id, {
+      onSuccess: async (dataCreateChat) => {
+        dispatch(
+          openChat({
+            friend: item.participant2.id !== profile.userId ? item.participant2 : item.participant1,
+            ownerId: profile.userId,
+            chatId: dataCreateChat?.id,
+          }),
+        );
+      },
+    });
     // Loại bỏ item.id khỏi listUnreadChats
     setListUnreadChats((prevList) => prevList.filter((chatId) => chatId !== item.id));
   };
