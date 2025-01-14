@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, Button, Input, List, Popover } from 'antd';
 
 import './index.scss';
-import { CheckCircleOutlined, CloseOutlined, RightOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, CloseOutlined, EyeFilled, RightOutlined } from '@ant-design/icons';
 import { useGetListMessagesByChat } from '../../apis/Messages';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -146,7 +146,7 @@ const ChatBox: React.FC = () => {
         </div>
         {isOwner && item.isRead && (
           <span className="is-read">
-            <CheckCircleOutlined />
+            <EyeFilled />
           </span>
         )}
       </div>

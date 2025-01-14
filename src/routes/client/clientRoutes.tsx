@@ -62,14 +62,16 @@ export const ClientRoutes = () => {
       {/* ProtectRoute */}
       {/* using ProtectRoute when the route need user to sign in to access it */}
       <Route element={<ProtectRoute />}>
-        <Route path={`/${CLIENT_ROUTE_PATH.HOME}`} element={<SuspenseWrapper component={<Home />} />} />
-        <Route path={`/${CLIENT_ROUTE_PATH.PROFILE}`} element={<SuspenseWrapper component={<ProfilePage />} />} />
-        <Route
-          path={`/${CLIENT_ROUTE_PATH.OTHERPROFILE}`}
-          element={<SuspenseWrapper component={<OtherProfilePage />} />}
-        />
-        <Route path={`/${CLIENT_ROUTE_PATH.FRIENDS}`} element={<SuspenseWrapper component={<FriendsPage />} />} />
-        <Route path={`/${CLIENT_ROUTE_PATH.POST}`} element={<SuspenseWrapper component={<PostPage />} />} />
+        <Route path={`/${CLIENT_ROUTE_PATH.HOME}`} element={<SuspenseWrapper component={<Client />} />}>
+          <Route path={`/${CLIENT_ROUTE_PATH.HOME}`} element={<SuspenseWrapper component={<Home />} />} />
+          <Route path={`/${CLIENT_ROUTE_PATH.PROFILE}`} element={<SuspenseWrapper component={<ProfilePage />} />} />
+          <Route
+            path={`/${CLIENT_ROUTE_PATH.OTHERPROFILE}`}
+            element={<SuspenseWrapper component={<OtherProfilePage />} />}
+          />
+          <Route path={`/${CLIENT_ROUTE_PATH.FRIENDS}`} element={<SuspenseWrapper component={<FriendsPage />} />} />
+          <Route path={`/${CLIENT_ROUTE_PATH.POST}`} element={<SuspenseWrapper component={<PostPage />} />} />
+        </Route>
       </Route>
       {/* Not Found */}
       <Route path="*" element={<NotFound />} />
