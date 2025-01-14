@@ -26,6 +26,7 @@ const ChatBox: React.FC = () => {
     cursor,
   );
 
+  // reset lại từ đầu khi mở chatbox
   useEffect(() => {
     if (open === true) {
       setArrMessages([]);

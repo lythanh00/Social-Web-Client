@@ -27,6 +27,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
     cursor,
   );
 
+  // load thêm 10 comments
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
     const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
     if (scrollHeight - scrollTop <= clientHeight + 1) {
@@ -34,6 +35,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
     }
   };
 
+  // thêm 10 comments mới load vào mảng
   useEffect(() => {
     if (dataGetListCommentsByPost) {
       setTimeout(() => {

@@ -104,6 +104,12 @@ const OtherProfilePostCard: React.FC<Props> = (props: Props) => {
           ))}
         </div>
       )}
+
+      <span className="like-count">
+        <LikeOutlined style={{ color: 'blue' }} />
+        <LikeOutlined style={{ color: 'blue' }} />
+        <LikeOutlined style={{ color: 'blue' }} /> {post.likes?.length || 0}
+      </span>
     </Card>
   );
 };

@@ -38,11 +38,17 @@
 }
 
 .post-card-content {
+  margin-bottom: 16px;
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
 .post-card-image {
-  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.like-count {
+  color: #686a6e;
+  cursor: pointer;
 }
