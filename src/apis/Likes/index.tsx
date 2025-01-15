@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { api } from '..';
 
 // like post
@@ -19,4 +19,18 @@ const unLikePost = async (postId: number | null) => {
 
 export const useUnLikePost = () => {
   return useMutation((postId: number | null) => unLikePost(postId));
+};
+
+// get list likes by post
+const getListLikesByPost = async (postId: number | null, cursor: number | null) => {
+  const response = await api.get(`${process.env.REACT_APP_API_URL}/likes/list-likes/${postId}`, {
+    params: { cursor },
+  });
+  return response.data;
+};
+
+export const useGetListLikesByPost = (postId: number | null, cursor: number | null) => {
+  return useQuery(['getListLikesByPost', postId], () => getListLikesByPost(postId, cursor), {
+    enabled: !!postId,
+  });
 };

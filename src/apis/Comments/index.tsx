@@ -22,7 +22,7 @@ const getListCommentsByPost = async (postId: number | null, cursor: number | nul
 };
 
 export const useGetListCommentsByPost = (postId: number | null, cursor: number | null) => {
-  return useQuery(['getListCommentsByPost', [postId]], () => getListCommentsByPost(postId, cursor), {
+  return useQuery(['getListCommentsByPost', postId], () => getListCommentsByPost(postId, cursor), {
     enabled: !!postId,
   });
 };

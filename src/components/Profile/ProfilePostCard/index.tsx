@@ -6,8 +6,8 @@ import { formatDistanceToNow } from 'date-fns';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { useLikePost, useUnLikePost } from '../../../apis/Likes';
-import { socketConfig } from '../../../socket';
 import CommentModal from '../../CommentModal';
+import LikeModal from '../../LikeModal';
 
 const { Meta } = Card;
 
@@ -23,9 +23,10 @@ const ProfilePostCard: React.FC<Props> = (props: Props) => {
   const { mutate: likePost } = useLikePost();
   const { mutate: unLikePost } = useUnLikePost();
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [isLikeModalOpen, setIsLikeModalOpen] = useState(false);
 
   useEffect(() => {
-    if (post.likes?.some((like: any) => like.user.id === profile.userId)) {
+    if (post.likes?.some((like: any) => like.userId === profile.userId)) {
       setIsLike(true);
     } else {
       setIsLike(false);
@@ -42,12 +43,22 @@ const ProfilePostCard: React.FC<Props> = (props: Props) => {
     }
   };
 
+  // click comment
   const handleCommentClick = () => {
     setIsCommentModalOpen(true);
   };
 
   const handleCommentModalClose = () => {
     setIsCommentModalOpen(false);
+  };
+
+  // click like count
+  const handleLikeCountClick = () => {
+    setIsLikeModalOpen(true);
+  };
+
+  const handleLikeModalClose = () => {
+    setIsLikeModalOpen(false);
   };
 
   return (
@@ -106,11 +117,14 @@ const ProfilePostCard: React.FC<Props> = (props: Props) => {
         </div>
       )}
 
-      <span className="like-count">
+      {/* số like */}
+      <span className="like-count" onClick={() => handleLikeCountClick()}>
         <LikeOutlined style={{ color: 'blue' }} />
         <LikeOutlined style={{ color: 'blue' }} />
         <LikeOutlined style={{ color: 'blue' }} /> {post.likes?.length || 0}
       </span>
+
+      {isLikeModalOpen && <LikeModal open={isLikeModalOpen} onClose={handleLikeModalClose} postId={post.id} />}
     </Card>
   );
 };

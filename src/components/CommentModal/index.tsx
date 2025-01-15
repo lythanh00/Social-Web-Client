@@ -44,9 +44,10 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
     }
   }, [dataGetListCommentsByPost]);
 
+  // Cập nhật cursor với id cuối
   useEffect(() => {
     if (arrComments.length > 0) {
-      setCursor(arrComments[arrComments.length - 1].id); // Cập nhật cursor với id cuối
+      setCursor(arrComments[arrComments.length - 1].id);
     }
   }, [arrComments]);
 
