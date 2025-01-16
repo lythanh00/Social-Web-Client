@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, DatePicker, DatePickerProps, Divider, Input, Modal, Space } from 'antd';
 import {
   UserOutlined,
@@ -9,12 +9,13 @@ import {
 } from '@ant-design/icons';
 import './index.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
+import { RootState, useAppDispatch } from '../../../store';
 import InputComponent from '../../Input';
 import { useMutation } from 'react-query';
 import { api } from '../../../apis';
 import { useGetProfile, useUpdateProfile } from '../../../apis/Profiles';
 import { format } from 'date-fns';
+import { setProfile } from '../../../store/profileSlice';
 
 const ProfileIntroduction: React.FC = () => {
   const profile = useSelector((state: RootState) => state.profile.profile);
@@ -25,6 +26,7 @@ const ProfileIntroduction: React.FC = () => {
   const [newLocation, setNewLocation] = useState(profile.location);
   const [newInterests, setNewInterests] = useState(profile.interests);
   const [time, setTime] = useState<any | null>(profile.dateOfBirth);
+  const dispatch = useAppDispatch();
 
   const updateProfileMutation = useUpdateProfile();
   const { refetch: refetchDataProfile } = useGetProfile();
@@ -54,7 +56,9 @@ const ProfileIntroduction: React.FC = () => {
       {
         onSuccess: () => {
           setIsModalOpen(false);
-          refetchDataProfile();
+          refetchDataProfile().then((res) => {
+            dispatch(setProfile(res?.data?.data as any));
+          });
         },
         onError: (error) => {
           console.error('Có lỗi xảy ra khi cập nhật:', error);
@@ -66,6 +70,7 @@ const ProfileIntroduction: React.FC = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   return (
     <Card className="profile-introduction-card">
       <h2 className="introduction-title">Giới thiệu</h2>

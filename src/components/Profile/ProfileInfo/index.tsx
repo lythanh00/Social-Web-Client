@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
+import { RootState, useAppDispatch } from '../../../store';
 import { Avatar, Button, GetProp, message, UploadProps } from 'antd';
 import Upload, { RcFile, UploadFile } from 'antd/es/upload';
 import { CameraOutlined } from '@ant-design/icons';
 import { useGetProfile } from '../../../apis/Profiles';
 import { useCountFriendsByOwner } from '../../../apis/User-Friends';
+import { setProfile } from '../../../store/profileSlice';
 
 const ProfileInfo: React.FC = () => {
   const profile = useSelector((state: RootState) => state.profile.profile);
   const { refetch: refetchDataProfile } = useGetProfile();
   const { data: dataCountFriends } = useCountFriendsByOwner();
+  const dispatch = useAppDispatch();
 
   const propsCoverPhoto: UploadProps = {
     name: 'coverphoto-profile',
@@ -23,7 +25,9 @@ const ProfileInfo: React.FC = () => {
     onChange(info) {
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
-        refetchDataProfile();
+        refetchDataProfile().then((res) => {
+          dispatch(setProfile(res?.data?.data as any));
+        });
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -40,7 +44,9 @@ const ProfileInfo: React.FC = () => {
     onChange(info) {
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
-        refetchDataProfile();
+        refetchDataProfile().then((res) => {
+          dispatch(setProfile(res?.data?.data as any));
+        });
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }

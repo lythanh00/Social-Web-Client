@@ -81,6 +81,7 @@ const Navbar: React.FC = () => {
       dispatch(resetChatState()),
     ]);
     navigate(CLIENT_ROUTE_PATH.SIGNIN);
+    window.location.reload();
   };
 
   const handleClickChat = (item: any) => {
