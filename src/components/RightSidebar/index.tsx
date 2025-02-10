@@ -29,7 +29,7 @@ const RightSidebar: React.FC = () => {
 
   return (
     <>
-      <Card className="right-sidebar-card" title="Người liên hệ">
+      <Card className="right-sidebar-card" title="Bạn bè">
         <List
           dataSource={data}
           renderItem={(item: any) => (

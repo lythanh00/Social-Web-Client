@@ -79,6 +79,13 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
     };
   }, [postId]);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Ngăn chặn xuống dòng khi nhấn Enter
+      handleCreateComment();
+    }
+  };
+
   return (
     <Modal
       title={<div className="comment-modal-title">{`Bài viết của ${name}`}</div>}
@@ -116,6 +123,7 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
             rows={3}
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e)}
             placeholder="Viết bình luận của bạn..."
             autoSize={{ minRows: 3, maxRows: 6 }}
           />

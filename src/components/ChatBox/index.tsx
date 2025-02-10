@@ -182,6 +182,13 @@ const ChatBox: React.FC = () => {
     };
   }, [chatId]);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Ngăn chặn xuống dòng khi nhấn Enter
+      handleSendMessage();
+    }
+  };
+
   return (
     <div className="chatbox">
       {/* chatbox header */}
@@ -204,6 +211,7 @@ const ChatBox: React.FC = () => {
           autoSize={{ minRows: 1, maxRows: 8 }}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => handleKeyDown(e)}
           placeholder="Aa"
         />
         <Button type="primary" onClick={handleSendMessage}>

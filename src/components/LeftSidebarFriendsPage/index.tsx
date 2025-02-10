@@ -10,7 +10,12 @@ import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 import { TeamOutlined, UserOutlined, UserSwitchOutlined } from '@ant-design/icons';
 
-const LeftSidebarFriendsPage: React.FC = () => {
+interface LeftSidebarFriendsPageProps {
+  selectedKey: string;
+  onMenuSelect: (key: string) => void;
+}
+
+const LeftSidebarFriendsPage: React.FC<LeftSidebarFriendsPageProps> = ({ selectedKey, onMenuSelect }) => {
   const profile = useSelector((state: RootState) => state.profile.profile);
   const navigate = useNavigate();
 
@@ -18,30 +23,29 @@ const LeftSidebarFriendsPage: React.FC = () => {
     {
       key: '1',
       label: (
-        <div onClick={() => navigate(CLIENT_ROUTE_PATH.FRIENDS)}>
-          <Avatar src={friend0} /> Trang chủ
+        <div>
+          <Avatar src={friendInvitation} /> Lời mời kết bạn
         </div>
       ),
     },
     {
       key: '2',
       label: (
-        <>
-          <Avatar src={friendInvitation} /> Lời mời kết bạn
-        </>
-      ),
-    },
-    {
-      key: '3',
-      label: (
-        <>
+        <div>
           <Avatar src={allFriends} /> Tất cả bạn bè
-        </>
+        </div>
       ),
     },
   ];
 
-  return <Menu className="left-sidebar-friends-page-menu" items={menuItems} defaultSelectedKeys={['1']} />;
+  return (
+    <Menu
+      className="left-sidebar-friends-page-menu"
+      items={menuItems}
+      selectedKeys={[selectedKey]}
+      onClick={({ key }) => onMenuSelect(key)}
+    />
+  );
 };
 
 export default LeftSidebarFriendsPage;
