@@ -96,6 +96,11 @@
   background-color: #e6e6e6;
 }
 
+.notifications {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
 .notification-item {
   display: flex;
   cursor: pointer;
@@ -118,6 +123,11 @@
 
 .notification-item:hover {
   background-color: #e6f7ff;
+}
+
+.listChats {
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .chat-item {

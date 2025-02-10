@@ -1,6 +1,6 @@
 .chatbox {
   position: fixed;
-  bottom: 0;
+  bottom: 50px;
   right: 150px;
   width: 370px;
   background-color: #fff;
@@ -38,7 +38,7 @@
 }
 
 .chatbox .chat-box-content {
-  height: 396px;
+  height: 300px;
   padding: 10px;
   overflow-y: auto;
   background-color: #ffffff;
@@ -113,11 +113,11 @@
 }
 
 .chatbox .chat-box-footer .ant-btn-primary {
-  background-color: #0078ff;
-  border-color: #0078ff;
+  background-color: #99ff66;
+  border-color: #99ff66;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,8 +126,8 @@
 }
 
 .chatbox .chat-box-footer .ant-btn-primary:hover {
-  background-color: #005bb5;
-  border-color: #005bb5;
+  background-color: #34a853;
+  border-color: #34a853;
 }
 
 .chatbox .avatar-boxchat {

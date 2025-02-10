@@ -154,9 +154,10 @@ const Navbar: React.FC = () => {
 
   const messageContent = (
     <>
-      <strong className="text-xl p-1">Hộp thư</strong>
+      <strong className="text-xl p-1">Trò chuyện</strong>
       <List
         dataSource={listChats}
+        className="listChats"
         renderItem={(item: any) => (
           <List.Item className={`chat-item`} onClick={() => handleClickChat(item)}>
             <List.Item.Meta
@@ -200,6 +201,7 @@ const Navbar: React.FC = () => {
   const notificationContent = (
     <List
       dataSource={dataGetListNotifications}
+      className="notifications"
       renderItem={(item: any) => (
         <List.Item
           className={`notification-item ${item.isRead ? 'read' : 'unread'}`}
@@ -263,7 +265,15 @@ const Navbar: React.FC = () => {
           // arrow={{ pointAtCenter: false }}
         >
           <Badge size="small" count={isLoadingCountUnreadChats ? 0 : unreadChatsCount} overflowCount={9}>
-            <Avatar src={message} size="large" onClick={() => handleUnreadChats()} />
+            <Avatar
+              src={message}
+              shape="circle"
+              style={{
+                border: '2px solid #1890ff',
+              }}
+              size="large"
+              onClick={() => handleUnreadChats()}
+            />
           </Badge>
         </Popover>
       ),
@@ -282,7 +292,15 @@ const Navbar: React.FC = () => {
             count={isLoadingCountUnreadNotifications ? 0 : unreadNotificationsCount}
             overflowCount={9}
           >
-            <Avatar src={notification} size="large" onClick={() => handleUnreadNotifications()} />
+            <Avatar
+              src={notification}
+              shape="circle"
+              style={{
+                border: '2px solid #1890ff',
+              }}
+              size="large"
+              onClick={() => handleUnreadNotifications()}
+            />
           </Badge>
         </Popover>
       ),
@@ -296,7 +314,14 @@ const Navbar: React.FC = () => {
           placement="bottomRight"
           // arrow={{ pointAtCenter: false }}
         >
-          <Avatar className="border-1 border-gray-400 rounded-full" src={profile.avatar.url} size="large" />
+          <Avatar
+            shape="circle"
+            style={{
+              border: '2px solid #1890ff',
+            }}
+            src={profile.avatar.url}
+            size="large"
+          />
         </Popover>
       ),
     },
