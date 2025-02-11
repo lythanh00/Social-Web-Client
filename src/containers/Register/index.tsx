@@ -4,13 +4,14 @@ import { api } from '../../apis';
 import { Form, Tooltip, ConfigProvider, message, Layout } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import ButtonC from '../../components/Button';
 import ButtonLink from '../../components/ButtonLink';
 import InputEmail from '../../components/InputEmail';
 import InputPassWord from '../../components/InputPassword';
 import Header from '../../components/Header';
 import background from '../../assets/background.jpg';
+import { CLIENT_ROUTE_PATH } from '../../constant/routes';
 
 interface IRegisterDto {
   email: string;
@@ -26,6 +27,8 @@ const Register: React.FC = () => {
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [isValidCP, setIsValidCP] = useState<boolean | null>(null);
   const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
+  const [inputError, setInputError] = useState('');
 
   // Hàm xử lý màu của button
   const { getPrefixCls } = useContext(ConfigProvider.ConfigContext);
@@ -99,10 +102,14 @@ const Register: React.FC = () => {
   const register = useMutation({
     mutationFn: (payload: IRegisterDto) => api.post(`${process.env.REACT_APP_API_URL}/auth/register`, payload),
     onSuccess: (data) => {
-      message.success('Đăng ký thành công! Xác thực email');
+      setInputError('');
+      message.success('Đăng ký tài khoản thành công!');
+      navigate(CLIENT_ROUTE_PATH.SIGNIN);
     },
     onError: (error: any) => {
       console.error('onError:', error);
+      setInputError('Email đã tồn tại');
+      message.error('Email đã tồn tại');
     },
   });
 
@@ -155,6 +162,8 @@ const Register: React.FC = () => {
             name="email"
             rules={[{ required: true, message: 'Vui lòng nhập email của bạn!' }]}
             className="font-bold text-center"
+            validateStatus={inputError ? 'error' : undefined}
+            help={inputError || undefined}
           >
             <InputEmail
               inputProps={{ size: 'middle', className: 'font-normal', placeholder: 'Nhập Email' }}
