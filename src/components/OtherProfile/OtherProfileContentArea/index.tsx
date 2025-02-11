@@ -8,7 +8,7 @@ interface OtherProfileContentAreaProps {
 
 const OtherProfileContentArea: React.FC<OtherProfileContentAreaProps> = ({ isAtEnd }) => {
   return (
-    <div className="content-area">
+    <div className="profile-content-area">
       {/* <StatusUpdate /> */}
       <OtherProfileNewsFeed isAtEnd={isAtEnd} />
     </div>

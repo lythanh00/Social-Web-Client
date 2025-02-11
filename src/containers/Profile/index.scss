@@ -17,3 +17,11 @@
   margin-right: 20%;
   display: flex;
 }
+
+@media (max-width: 991px) {
+  .profile-content {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100% !important;
+  }
+}

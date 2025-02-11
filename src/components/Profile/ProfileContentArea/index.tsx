@@ -14,7 +14,7 @@ const ProfileContentArea: React.FC<ProfileContentAreaProps> = ({ isAtEnd }) => {
     setNewPost(post); // Lưu bài viết mới vào state
   };
   return (
-    <div className="content-area">
+    <div className="profile-content-area">
       <StatusUpdate onCreatePost={handleNewPost} />
       <ProfileNewsFeed isAtEnd={isAtEnd} newPost={newPost} />
     </div>

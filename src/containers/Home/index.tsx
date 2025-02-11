@@ -30,13 +30,13 @@ const Home: React.FC = () => {
     <Layout className="home-page" onScroll={handleScroll}>
       {/* <Navbar /> */}
       <Layout className="home-page-layout-content">
-        <Sider width={400}>
+        <Sider width={400} breakpoint="lg" collapsedWidth="0">
           <LeftSidebar />
         </Sider>
         <Content className="content">
           <HomeContentArea isAtEnd={isAtEnd} />
         </Content>
-        <Sider width={400}>
+        <Sider width={400} breakpoint="lg" collapsedWidth="0">
           <RightSidebar />
         </Sider>
       </Layout>

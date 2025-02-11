@@ -14,7 +14,7 @@ const HomeContentArea: React.FC<HomeContentAreaProps> = ({ isAtEnd }) => {
     setNewPost(post); // Lưu bài viết mới vào state
   };
   return (
-    <div className="content-area">
+    <div className="home-content-area">
       <StatusUpdate onCreatePost={handleNewPost} />
       <HomeNewsFeed isAtEnd={isAtEnd} newPost={newPost} />
     </div>
