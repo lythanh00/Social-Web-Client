@@ -49,7 +49,6 @@ const OtherProfilePage: React.FC = () => {
 
   return (
     <Layout className="profile-page" onScroll={handleScroll}>
-      {/* <Navbar /> */}
       <Layout className="profile-page-layout-content">
         <OtherProfileInfo />
         <ProfileMenu onChange={handleMenuChange} />
