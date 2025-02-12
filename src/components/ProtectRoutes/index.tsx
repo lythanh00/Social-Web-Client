@@ -7,7 +7,7 @@ const ProtectRoute = () => {
   const isLoggedIn = Boolean(
     localStorage.getItem(LOCAL_STORAGE.TOKEN) || sessionStorage.getItem(SESSION_STORAGE.TOKEN),
   );
-  return isLoggedIn ? <MainApp /> : <Navigate to={CLIENT_ROUTE_PATH.SIGNIN} />;
+  return isLoggedIn ? <Outlet /> : <Navigate to={CLIENT_ROUTE_PATH.SIGNIN} />;
 };
 
 export default ProtectRoute;
