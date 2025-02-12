@@ -14,19 +14,28 @@ const ProfilePage: React.FC = () => {
     setSelectedMenu(key);
   };
 
-  // xử lý cuộn trang
-  const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-    // cuộn tới cuối trang
-    if (scrollHeight - scrollTop <= clientHeight + 50) {
-      console.log('Bạn đã cuộn tới cuối trang');
-      setIsAtEnd(true);
-    } else {
-      setIsAtEnd(false);
-    }
-  };
+  // kiểm tra cuộn tới cuối trang
+  useEffect(() => {
+    const handleWindowScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+      if (scrollTop + clientHeight >= scrollHeight - 50) {
+        console.log('Bạn đã cuộn tới cuối trang');
+        setIsAtEnd(true);
+      } else {
+        setIsAtEnd(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleWindowScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleWindowScroll);
+    };
+  }, []);
+
   return (
-    <Layout className="profile-page" onScroll={handleScroll}>
+    <Layout className="profile-page">
       <Layout className="profile-page-layout-content">
         <ProfileInfo />
         <ProfileMenu onChange={handleMenuChange} />

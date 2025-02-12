@@ -15,6 +15,28 @@ import OtherProfileFriends from '../../components/OtherProfile/OtherProfileFrien
 const OtherProfilePage: React.FC = () => {
   const dispatch = useAppDispatch();
 
+  const [isAtEnd, setIsAtEnd] = useState<boolean>(false);
+
+  // kiểm tra cuộn tới cuối trang
+  useEffect(() => {
+    const handleWindowScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+      if (scrollTop + clientHeight >= scrollHeight - 50) {
+        console.log('Bạn đã cuộn tới cuối trang');
+        setIsAtEnd(true);
+      } else {
+        setIsAtEnd(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleWindowScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleWindowScroll);
+    };
+  }, []);
+
   const [searchParams] = useSearchParams();
   const stringUserId = searchParams.get('userId');
   const userId = parseInt(stringUserId as any);
@@ -25,7 +47,6 @@ const OtherProfilePage: React.FC = () => {
   }
 
   const [selectedMenu, setSelectedMenu] = useState<string>('1');
-  const [isAtEnd, setIsAtEnd] = useState<boolean>(false);
 
   const handleMenuChange = (key: string) => {
     setSelectedMenu(key);
@@ -35,20 +56,8 @@ const OtherProfilePage: React.FC = () => {
     return <div>Loading...</div>; // Hoặc một loader khác
   }
 
-  // xử lý cuộn trang
-  const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-    // cuộn tới cuối trang
-    if (scrollHeight - scrollTop <= clientHeight + 50) {
-      console.log('Bạn đã cuộn tới cuối trang');
-      setIsAtEnd(true);
-    } else {
-      setIsAtEnd(false);
-    }
-  };
-
   return (
-    <Layout className="profile-page" onScroll={handleScroll}>
+    <Layout className="profile-page">
       <Layout className="profile-page-layout-content">
         <OtherProfileInfo />
         <ProfileMenu onChange={handleMenuChange} />
