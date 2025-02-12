@@ -37,13 +37,13 @@ const Post: React.FC = () => {
   return (
     <Layout className="home-page">
       <Layout className="home-page-layout-content">
-        <Sider width={400}>
+        <Sider width={350}>
           <LeftSidebar />
         </Sider>
-        <Content className="content flex items-center">
+        <Content className="content">
           <HomePostCard post={dataGetPostByPostId} />
         </Content>
-        <Sider width={400}>
+        <Sider width={350}>
           <RightSidebar />
         </Sider>
       </Layout>
