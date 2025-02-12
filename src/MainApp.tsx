@@ -27,9 +27,7 @@ const MainApp = (props: IMainAppProp) => {
   return (
     <>
       <Navbar />
-      <Content>
-        <Outlet />
-      </Content>
+      <Outlet />
       {isOpen && <ChatBox />}
     </>
   );
