@@ -16,6 +16,7 @@
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
+  min-width: 24px;
 }
 
 // .navbar-search {
@@ -141,4 +142,10 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+@media (max-width: 991px) {
+  .navbar-search {
+    width: 126px;
+  }
 }
