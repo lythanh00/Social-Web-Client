@@ -40,8 +40,10 @@ const Post: React.FC = () => {
         <Sider width={350} breakpoint="lg" collapsedWidth="0">
           <LeftSidebar />
         </Sider>
-        <Content className="content justify-center">
-          <HomePostCard post={dataGetPostByPostId} />
+        <Content className="content">
+          <div className="post-div">
+            <HomePostCard post={dataGetPostByPostId} />
+          </div>
         </Content>
         <Sider width={350} breakpoint="lg" collapsedWidth="0">
           <RightSidebar />

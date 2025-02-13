@@ -1,0 +1,11 @@
+.post-div {
+  padding-top: 12px;
+  width: 700px;
+}
+
+@media (max-width: 991px) {
+  .post-div {
+    padding-top: 12px;
+    width: 540px;
+  }
+}
