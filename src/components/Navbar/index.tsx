@@ -384,7 +384,7 @@ const Navbar: React.FC = () => {
           trigger={['click']}
         >
           <Search
-            placeholder="Tìm kiếm trên SideWalk IceTea"
+            placeholder="Tìm kiếm trên FunHouse"
             enterButton={<SearchOutlined />}
             className="navbar-search"
             onSearch={handleSearch}
