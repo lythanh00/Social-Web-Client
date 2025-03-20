@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 import { Layout } from 'antd';
-import Navbar from '../../components/Navbar';
 import { useAppDispatch } from '../../store';
-import { useGetProfile, useGetProfileByUserId } from '../../apis/Profiles';
-import { setOtherProfile, setProfile } from '../../store/profileSlice';
+import { useGetProfileByUserId } from '../../apis/Profiles';
+import { setOtherProfile } from '../../store/profileSlice';
 import ProfileMenu from '../../components/Profile/ProfileMenu';
 import OtherProfileInfo from '../../components/OtherProfile/OtherProfileInfo';
 import { useSearchParams } from 'react-router-dom';
@@ -53,7 +52,7 @@ const OtherProfilePage: React.FC = () => {
   };
 
   if (!dataOtherProfile) {
-    return <div>Loading...</div>; // Hoặc một loader khác
+    return <div>Loading...</div>;
   }
 
   return (

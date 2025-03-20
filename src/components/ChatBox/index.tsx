@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, Button, Input, List, Popover } from 'antd';
 
 import './index.scss';
-import { CheckCircleOutlined, CloseOutlined, EyeFilled, RightOutlined } from '@ant-design/icons';
+import { CloseOutlined, EyeFilled, RightOutlined } from '@ant-design/icons';
 import { useGetListMessagesByChat } from '../../apis/Messages';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -71,7 +71,6 @@ const ChatBox: React.FC = () => {
   // kết nối socket khi mở chat popover
   useEffect(() => {
     if (chatId) {
-      // socketConfig.connect();
       socketConfig.emit('join_chat', chatId);
     }
   }, [chatId]);

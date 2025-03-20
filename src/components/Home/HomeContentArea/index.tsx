@@ -10,7 +10,6 @@ interface HomeContentAreaProps {
 const HomeContentArea: React.FC<HomeContentAreaProps> = ({ isAtEnd }) => {
   const [newPost, setNewPost] = useState<any | null>(null);
   const handleNewPost = (post: any) => {
-    console.log('Bài viết mới:', post); // In ra dữ liệu bài viết mới
     setNewPost(post); // Lưu bài viết mới vào state
   };
   return (

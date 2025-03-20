@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
-import { ConfigProvider } from 'antd';
-import { css } from '@emotion/css';
+import React from 'react';
+
 import Button from '../../components/Button';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../constant/routes';

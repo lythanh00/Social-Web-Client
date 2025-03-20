@@ -24,13 +24,11 @@ import { useCountUnreadChats } from '../../apis/Messages';
 import { resetAuthState } from '../../store/authSlice';
 import { resetProfileState } from '../../store/profileSlice';
 import { socketConfig } from '../../socket';
-// import { socketConfig } from '../../socket';
 
 const { Header } = Layout;
 const { Search } = Input;
 
 const Navbar: React.FC = () => {
-  // const [profile, setProfile] = useState<any>(useSelector((state: RootState) => state.profile.profile));
   const profile = useSelector((state: RootState) => state.profile.profile);
   const isOpenChat = useSelector((state: RootState) => state.chat.open);
   const navigate = useNavigate();
@@ -41,7 +39,6 @@ const Navbar: React.FC = () => {
   const { data: dataGetListNotifications } = useGetListNotifications();
   const { mutate: markNotificationAsRead } = useMarkNotificationAsRead();
   const { data: dataGetListChats } = useGetListChats();
-  // const { chatId } = useSelector((state: RootState) => state.chat);
   const { data: dataCountUnreadChats, isLoading: isLoadingCountUnreadChats } = useCountUnreadChats();
   const [unreadChatsCount, setUnreadChatsCount] = useState(0);
   const [listUnreadChats, setListUnreadChats] = useState<any[]>([]);

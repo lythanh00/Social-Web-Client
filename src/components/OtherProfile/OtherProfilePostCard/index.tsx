@@ -6,7 +6,6 @@ import { formatDistanceToNow } from 'date-fns';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { useLikePost, useUnLikePost } from '../../../apis/Likes';
-import { socketConfig } from '../../../socket';
 import CommentModal from '../../CommentModal';
 import LikeModal from '../../LikeModal';
 

@@ -1,4 +1,3 @@
-import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { useSelector } from 'react-redux';
@@ -7,8 +6,6 @@ import { useGetProfile } from './apis/Profiles';
 import { useEffect } from 'react';
 import { setProfile } from './store/profileSlice';
 import ChatBox from './components/ChatBox';
-
-const { Content } = Layout;
 
 interface IMainAppProp {}
 
@@ -31,19 +28,5 @@ const MainApp = (props: IMainAppProp) => {
       {isOpen && <ChatBox />}
     </>
   );
-
-  // return (
-  //   <>
-  //     <Layout>
-  //       <Header>
-  //         <Navbar />
-  //       </Header>
-  //       <Content>
-  //         <Outlet />
-  //       </Content>
-  //     </Layout>
-  //     {isOpen && <ChatPopover />}
-  //   </>
-  // );
 };
 export default MainApp;

@@ -40,7 +40,7 @@ const getListPostsByOther = async (userId: number | null, cursor: number | null)
 
 export const useGetListPostsByOther = (userId: number | null, cursor: number | null) => {
   return useQuery(['getListPostsByOther', userId], () => getListPostsByOther(userId, cursor), {
-    enabled: !!userId, // Chỉ gọi khi userId có giá trị
+    enabled: !!userId,
   });
 };
 
@@ -66,6 +66,6 @@ const getPostByPostId = async (postId: number) => {
 
 export const useGetPostByPostId = (postId: number) => {
   return useQuery(['getPostByPostId', postId], () => getPostByPostId(postId), {
-    enabled: !!postId, // Chỉ gọi khi userId có giá trị
+    enabled: !!postId,
   });
 };

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { SuspenseWrapper } from '../../components/loading/SuspenseWrap';
 import ProtectRoute from '../../components/ProtectRoutes';
 import AuthRoute from '../../components/AuthRoutes';
@@ -10,7 +10,6 @@ import OtherProfilePage from '../../containers/OtherProfile';
 import FriendsPage from '../../containers/Friends';
 import PostPage from '../../containers/Post';
 
-// example of lazy loading
 const Client = React.lazy(() => import('./index'));
 // const Chat = React.lazy(() => import('../../auth/chat'));
 const WaitForConfirmation = React.lazy(() => import('../../containers/WaitForConfirmation'));
@@ -22,7 +21,7 @@ const NotFound = React.lazy(() => import('../../components/NotFound'));
 
 export const ClientRoutes = () => {
   const navigate = useNavigate();
-  // push user back to signin if token doesnt exist
+  // quay lại trang đăng nhập nếu không có token
   useEffect(() => {
     function checkUserData() {
       const token = localStorage.getItem('token');
@@ -41,7 +40,6 @@ export const ClientRoutes = () => {
   return (
     <Routes>
       {/* AuthRoute */}
-      {/* using AuthRoute when the route doesnt need user to sign in to access it */}
       <Route element={<AuthRoute />}>
         <Route path={`/${CLIENT_ROUTE_PATH.SIGNIN}`} element={<SuspenseWrapper component={<SignIn />} />} />
         <Route path={`/${CLIENT_ROUTE_PATH.REGISTER}`} element={<SuspenseWrapper component={<Register />} />} />

@@ -60,8 +60,6 @@ const OtherProfileInfo: React.FC = () => {
       setIsSender(isPendingFriendRequest.owner === 'sender');
     }
   }, [isPendingFriendRequest]);
-  // console.log('isPendingFriendRequest', isPendingFriendRequest);
-  // console.log('isSender', isSender);
 
   const handleAddFriendClick = async () => {
     try {

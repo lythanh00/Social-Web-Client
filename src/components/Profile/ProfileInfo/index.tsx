@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './index.scss';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../store';
-import { Avatar, Button, GetProp, message, UploadProps } from 'antd';
-import Upload, { RcFile, UploadFile } from 'antd/es/upload';
+import { Avatar, Button, message, UploadProps } from 'antd';
+import Upload from 'antd/es/upload';
 import { CameraOutlined } from '@ant-design/icons';
 import { useGetProfile } from '../../../apis/Profiles';
 import { useCountFriendsByOwner } from '../../../apis/User-Friends';

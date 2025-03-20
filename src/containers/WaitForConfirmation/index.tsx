@@ -55,12 +55,6 @@ const WaitForConfirmation: React.FC = () => {
     onError: (error) => {
       console.error('onError:', error);
     },
-    // onSettled: () => {
-    //   console.log('onSettled');
-    // },
-    // retry: false,
-    // staleTime: 1000 * 60 * 5, // 5 minutes
-    // cacheTime: 1000 * 60 * 15
   });
 
   return (

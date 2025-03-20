@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
-import Navbar from '../../components/Navbar';
 import LeftSidebar from '../../components/LeftSidebar';
 import RightSidebar from '../../components/RightSidebar';
 import './index.scss';
-import { useGetProfile } from '../../apis/Profiles';
-import { useAppDispatch } from '../../store';
-import { setProfile } from '../../store/profileSlice';
 import HomeContentArea from '../../components/Home/HomeContentArea';
 
 const { Content, Sider } = Layout;

@@ -21,21 +21,21 @@
 }
 
 .post-card-meta-name {
-  color: #1d2129; /* Màu chữ giống như màu của tên trên Facebook */
-  font-size: 14px; /* Kích thước chữ phù hợp */
-  font-weight: bold; /* Đậm chữ để nổi bật */
-  margin: 0; /* Loại bỏ khoảng cách mặc định */
-  line-height: 1.2; /* Khoảng cách giữa các dòng */
-  word-break: break-word; /* Cắt từ quá dài để tránh tràn ra ngoài */
-  overflow-wrap: break-word; /* Đảm bảo từ dài sẽ tự xuống dòng */
-  white-space: normal; /* Cho phép xuống dòng tự động */
+  color: #1d2129;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
   cursor: pointer;
 }
 
 .post-card-meta-time {
-  color: #65676b; /* Màu chữ cho thời gian, giống như trên Facebook */
-  font-size: 12px; /* Kích thước chữ nhỏ hơn cho thời gian */
-  margin-top: 4px; /* Khoảng cách giữa tên và thời gian */
+  color: #65676b;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
 .post-card-content {

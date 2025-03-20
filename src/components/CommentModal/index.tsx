@@ -18,7 +18,6 @@ interface CommentModalProps {
 
 const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatarOwner, postId, post, userId }) => {
   const [content, setContent] = useState('');
-  // const { mutate: commentPost } = useCommentPost();
   const [arrComments, setArrComments] = useState<any[]>([]);
   const [cursor, setCursor] = useState<any>();
 
@@ -54,7 +53,6 @@ const CommentModal: React.FC<CommentModalProps> = ({ open, onClose, name, avatar
   // kết nối socket khi mở modal comment
   useEffect(() => {
     if (postId) {
-      // socketConfig.connect();
       socketConfig.emit('join_comment', postId);
     }
   }, [postId]);

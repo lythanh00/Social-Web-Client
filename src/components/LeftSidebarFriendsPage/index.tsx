@@ -1,14 +1,11 @@
 import React from 'react';
 import { Avatar, Menu } from 'antd';
 import './index.scss';
-import friend0 from '../../assets/friend0.jpg';
 import allFriends from '../../assets/all-friends.jpg';
 import friendInvitation from '../../assets/friend-invitation.jpg';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useNavigate } from 'react-router-dom';
-import { CLIENT_ROUTE_PATH } from '../../constant/routes';
-import { TeamOutlined, UserOutlined, UserSwitchOutlined } from '@ant-design/icons';
 
 interface LeftSidebarFriendsPageProps {
   selectedKey: string;

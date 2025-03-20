@@ -9,7 +9,6 @@ import { useLikePost, useUnLikePost } from '../../../apis/Likes';
 import { useNavigate } from 'react-router-dom';
 import { CLIENT_ROUTE_PATH } from '../../../constant/routes';
 import CommentModal from '../../CommentModal';
-import { socketConfig } from '../../../socket';
 import LikeModal from '../../LikeModal';
 
 const { Meta } = Card;

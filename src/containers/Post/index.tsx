@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { Layout } from 'antd';
-import Navbar from '../../components/Navbar';
 import LeftSidebar from '../../components/LeftSidebar';
 import RightSidebar from '../../components/RightSidebar';
 import './index.scss';
 import { useGetProfile } from '../../apis/Profiles';
 import { useAppDispatch } from '../../store';
 import { setProfile } from '../../store/profileSlice';
-import HomeContentArea from '../../components/Home/HomeContentArea';
 import HomePostCard from '../../components/Home/HomePostCard';
 import { useGetPostByPostId } from '../../apis/Posts';
 import { useSearchParams } from 'react-router-dom';
@@ -29,9 +27,8 @@ const Post: React.FC = () => {
   const stringPostId = searchParams.get('postId');
   const postId = parseInt(stringPostId as any);
   const { data: dataGetPostByPostId } = useGetPostByPostId(postId);
-  // const dataGetPostByPostId = refetchDataGetPostByPostId();
   if (!dataGetPostByPostId) {
-    return <div>Loading...</div>; // Hoặc một loader khác
+    return <div>Loading...</div>;
   }
 
   return (

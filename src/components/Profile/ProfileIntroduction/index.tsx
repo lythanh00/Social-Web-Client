@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Card, DatePicker, DatePickerProps, Divider, Input, Modal, Space } from 'antd';
 import {
   UserOutlined,
@@ -10,9 +10,6 @@ import {
 import './index.scss';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../../../store';
-import InputComponent from '../../Input';
-import { useMutation } from 'react-query';
-import { api } from '../../../apis';
 import { useGetProfile, useUpdateProfile } from '../../../apis/Profiles';
 import { format } from 'date-fns';
 import { setProfile } from '../../../store/profileSlice';
