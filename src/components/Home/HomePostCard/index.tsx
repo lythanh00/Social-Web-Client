@@ -123,9 +123,11 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
       <p className="post-card-content">{post.content}</p>
       {/* Render danh sách hình ảnh */}
       {post.images && post.images.length > 0 && (
-        <div className="post-card-images">
+        <div className="post-card-images grid grid-cols-2 gap-1">
           {post.images.map((image: any) => (
-            <Image key={image.id} className="post-card-image" src={image.url} alt={`Post image ${image.id}`} />
+            <div key={image.id} className="post-card-image-wrapper">
+              <Image className="post-card-image" src={image.url} alt={`Post image ${image.id}`} />
+            </div>
           ))}
         </div>
       )}
