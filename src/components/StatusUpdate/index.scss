@@ -1,5 +1,6 @@
 .status-update-card {
   align-items: center;
+  background-color: #ffffff;
 }
 
 .status-update-meta-avatar {
@@ -10,11 +11,11 @@
 .question-button {
   height: 40px;
   width: 100%;
-  background-color: #f5f5f5;
-  color: #999999;
+  background-color: #f9f9f9;
   border: none;
   border-radius: 20px;
   font-size: 16px;
+  color: #333333;
 }
 
 .question-button:hover {

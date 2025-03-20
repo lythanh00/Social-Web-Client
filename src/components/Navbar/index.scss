@@ -144,6 +144,10 @@
   word-break: break-word;
 }
 
+.ant-menu-item-selected::after {
+  display: none;
+}
+
 @media (max-width: 991px) {
   .navbar-search {
     width: 126px;

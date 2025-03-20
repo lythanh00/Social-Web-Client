@@ -153,7 +153,7 @@ const Register: React.FC = () => {
         }}
         className="bg-gray-400 bg-cover bg-no-repeat h-screen w-full flex justify-center items-center"
       >
-        <Form name="basic" className="bg-zinc-200/70 p-5 rounded-md shadow-xl m-10 " onFinish={handleSubmit}>
+        <Form name="basic" className="bg-zinc-200/95 p-5 rounded-md shadow-xl m-10 " onFinish={handleSubmit}>
           <div className="text-center text-black text-2xl m-2 font-bold">ĐĂNG KÝ</div>
           <div className="h-px w-48 mx-auto bg-black mb-4"></div>
 

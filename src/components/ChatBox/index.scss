@@ -3,7 +3,6 @@
   bottom: 50px;
   right: 150px;
   width: 370px;
-  background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden; /* Bảo đảm phần tử con không làm mất hiệu ứng bo góc */
@@ -12,7 +11,7 @@
 }
 
 .chatbox .chat-box-header {
-  background-color: #99ff66;
+  background-color: #c4e0e5;
   color: #000;
   padding: 10px 15px;
   display: flex;
@@ -41,7 +40,7 @@
   height: 300px;
   padding: 10px;
   overflow-y: auto;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .chatbox .chat-box-content .message-item {
@@ -73,8 +72,8 @@
 }
 
 .chatbox .chat-box-content .message-item.message-left .message-bubble {
-  background-color: #fff;
-  border: 1px solid #e6e6e6;
+  background-color: #ececec;
+  border: 1px solid #ececec;
 }
 
 .chatbox .chat-box-content .message-item.message-right {
@@ -82,12 +81,12 @@
 }
 
 .chatbox .chat-box-content .message-item.message-right .message-bubble {
-  background-color: #d2f8d2;
+  background-color: #b2f7ef;
 }
 
 .chatbox .chat-box-content .message-item.message-right .is-read {
   font-size: 12px;
-  color: #34a853;
+  color: #dadada;
   margin-left: 5px;
   align-self: center;
 }
@@ -113,8 +112,8 @@
 }
 
 .chatbox .chat-box-footer .ant-btn-primary {
-  background-color: #99ff66;
-  border-color: #99ff66;
+  background-color: #dadada;
+  border-color: #dadada;
   border-radius: 50%;
   width: 35px;
   height: 30px;
@@ -126,8 +125,8 @@
 }
 
 .chatbox .chat-box-footer .ant-btn-primary:hover {
-  background-color: #34a853;
-  border-color: #34a853;
+  background-color: #c4e0e5;
+  border-color: #c4e0e5;
 }
 
 .chatbox .avatar-boxchat {

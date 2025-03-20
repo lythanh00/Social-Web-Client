@@ -111,7 +111,7 @@ const SignIn: React.FC = () => {
       >
         <Header />
         <div className="h-screen w-full flex  justify-center items-center">
-          <Form name="basic" className="bg-zinc-200/70 p-5 rounded-md shadow-2xl m-10">
+          <Form name="basic" className="bg-zinc-200/95 p-5 rounded-md shadow-2xl m-10">
             <div className="text-center text-black m-2 font-bold text-xl">ĐĂNG NHẬP</div>
             <div className="h-px w-48 mx-auto bg-black mb-4"></div>
             <Form.Item

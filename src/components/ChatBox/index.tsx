@@ -138,7 +138,6 @@ const ChatBox: React.FC = () => {
         <div
           className={`message-bubble ${isOwner ? 'message-right-bubble' : 'message-left-bubble'}`}
           style={{
-            backgroundColor: isOwner ? '#87e8de' : '#f5f5f5',
             textAlign: isOwner ? 'right' : 'left',
           }}
         >

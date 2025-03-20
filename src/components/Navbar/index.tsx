@@ -269,7 +269,7 @@ const Navbar: React.FC = () => {
               src={message}
               shape="circle"
               style={{
-                border: '2px solid #1890ff',
+                border: '1px solid #1890ff',
               }}
               size="large"
               onClick={() => handleUnreadChats()}
@@ -296,7 +296,7 @@ const Navbar: React.FC = () => {
               src={notification}
               shape="circle"
               style={{
-                border: '2px solid #1890ff',
+                border: '1px solid #1890ff',
               }}
               size="large"
               onClick={() => handleUnreadNotifications()}
@@ -317,7 +317,7 @@ const Navbar: React.FC = () => {
           <Avatar
             shape="circle"
             style={{
-              border: '2px solid #1890ff',
+              border: '1px solid #1890ff',
             }}
             src={profile.avatar.url}
             size="large"
