@@ -17,7 +17,6 @@ const RightSidebar: React.FC = () => {
   // Hàm mở chat popover
   const handleChatPopoverOpen = async (friend: any) => {
     if (isOpenChat) {
-      console.log('close chat');
       dispatch(closeChat());
     }
     createChat(friend.id, {

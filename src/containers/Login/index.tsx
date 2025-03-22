@@ -61,7 +61,6 @@ const SignIn: React.FC = () => {
   const signInMutate = useMutation({
     mutationFn: (payload: ILoginDto) => api.post(`${process.env.REACT_APP_API_URL}/auth/login`, payload),
     onSuccess: (data) => {
-      console.log('token', data?.data);
       localStorage.setItem('token', data?.data?.access_token);
       localStorage.setItem('refreshToken', data?.data?.refresh_token);
       navigate(CLIENT_ROUTE_PATH.HOME);

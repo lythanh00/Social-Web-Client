@@ -84,7 +84,6 @@ const Navbar: React.FC = () => {
   const handleClickChat = (item: any) => {
     // socketConfig.emit('leave_chat', chatId);
     if (isOpenChat) {
-      console.log('close chat');
       dispatch(closeChat());
     }
     createChat(item.participant2.id !== profile.userId ? item.participant2.id : item.participant1.id, {
@@ -133,10 +132,6 @@ const Navbar: React.FC = () => {
           setUnreadChatsCount((prevCount) => prevCount + 1);
           // thêm id đoạn chat có tin nhắn mới vào listUnreadChats
           setListUnreadChats((prevList) => [...prevList, messageNotification.chat.id]);
-
-          console.log('messageNotification.chat.id', messageNotification.chat.id);
-          console.log('listUnreadChats', listUnreadChats);
-          console.log('listChats', listChats);
         }
         setListChats((prevList) => {
           const updatedList = prevList.filter((chat) => chat.id !== messageNotification.chat.id);

@@ -118,8 +118,6 @@ const ChatBox: React.FC = () => {
     }
   }, [arrMessages]);
 
-  console.log('cursor', cursor);
-
   const renderMessageItem = (item: any, index: number) => {
     const isOwner = item.senderId === profile.userId;
 

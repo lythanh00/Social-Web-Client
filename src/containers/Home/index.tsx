@@ -16,7 +16,6 @@ const Home: React.FC = () => {
       const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
       if (scrollTop + clientHeight >= scrollHeight - 50) {
-        console.log('Bạn đã cuộn tới cuối trang');
         setIsAtEnd(true);
       } else {
         setIsAtEnd(false);

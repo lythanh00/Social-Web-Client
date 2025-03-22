@@ -91,7 +91,6 @@ const OtherProfileInfo: React.FC = () => {
 
   const handleChatPopoverOpen = async () => {
     if (isOpenChat) {
-      console.log('close chat');
       dispatch(closeChat());
     }
     createChat(otherProfile?.userId, {
