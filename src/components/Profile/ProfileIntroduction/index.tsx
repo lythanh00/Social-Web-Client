@@ -108,13 +108,13 @@ const ProfileIntroduction: React.FC = () => {
         <Button type="primary" onClick={showModal}>
           Chỉnh sửa thông tin cá nhân
         </Button>
-        <Modal title="Profile" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <Modal title="Thông tin cá nhân" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
           {/*first name*/}
           <p>
             <Space.Compact>
               <div className="profile-introduction-item">
                 <UserOutlined className="profile-introduction-icon" />
-                First Name:
+                Tên:
                 <span className="profile-introduction-text">
                   <Input
                     className="update-profile-input"
@@ -130,7 +130,7 @@ const ProfileIntroduction: React.FC = () => {
             <Space.Compact>
               <div className="profile-introduction-item">
                 <UserOutlined className="profile-introduction-icon" />
-                Last Name:
+                Họ:
                 <span className="profile-introduction-text">
                   <Input
                     className="update-profile-input"
@@ -146,7 +146,7 @@ const ProfileIntroduction: React.FC = () => {
             <Space.Compact>
               <div className="profile-introduction-item">
                 <CalendarOutlined className="profile-introduction-icon" />
-                Date of Birth:
+                Ngày sinh:
                 <span className="profile-introduction-text">
                   <div className="date-of-birth">{formattedDate}</div>
                   <DatePicker
@@ -163,7 +163,7 @@ const ProfileIntroduction: React.FC = () => {
             <Space.Compact>
               <div className="profile-introduction-item">
                 <HomeOutlined className="profile-introduction-icon" />
-                Location:
+                Địa chỉ:
                 <span className="profile-introduction-text">
                   <Input
                     className="update-profile-input"
@@ -179,7 +179,7 @@ const ProfileIntroduction: React.FC = () => {
             <Space.Compact>
               <div className="profile-introduction-item">
                 <CustomerServiceOutlined className="profile-introduction-icon" />
-                Interests:
+                Sở thích:
                 <span className="profile-introduction-text">
                   <Input
                     className="update-profile-input"
@@ -195,7 +195,7 @@ const ProfileIntroduction: React.FC = () => {
             <Space.Compact>
               <div className="profile-introduction-item">
                 <SolutionOutlined className="profile-introduction-icon" />
-                Bio:
+                Tiểu sử:
                 <span className="profile-introduction-text">
                   <Input className="update-profile-input" value={newBio} onChange={(e) => setNewBio(e.target.value)} />
                 </span>
