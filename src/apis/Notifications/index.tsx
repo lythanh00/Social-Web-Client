@@ -10,7 +10,7 @@ const getListNotifications = async () => {
 export const useGetListNotifications = () => {
   return useQuery(['getListNotifications'], () => getListNotifications(), {
     enabled: true,
-    refetchInterval: 60000,
+    refetchInterval: 20000,
   });
 };
 
