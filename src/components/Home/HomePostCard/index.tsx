@@ -111,7 +111,13 @@ const HomePostCard: React.FC<Props> = (props: Props) => {
           <div className="post-card-meta-name-time">
             <p
               className="post-card-meta-name"
-              onClick={() => navigate(`${CLIENT_ROUTE_PATH.OTHERPROFILE}?userId=${post.user.id}`)}
+              onClick={() => {
+                if (post.user.id === profile.userId) {
+                  navigate(CLIENT_ROUTE_PATH.PROFILE);
+                } else {
+                  navigate(`${CLIENT_ROUTE_PATH.OTHERPROFILE}?userId=${post.user.id}`);
+                }
+              }}
             >
               {post.user.profile.lastName + ' ' + post.user.profile.firstName}
             </p>
