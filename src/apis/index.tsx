@@ -1,5 +1,6 @@
 import axios, { AxiosHeaders, AxiosInstance, HeadersDefaults, RawAxiosResponseHeaders } from 'axios';
 import { CLIENT_ROUTE_PATH } from '../constant/routes';
+import { navigateTo } from '../utils/navigate';
 
 const createAxiosInstance = (
   baseURL: string | undefined,
@@ -43,11 +44,11 @@ const createAxiosInstance = (
           return instance(originalRequest);
         } catch (err) {
           // Nếu refresh token không hợp lệ thì chuyển hướng đến trang login
-          window.location.href = '/' + CLIENT_ROUTE_PATH.NOT_FOUND_ERR;
+          navigateTo('/' + CLIENT_ROUTE_PATH.SIGNIN);
           return Promise.reject(err);
         }
       } else if (error.response.status === 403) {
-        window.location.href = '/' + CLIENT_ROUTE_PATH.NOT_FOUND_ERR;
+        navigateTo('/' + CLIENT_ROUTE_PATH.SIGNIN);
       }
       return Promise.reject(error);
     },
